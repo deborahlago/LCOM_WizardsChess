@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\[LCOM]\WizardChess_Assets\Copy of Chess _ Pieces PNG\7_xpm[] = {
+static xpm_row_t const result[] = {
 "71 71 65 1",
 " 	c None",
 ".	c #000100",
