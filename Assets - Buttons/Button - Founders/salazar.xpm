@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\[LCOM]\WizardChess_Assets\Buttons\Button _ Founders\salazar_xpm[] = {
+static xpm_row_t const salazar_name_button[] = {
 "172 163 33 1",
 " 	c None",
 ".	c #9F925B",

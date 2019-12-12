@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\[LCOM]\WizardChess_Assets\Buttons\Button _ Board House Logos\slytherin_xpm[] = {
+static xpm_row_t const slytherin_logo[] = {
 "120 146 8075 2",
 "  	c None",
 ". 	c #EEF2F5",
