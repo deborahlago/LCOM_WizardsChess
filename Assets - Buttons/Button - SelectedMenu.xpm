@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\[LCOM]\WizardChess_Assets\Buttons\Button _ SelectedMenu_xpm[] = {
+static xpm_row_t const underline_select_button[] = {
 "148 40 12 1",
 " 	c None",
 ".	c #E05A46",
