@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\[LCOM]\WizardChess_Assets\Buttons\Button _ Board Players\playersright_xpm[] = {
+static xpm_row_t const right_player_button[] = {
 "221 433 3638 2",
 "  	c None",
 ". 	c #444240",
