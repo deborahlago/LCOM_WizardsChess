@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\[LCOM]\WizardChess_Assets\Buttons\Button _ Board_Menu_xpm[] = {
+static xpm_row_t const back_to_menu_board_button[] = {
 "206 129 2769 2",
 "  	c None",
 ". 	c #292929",
