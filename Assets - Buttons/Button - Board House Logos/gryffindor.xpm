@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\[LCOM]\WizardChess_Assets\Buttons\Button _ Board House Logos\gryffindor_xpm[] = {
+static xpm_row_t const gryffindor_logo[] = {
 "120 146 11374 3",
 "   	c None",
 ".  	c #F8A98B",
