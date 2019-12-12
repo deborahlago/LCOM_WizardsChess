@@ -19,6 +19,7 @@
 #include "../timer/timer.h"
 #include "../keyboard/keyboard.h"
 #include "read_xpm.h"
+#include "../../game/game_structures.h"
 
 
 /* Globals */

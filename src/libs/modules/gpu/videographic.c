@@ -225,6 +225,61 @@ int (vg_reset_frame)(){
 }
 
 
+int vg_load_sprites(xpm_map_t* xpm_arr[], int arr_size, ASSET_TYPE asset_type){
+
+    sprite game_sprite;
+
+    xpm_image_t img;
+    uint8_t* pixmap;
+
+    for (int i = 0; i < xpm_arr_size; i++){
+
+        pixmap = xpm_load(xpm, XPM_8_8_8, &img);
+
+        if (pixmap == NULL)
+            return EXIT_FAILURE;
+
+        game_sprite.width = img.width;
+        game_sprite.height = img.height;
+        game_sprite.pixmap = pixmap;
+
+        switch (asset_type){
+            case BTN: {
+                game_assets.buttons[i] = game_sprite;
+                break;
+            }
+            case BGS: {
+                game_assets.backgrounds[i] = game_sprite;
+                break;
+            }
+            case BORDERS: {
+                game_assets.borders[i] = game_sprite;
+                break;
+            }
+            case CHARS: {
+                game_assets.characters[i] = game_sprite;
+                break;
+            }
+            case LOGOS: {
+                game_assets.logos[i] = game_sprite;
+                break;
+            }
+            case V_FX: {
+                game_assets.visual_fx[i] = game_sprite;
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        free(pixmap);
+    }
+
+    return EXIT_SUCCESS;
+}
+
+
 int vg_render_sprite(xpm_map_t xpm, uint16_t x, uint16_t y){
 
     // uint8_t*() xpm_load(xpm_map_t map, enum xpm_image_type type, xpm_image_t *img)
@@ -256,6 +311,33 @@ int vg_render_sprite(xpm_map_t xpm, uint16_t x, uint16_t y){
 }
 
 
+int vg_render_sprite(sprite sp, uint16_t x, uint16_t y){
+
+    // uint8_t*() xpm_load(xpm_map_t map, enum xpm_image_type type, xpm_image_t *img)
+    // type can be XPM_1_5_5_5, XPM_5_6_5, XPM_8_8_8 or XPM_8_8_8_8
+
+    for (int i = 0; i < sp.height; i++ ) {
+        for (int j = 0; j < sp.width; j++) {
+
+            //uint32_t *color = (uint32_t *)(pixmap + (i*img.width + j)*(BITS_PER_PIXEL/8));
+            uint32_t color = 0;
+            for(int k = 0; k < BITS_PER_PIXEL / 8.0; k++)
+                color |= (*(sp.pixmap + (i*sp.width + j)*(BITS_PER_PIXEL/8)+k))<<(k*8);
+
+
+            if (vg_draw_point(x + j, y + i, color) != EXIT_SUCCESS) {
+                vg_exit();
+                return EXIT_FAILURE;
+            }
+        }
+    }
+
+    free(pixmap);
+
+    return EXIT_SUCCESS;
+}
+
+
 int (vg_rm_sprite)(xpm_map_t xpm, uint16_t x, uint16_t y){
 
     // uint8_t*() xpm_load(xpm_map_t map, enum xpm_image_type type, xpm_image_t *img)
@@ -267,6 +349,26 @@ int (vg_rm_sprite)(xpm_map_t xpm, uint16_t x, uint16_t y){
 
     for (int i = 0; i < img.height; i++ ) {
         for (int j = 0; j < img.width; j++) {
+            if (vg_draw_point(x + j, y + i, 0x000000) != EXIT_SUCCESS) {
+                vg_exit();
+                return EXIT_FAILURE;
+            }
+        }
+    }
+
+    free(pixmap);
+
+    return EXIT_SUCCESS;
+}
+
+
+int (vg_rm_sprite)(sprite sp, uint16_t x, uint16_t y){
+
+    // uint8_t*() xpm_load(xpm_map_t map, enum xpm_image_type type, xpm_image_t *img)
+    // type can be XPM_1_5_5_5, XPM_5_6_5, XPM_8_8_8 or XPM_8_8_8_8
+
+    for (int i = 0; i < sp.height; i++ ) {
+        for (int j = 0; j < sp.width; j++) {
             if (vg_draw_point(x + j, y + i, 0x000000) != EXIT_SUCCESS) {
                 vg_exit();
                 return EXIT_FAILURE;
@@ -450,4 +552,177 @@ int (vg_keyframe_transition)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t x
 
     return EXIT_SUCCESS;
 }
+
+
+int (vg_keyframe_transition)(sprite sp, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate){
+
+    uint32_t totalFrames = sys_hz() / fr_rate;
+    uint16_t frameCounter = 0;
+
+    uint16_t x = xi;
+    uint16_t y = yi;
+
+    // timer subscription
+    uint8_t timerBitNum = TIMER0_IRQ;
+    int timerIrqSet = BIT(timerBitNum);
+
+    _Bool timerIrqSetIsValid = timer_subscribe_int(&timerBitNum) == EXIT_SUCCESS;
+
+    // keyboard subscription
+    uint8_t kbcBitNum = KBC_IRQ;
+    int kbcIrqSet = BIT(kbcBitNum);
+
+    _Bool kbcIrqSetIsValid = kbc_subscribe_int(&kbcBitNum) == EXIT_SUCCESS;
+
+
+    if (timerIrqSetIsValid && kbcIrqSetIsValid){
+
+        vg_render_sprite(sp, x, y);
+
+        int request;
+        int ipcStatus;
+        message msg;
+
+        uint8_t scancodeArr[2];
+        scancodeArr[0] = 0;
+
+        _Bool scancodeHasTwoBytes = false;
+
+        // Interrupt loop
+        while (scancodeArr[0] != 0x81 && (x != xf || y != yf)){
+
+            request = driver_receive(ANY, &msg, &ipcStatus);
+            if (request == EXIT_SUCCESS) {
+                if (is_ipc_notify(ipcStatus)){
+                    if (_ENDPOINT_P(msg.m_source) == HARDWARE){
+
+                        // KBC interrupt handling
+
+                        if (msg.m_notify.interrupts & kbcIrqSet){
+
+                            kbc_ih();
+
+                            if (kbc_two_byte_scancode(scancode)){
+                                scancodeArr[1] = scancode;
+                                scancodeHasTwoBytes = true;
+                                continue;
+                            }
+                            else scancodeArr[0] = scancode;
+
+                            if (scancodeHasTwoBytes) scancodeHasTwoBytes = false;
+                        }
+
+
+                        // Timer interrupt handling
+
+                        if (msg.m_notify.interrupts & timerIrqSet){
+                            timer_ih();
+                            frameCounter++;
+
+                            if (frameCounter == totalFrames){
+                                timerIntCounter = 0;
+                                frameCounter = 0;
+
+                                if (speed < 0){
+
+                                    if (x < xf){
+                                        vg_rm_sprite(sp, x, y);
+
+                                        if (frameCounter == -speed) x++;
+
+                                        vg_render_sprite(sp, x, y);
+                                    }
+
+                                    if (y < yf){
+                                        vg_rm_sprite(sp, x, y);
+
+                                        if (frameCounter == -speed) y++;
+                                        vg_render_sprite(sp, x, y);
+                                    }
+                                }
+                                else {
+                                    if ((xf < xi)){
+                                        if ((x - speed) > xf){
+                                            vg_rm_sprite(sp, x, y);
+
+                                            x -= speed;
+                                            vg_render_sprite(sp, x, y);
+                                        }
+                                        else if((x - speed) <= xf){
+                                            vg_rm_sprite(sp, x, y);
+
+                                            x = xf;
+                                            vg_render_sprite(sp, x, y);
+                                        }
+                                    }
+                                    else {
+                                        if ((x + speed) < xf){
+                                            vg_rm_sprite(sp, x, y);
+
+                                            x += speed;
+                                            vg_render_sprite(sp, x, y);
+                                        }
+                                        else if((x + speed) >= xf){
+                                            vg_rm_sprite(sp, x, y);
+
+                                            x = xf;
+                                            vg_render_sprite(sp, x, y);
+                                        }
+                                    }
+
+
+                                    if (yf < yi) {
+                                        if ((y - speed) < yf){
+                                            vg_rm_sprite(sp, x, y);
+
+                                            y -= speed;
+                                            vg_render_sprite(sp, x, y);
+                                        }
+                                        else if ((y - speed) <= yf){
+                                            vg_rm_sprite(sp, x, y);
+
+                                            y = yf;
+                                            vg_render_sprite(sp, x, y);
+                                        }
+                                    }
+                                    else {
+                                        if ((y + speed) > yf){
+                                            vg_rm_sprite(sp, x, y);
+
+                                            y += speed;
+                                            vg_render_sprite(sp, x, y);
+                                        }
+                                        else if ((y + speed) >= yf){
+                                            vg_rm_sprite(sp, x, y);
+
+                                            y = yf;
+                                            vg_render_sprite(sp, x, y);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                printf("driver_receive failed with: %d", request);
+                continue;
+            }
+        }
+
+        kbc_unsubscribe_int();
+        timer_unsubscribe_int();
+        timer_set_frequency(0, sys_hz());
+
+        vg_exit();
+    }
+    else {
+        vg_exit();
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
+}
+
 
