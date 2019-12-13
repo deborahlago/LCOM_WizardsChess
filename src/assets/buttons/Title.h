@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\Button _ Title_xpm[] = {
+static xpm_row_t const title[] = {
 "371 352 14 1",
 " 	c None",
 ".	c #B48701",

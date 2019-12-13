@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\Button _ Founders\helga_xpm[] = {
+static xpm_row_t const helga_button[] = {
 "172 163 28 1",
 " 	c None",
 ".	c #9E915B",

@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ BGs\MenuBG_xpm[] = {
+static xpm_row_t const mainMenu_BG[] = {
 "1280 1024 65 1",
 " 	c None",
 ".	c #000100",

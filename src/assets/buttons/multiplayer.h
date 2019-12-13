@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\Button _ PlayersMenu\multiplayer_xpm[] = {
+static xpm_row_t const multiplayer_button[] = {
 "108 40 2 1",
 " 	c None",
 ".	c #000000",

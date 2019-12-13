@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Pieces\WhiteQueen_xpm[] = {
+static xpm_row_t const whiteQueen[] = {
 "71 71 65 1",
 " 	c None",
 ".	c #000100",

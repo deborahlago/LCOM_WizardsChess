@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\End Game_xpm[] = {
+static xpm_row_t const endGame_button[] = {
 "288 67 2 1",
 " 	c None",
 ".	c #000000",

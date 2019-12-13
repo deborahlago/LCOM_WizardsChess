@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Pieces\BlackTower_xpm[] = {
+static xpm_row_t const blackTower[] = {
 "71 71 46 1",
 " 	c None",
 ".	c #000000",

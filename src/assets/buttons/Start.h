@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\Button _ Start_xpm[] = {
+static xpm_row_t const start_button[] = {
 "322 188 9 1",
 " 	c None",
 ".	c #B58702",

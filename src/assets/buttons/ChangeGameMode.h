@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\ChangeGameMode_xpm[] = {
+static xpm_row_t const changeGameMode_button[] = {
 "546 79 2 1",
 " 	c None",
 ".	c #000000",

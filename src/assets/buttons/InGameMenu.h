@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\Button _ Board_BckToMenu_xpm[] = {
+static xpm_row_t const inGameMenu_button[] = {
 "206 129 65 1",
 " 	c None",
 ".	c #060A05",

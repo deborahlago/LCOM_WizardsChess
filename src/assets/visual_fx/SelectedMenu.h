@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\Button _ SelectedMenu_xpm[] = {
+static xpm_row_t const selectedMenu_visualFx[] = {
 "148 40 11 1",
 " 	c None",
 ".	c #DF5946",

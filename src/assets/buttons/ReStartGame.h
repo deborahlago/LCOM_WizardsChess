@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\ReStartGame_xpm[] = {
+static xpm_row_t const reStartGame_button[] = {
 "411 67 2 1",
 " 	c None",
 ".	c #000000",
