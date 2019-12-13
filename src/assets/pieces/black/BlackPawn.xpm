@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\[LCOM]\WizardChess_Assets\Copy of Chess _ Pieces PNG\BlackPawn_xpm[] = {
+static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Pieces\BlackPawn_xpm[] = {
 "71 71 2 1",
 " 	c None",
 ".	c #000000",

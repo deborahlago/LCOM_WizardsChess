@@ -1,5 +1,5 @@
 /* XPM */
-static xpm_row_t const exit_button[] = {
+static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\Button _ PlayersMenu\exit_xpm[] = {
 "108 40 2 1",
 " 	c None",
 ".	c #000000",
