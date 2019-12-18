@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\Button _ Founders Gifs\salazargif_xpm[] = {
+static xpm_row_t const salazar_gif_img[] = {
 "320 450 65 1",
 " 	c None",
 ".	c #27231F",
