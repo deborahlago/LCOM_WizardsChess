@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\Button _ Board House Logos\hufflepuff_xpm[] = {
+static xpm_row_t const hufflepuff_logo[] = {
 "120 146 65 1",
 " 	c None",
 ".	c #000200",

@@ -117,6 +117,22 @@ int (vg_reset_frame)();
 
 
 /**
+ * @brief Loads a xpm, converts it into a sprite and stores the sprite on the correct game_assets array
+ *
+ * @param game_assets structure to contain all the game sprites
+ *
+ * @param xpm_arr[] array of xpms to be loaded
+ *
+ * @param arr_size size of the array
+ *
+ * @param asset_type type of the sprite (i.e. button, background, etc...)
+ *
+ * @return Return 0 upon success and non-zero otherwise
+ */
+int vg_load_sprites(GAME_ASSETS* game_assets, xpm_map_t* xpm_arr[], size_t arr_size, ASSET_TYPE asset_type);
+
+
+/**
  * @brief Renders a sprite on screen off of a xpm file
  *
  * @param xpm TODO
@@ -127,7 +143,22 @@ int (vg_reset_frame)();
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int vg_render_sprite(xpm_map_t xpm, uint16_t x, uint16_t y);
+int vg_render_xpm(xpm_map_t xpm, uint16_t x, uint16_t y);
+
+
+/**
+ * @brief Renders a sprite on screen off of a xpm file
+ *
+ * @param sp TODO
+ *
+ * @param x TODO
+ *
+ * @param y TODO
+ *
+ * @return Return 0 upon success and non-zero otherwise
+ */
+int vg_render_sprite(sprite sp, uint16_t x, uint16_t y);
+
 
 
 /**
@@ -141,7 +172,22 @@ int vg_render_sprite(xpm_map_t xpm, uint16_t x, uint16_t y);
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int (vg_rm_sprite)(xpm_map_t xpm, uint16_t x, uint16_t y);
+int (vg_rm_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
+
+
+/**
+ * @brief Remove a given sprite from screen
+ *
+ * @param sp TODO
+ *
+ * @param x TODO
+ *
+ * @param y TODO
+ *
+ * @return Return 0 upon success and non-zero otherwise
+ */
+int (vg_rm_sprite)(sprite sp, uint16_t x, uint16_t y);
+
 
 
 /**
@@ -163,6 +209,28 @@ int (vg_rm_sprite)(xpm_map_t xpm, uint16_t x, uint16_t y);
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int (vg_keyframe_transition)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
+int (vg_keyframe_transition_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
+
+
+/**
+ * @brief
+ *
+ * @param sp TODO
+ *
+ * @param xi TODO
+ *
+ * @param xf TODO
+ *
+ * @param yi TODO
+ *
+ * @param yf TODO
+ *
+ * @param speed TODO
+ *
+ * @param fr_rate TODO
+ *
+ * @return Return 0 upon success and non-zero otherwise
+ */
+int (vg_keyframe_transition)(sprite sp, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
 
 

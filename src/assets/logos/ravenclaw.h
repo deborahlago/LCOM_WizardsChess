@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\Button _ Board House Logos\ravenclaw_xpm[] = {
+static xpm_row_t const ravenclaw_logo[] = {
 "120 146 65 1",
 " 	c None",
 ".	c #191A37",

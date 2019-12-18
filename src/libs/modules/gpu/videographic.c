@@ -225,14 +225,14 @@ int (vg_reset_frame)(){
 }
 
 
-int vg_load_sprites(xpm_map_t* xpm_arr[], int arr_size, ASSET_TYPE asset_type){
+int vg_load_sprites(GAME_ASSETS* game_assets, xpm_map_t* xpm_arr[], size_t arr_size, ASSET_TYPE asset_type){
 
     sprite game_sprite;
 
     xpm_image_t img;
     uint8_t* pixmap;
 
-    for (int i = 0; i < xpm_arr_size; i++){
+    for (size_t i = 0; i < arr_size; i++){
 
         pixmap = xpm_load(xpm, XPM_8_8_8, &img);
 
@@ -280,7 +280,7 @@ int vg_load_sprites(xpm_map_t* xpm_arr[], int arr_size, ASSET_TYPE asset_type){
 }
 
 
-int vg_render_sprite(xpm_map_t xpm, uint16_t x, uint16_t y){
+int vg_render_xpm(xpm_map_t xpm, uint16_t x, uint16_t y){
 
     // uint8_t*() xpm_load(xpm_map_t map, enum xpm_image_type type, xpm_image_t *img)
     // type can be XPM_1_5_5_5, XPM_5_6_5, XPM_8_8_8 or XPM_8_8_8_8
@@ -324,8 +324,7 @@ int vg_render_sprite(sprite sp, uint16_t x, uint16_t y){
             for(int k = 0; k < BITS_PER_PIXEL / 8.0; k++)
                 color |= (*(sp.pixmap + (i*sp.width + j)*(BITS_PER_PIXEL/8)+k))<<(k*8);
 
-
-            if (vg_draw_point(x + j, y + i, color) != EXIT_SUCCESS) {
+            if (vg_draw_point(x + j, y + i, color) != EXIT_SUCCESS){
                 vg_exit();
                 return EXIT_FAILURE;
             }
@@ -338,7 +337,7 @@ int vg_render_sprite(sprite sp, uint16_t x, uint16_t y){
 }
 
 
-int (vg_rm_sprite)(xpm_map_t xpm, uint16_t x, uint16_t y){
+int (vg_rm_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y){
 
     // uint8_t*() xpm_load(xpm_map_t map, enum xpm_image_type type, xpm_image_t *img)
     // type can be XPM_1_5_5_5, XPM_5_6_5, XPM_8_8_8 or XPM_8_8_8_8
@@ -382,7 +381,7 @@ int (vg_rm_sprite)(sprite sp, uint16_t x, uint16_t y){
 }
 
 
-int (vg_keyframe_transition)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate){
+int (vg_keyframe_transition_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate){
 
     uint32_t totalFrames = sys_hz() / fr_rate;
     uint16_t frameCounter = 0;
