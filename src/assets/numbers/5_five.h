@@ -1,5 +1,5 @@
 /* XPM */
-static char * C:\Users\debor\Documents\GitHub\LCOM_WizardsChess\Assets _ Buttons\Button _ Numbers Clock\five_xpm[] = {
+static xpm_row_t const five_xpm[] = {
 "40 83 4 1",
 " 	c None",
 ".	c #E5E5E5",
