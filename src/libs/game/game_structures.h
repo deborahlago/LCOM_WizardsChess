@@ -24,9 +24,13 @@
 #include "../../assets/buttons/exit.h"
 
 #include "../../assets/characters/godric.h"
+#include "../../assets/characters/godricgif.h"
 #include "../../assets/characters/helga.h"
+#include "../../assets/characters/helgagif.h"
 #include "../../assets/characters/rowena.h"
+#include "../../assets/characters/rowenagif.h"
 #include "../../assets/characters/salazar.h"
+#include "../../assets/characters/salazargif.h"
 
 #include "../../assets/logos/gryffindor.h"
 #include "../../assets/logos/hufflepuff.h"
@@ -76,7 +80,7 @@ xpm_map_t xpm_characters[8] = {godric_gif_img, godric_button, helga_gif_img, hel
 xpm_map_t xpm_logos[4] = {gryffindor_logo, hufflepuff_logo, ravenclaw_logo, slytherin_logo};
 xpm_map_t xpm_pieces[12] = {whitePawn, whiteBishop, whiteHorse, whiteTower, whiteQueen, whiteKing, blackPawn, blackBishop, blackHorse, blackTower, blackQueen, blackKing};
 xpm_map_t xpm_visual_fx[2] = {selectedMenu_visualFx, selectInGameMenu_visualFx};
-xpm_map_t xpm_numbers[11] = {zero_xpm, one_xpm, two_xpm, three_xpm, four_xpm, five_xpm, six_xpm, seven_ xpm, eight_xpm, nine_xpm, colon_xpm};
+xpm_map_t xpm_numbers[11] = {zero_xpm, one_xpm, two_xpm, three_xpm, four_xpm, five_xpm, six_xpm, seven_xpm, eight_xpm, nine_xpm, colon_xpm};
 
 /* STRUCTURES */
 
@@ -100,24 +104,22 @@ enum GAME_HOUSES
     SLYTHERIN
 };
 
-typedef sprite
-{
+struct sprite {
     uint8_t *pixmap;
     int width;
     int height;
-}
-struct;
+};
 
 struct GAME_ASSETS
 {
-    sprite buttons[9];
-    sprite backgrounds[5];
-    sprite pieces[12];
-    sprite borders[2];
-    sprite characters[8];
-    sprite logos[4];
-    sprite visual_fx[2];
-    sprite numbers[11];
+    struct sprite buttons[9];
+    struct sprite backgrounds[5];
+    struct sprite pieces[12];
+    struct sprite borders[2];
+    struct sprite characters[8];
+    struct sprite logos[4];
+    struct sprite visual_fx[2];
+    struct sprite numbers[11];
 };
 
 struct GAME_STATE {
@@ -134,14 +136,14 @@ struct GAME_STATE {
     _Bool left_click;
     _Bool right_click;
 
-    uint8_t mouse_x_pos = 0;
-    uint8_t mouse_y_pos = 0;
+    uint8_t mouse_x_pos;
+    uint8_t mouse_y_pos;
 
-    uint8_t curr_window = 0;
+    uint8_t curr_window;
     int* gui_fn;
 
-    GAME_HOUSES p1_house;
-    GAME_HOUSES p2_house;
+    enum GAME_HOUSES p1_house;
+    enum GAME_HOUSES p2_house;
 
     uint8_t pieces_x_pos[32];
     uint8_t pieces_y_pos[32];

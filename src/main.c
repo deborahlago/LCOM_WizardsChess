@@ -1,4 +1,4 @@
-#include "libs/modules/game_funcs.h"
+#include "libs/game/game_funcs.h"
 
 int main(void){
 

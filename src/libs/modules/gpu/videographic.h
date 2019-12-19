@@ -18,7 +18,6 @@
 
 #include "../timer/timer.h"
 #include "../keyboard/keyboard.h"
-#include "read_xpm.h"
 #include "../../game/game_structures.h"
 
 
@@ -129,7 +128,7 @@ int (vg_reset_frame)();
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int vg_load_sprites(GAME_ASSETS* game_assets, xpm_map_t* xpm_arr[], size_t arr_size, ASSET_TYPE asset_type);
+int vg_load_sprites(GAME_ASSETS* game_assets, xpm_map_t* xpm_arr[], size_t arr_size, enum ASSET_TYPE asset_type);
 
 
 /**

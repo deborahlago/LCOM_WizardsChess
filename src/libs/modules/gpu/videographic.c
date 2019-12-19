@@ -232,7 +232,7 @@ void(vg_reset_frame)()
     memset(ptrToGpuVAddr, 0, H_RES * V_RES * ceil(BITS_PER_PIXEL / 8.0));
 }
 
-int vg_load_sprites(GAME_ASSETS *game_assets, xpm_map_t *xpm_arr[], size_t arr_size, ASSET_TYPE asset_type)
+int vg_load_sprites(GAME_ASSETS *game_assets, xpm_map_t *xpm_arr[], size_t arr_size, enum ASSET_TYPE asset_type)
 {
 
     sprite game_sprite;

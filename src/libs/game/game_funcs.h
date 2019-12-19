@@ -10,6 +10,6 @@
 
 
 
-int game_load_assets(GAME_ASSETS* game_assets);
+int game_load_assets(struct GAME_ASSETS* game_assets);
 
-int game_run(GAME_ASSETS* game_assets, GAME_STATE* game_state);
+int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state);

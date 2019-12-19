@@ -1,6 +1,6 @@
 #include "game_funcs.h"
 
-int game_load_assets(GAME_ASSETS *game_assets){
+int game_load_assets(struct GAME_ASSETS *game_assets){
 
     if (vg_load_sprites(game_assets, xpm_btns, ARRAY_SIZE(xpm_btns), BTNS) != EXIT_SUCCESS)
         return EXIT_FAILURE;
@@ -31,7 +31,7 @@ int game_load_assets(GAME_ASSETS *game_assets){
 
 /* GAME LOOP */
 
-int game_run(GAME_ASSETS* game_assets, GAME_STATE* game_state){
+int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
 
     uint8_t stByte;
 

@@ -2,7 +2,7 @@
 #include <lcom/lcf.h>
 #include <stdint.h>
 
-#include "timer.h"
+#include "modules/timer/timer.h"
 
 int (util_get_LSB)(uint16_t val, uint8_t *lsb) {
 

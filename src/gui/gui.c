@@ -12,7 +12,7 @@
 
 /* START WINDOW */
 
-int gui_start_window(GAME_ASSETS *game_assets)
+int gui_start_window(struct GAME_ASSETS *game_assets)
 {
 
     /* RENDER VISUALS */
@@ -32,7 +32,7 @@ int gui_start_window(GAME_ASSETS *game_assets)
 
 /* MAIN MENU */
 
-int gui_main_menu(GAME_ASSETS *game_assets)
+int gui_main_menu(struct GAME_ASSETS *game_assets)
 {
 
     /* RENDER VISUALS */
@@ -55,7 +55,7 @@ int gui_main_menu(GAME_ASSETS *game_assets)
 
 /* IN GAME MENU */
 
-int gui_in_game_menu(GAME_ASSETS *game_assets)
+int gui_in_game_menu(struct GAME_ASSETS *game_assets)
 {
 
     /* RENDER VISUALS */
@@ -76,7 +76,7 @@ int gui_in_game_menu(GAME_ASSETS *game_assets)
 
 /* GAME WINDOW */
 
-int gui_game_window(GAME_ASSETS *game_assets, GAME_HOUSES p1_house, GAME_HOUSES p2_house, uint8 x_pos[], uint8 y_pos[])
+int gui_game_window(struct GAME_ASSETS *game_assets, enum GAME_HOUSES p1_house, enum GAME_HOUSES p2_house, uint8 x_pos[], uint8 y_pos[])
 {
 
     /* RENDER VISUALS */
@@ -147,7 +147,7 @@ int gui_game_window(GAME_ASSETS *game_assets, GAME_HOUSES p1_house, GAME_HOUSES 
 
 /* GAME MODE SELECTION */
 
-int gui_game_mode_sel_window(GAME_ASSETS *game_assets)
+int gui_game_mode_sel_window(struct GAME_ASSETS *game_assets)
 {
 
     /* RENDER VISUALS */
@@ -160,7 +160,7 @@ int gui_game_mode_sel_window(GAME_ASSETS *game_assets)
 
 /* CHARACTER SELECTION */
 
-int gui_char_sel_window(GAME_ASSETS *game_assets)
+int gui_char_sel_window(struct GAME_ASSETS *game_assets)
 {
 
     /* RENDER VISUALS */
@@ -191,3 +191,5 @@ int gui_char_sel_window(GAME_ASSETS *game_assets)
 
     return EXIT_SUCCESS;
 }
+
+

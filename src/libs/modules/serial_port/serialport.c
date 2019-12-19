@@ -77,7 +77,7 @@ void sp_enable_int(uint32_t *char_data){
 
 
     // com2
-    sys_inb(UART_COM2_ADDR + UART_IH_ENABLE, char_data;
+    sys_inb(UART_COM2_ADDR + UART_IH_ENABLE, char_data);
     cdata |= 0x03;
 
     sys_outb(UART_COM2_ADDR + UART_IH_ENABLE, *char_data);
