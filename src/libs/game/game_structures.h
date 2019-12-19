@@ -120,8 +120,9 @@ struct GAME_ASSETS
     sprite numbers[11];
 };
 
-struct GAME_STATE
-{
+struct GAME_STATE {
+
+    _Bool leave;
 
     uint8_t pressed_key;
 
@@ -133,9 +134,16 @@ struct GAME_STATE
     _Bool left_click;
     _Bool right_click;
 
-    uint8_t mouse_x_pos;
-    uint8_t mouse_y_pos;
+    uint8_t mouse_x_pos = 0;
+    uint8_t mouse_y_pos = 0;
 
-    uint8_t curr_window;
-    int *gui_fn;
+    uint8_t curr_window = 0;
+    int* gui_fn;
+
+    GAME_HOUSES p1_house;
+    GAME_HOUSES p2_house;
+
+    uint8_t pieces_x_pos[32];
+    uint8_t pieces_y_pos[32];
+
 };

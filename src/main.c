@@ -9,7 +9,9 @@ int main(void){
         return EXIT_FAILURE;
 
     // Game Start
-    if (game_run(&assets) != EXIT_SUCCESS)
+    GAME_STATE game_state;
+
+    if (game_run(&assets, &game_state) != EXIT_SUCCESS)
         return EXIT_FAILURE;
 
 
