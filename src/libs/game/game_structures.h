@@ -4,6 +4,8 @@
 
 #include <lcom/lcf.h>
 
+#include "../macros/rtc_macros.h"
+
 #include "../../assets/backgrounds/BoardBG.h"
 #include "../../assets/backgrounds/InGameMenuBG.h"
 #include "../../assets/backgrounds/MenuBG.h"
@@ -140,12 +142,15 @@ struct GAME_STATE {
     uint8_t mouse_y_pos;
 
     uint8_t curr_window;
-    int* gui_fn;
+    int (*gui_fn)(struct GAME_ASSETS*, struct GAME_STATE*);
 
     enum GAME_HOUSES p1_house;
     enum GAME_HOUSES p2_house;
 
-    uint8_t pieces_x_pos[32];
-    uint8_t pieces_y_pos[32];
+    uint8_t white_pieces_x_pos[16];
+    uint8_t white_pieces_y_pos[16];
+
+    uint8_t black_pieces_x_pos[16];
+    uint8_t black_pieces_y_pos[16];
 
 };

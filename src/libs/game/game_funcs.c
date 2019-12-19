@@ -67,35 +67,35 @@ int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
 
             switch (game_state->curr_window){
                 case 0: {
-                    game_state->gui_fn = gui_start_window(game_assets);
+                    game_state->gui_fn = &gui_start_window;
                     break;
                 }
                 case 1: {
-                    game_state->gui_fn = gui_main_menu(game_assets);
+                    game_state->gui_fn = &gui_main_menu;
                     break;
                 }
                 case 2: {
-                    game_state->gui_fn = gui_char_sel_window(game_assets);
+                    game_state->gui_fn = &gui_char_sel_window;
                     break;
                 }
                 case 3: {
                     break;
                 }
                 case 4: {
-                    game_state->gui_fn = gui_game_window(game_assets, game_state->p1_house, game_state->p2_house, game_state->pieces_x_pos, game_state->pieces_y_pos);
+                    game_state->gui_fn = &gui_game_window;
                     break;
                 }
                 case 5: {
-                    game_state->gui_fn = gui_in_game_menu(game_assets);
+                    game_state->gui_fn = &gui_in_game_menu;
                     break;
                 }
                 default: {
-                    game_state->gui_fn = gui_start_window(game_assets);
+                    game_state->gui_fn = &gui_start_window;
                     break;
                 }
             }
 
-            game_state->gui_fn();
+            game_state->gui_fn(game_assets, game_state);
 
             int request;
             int ipcStatus;

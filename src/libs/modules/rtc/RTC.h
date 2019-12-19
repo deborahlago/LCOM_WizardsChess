@@ -76,3 +76,5 @@ void rtc_write_data(uint32_t port, uint32_t data);
  * @param timer RTC time struct
  */
 void rtc_read_time(rtc_time_t *time);
+
+

@@ -128,7 +128,7 @@ int (vg_reset_frame)();
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int vg_load_sprites(GAME_ASSETS* game_assets, xpm_map_t* xpm_arr[], size_t arr_size, enum ASSET_TYPE asset_type);
+int vg_load_sprites(struct GAME_ASSETS* game_assets, xpm_map_t xpm_arr[], size_t arr_size, enum ASSET_TYPE asset_type);
 
 
 /**
@@ -156,7 +156,7 @@ int vg_render_xpm(xpm_map_t xpm, uint16_t x, uint16_t y);
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int vg_render_sprite(sprite sp, uint16_t x, uint16_t y);
+int vg_render_sprite(struct sprite sp, uint16_t x, uint16_t y);
 
 
 
@@ -185,7 +185,7 @@ void (vg_rm_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int (vg_rm_sprite)(sprite sp, uint16_t x, uint16_t y);
+int (vg_rm_sprite)(struct sprite sp, uint16_t x, uint16_t y);
 
 
 
@@ -230,6 +230,6 @@ int (vg_keyframe_transition_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int (vg_keyframe_transition)(sprite sp, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
+int (vg_keyframe_transition)(struct sprite sp, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
 
 

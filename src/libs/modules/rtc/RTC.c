@@ -90,3 +90,4 @@ void rtc_read_time(rtc_time_t *time){
     rtc_write_data(RTC_REG_B, temp);
 
 }
+

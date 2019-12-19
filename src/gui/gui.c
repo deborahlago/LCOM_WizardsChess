@@ -12,7 +12,7 @@
 
 /* START WINDOW */
 
-int gui_start_window(struct GAME_ASSETS *game_assets)
+int gui_start_window(struct GAME_ASSETS *game_assets, struct GAME_STATE *game_state)
 {
 
     /* RENDER VISUALS */
@@ -32,7 +32,7 @@ int gui_start_window(struct GAME_ASSETS *game_assets)
 
 /* MAIN MENU */
 
-int gui_main_menu(struct GAME_ASSETS *game_assets)
+int gui_main_menu(struct GAME_ASSETS *game_assets, struct GAME_STATE *game_state)
 {
 
     /* RENDER VISUALS */
@@ -55,7 +55,7 @@ int gui_main_menu(struct GAME_ASSETS *game_assets)
 
 /* IN GAME MENU */
 
-int gui_in_game_menu(struct GAME_ASSETS *game_assets)
+int gui_in_game_menu(struct GAME_ASSETS *game_assets, struct GAME_STATE *game_state)
 {
 
     /* RENDER VISUALS */
@@ -76,7 +76,7 @@ int gui_in_game_menu(struct GAME_ASSETS *game_assets)
 
 /* GAME WINDOW */
 
-int gui_game_window(struct GAME_ASSETS *game_assets, enum GAME_HOUSES p1_house, enum GAME_HOUSES p2_house, uint8 x_pos[], uint8 y_pos[])
+int gui_game_window(struct GAME_ASSETS *game_assets, struct GAME_STATE *game_state)
 {
 
     /* RENDER VISUALS */
@@ -95,8 +95,8 @@ int gui_game_window(struct GAME_ASSETS *game_assets, enum GAME_HOUSES p1_house, 
     vg_render_sprite(game_assets->borders[1], 1059, 0);  // right player border
 
     // LOGOS
-    vg_render_sprite(game_assets->logo[p1_house], 32, 806);      // player 1 house logo
-    vg_render_sprite(game_assets->borders[p2_house], 1136, 239); // player 2 house logo
+    vg_render_sprite(game_assets->logos[game_state->p1_house], 32, 806);      // player 1 house logo
+    vg_render_sprite(game_assets->logos[game_state->p2_house], 1136, 239); // player 2 house logo
 
     //
     // Game Logic To implement
@@ -115,39 +115,39 @@ int gui_game_window(struct GAME_ASSETS *game_assets, enum GAME_HOUSES p1_house, 
     vg_render_sprite(game_assets->pieces[0], 718, 661); // pawn
     vg_render_sprite(game_assets->pieces[0], 792, 661); // pawn
     vg_render_sprite(game_assets->pieces[0], 865, 661); // pawn
-    vg_render_sprite(game_assets->pieces[2], 496, 734); // left bishop
-    vg_render_sprite(game_assets->pieces[2], 718, 734); // right bishop
-    vg_render_sprite(game_assets->pieces[3], 422, 734); // left horse
-    vg_render_sprite(game_assets->pieces[3], 792, 734); // right horse
-    vg_render_sprite(game_assets->pieces[4], 347, 734); // left rook
-    vg_render_sprite(game_assets->pieces[4], 865, 734); // right rook
-    vg_render_sprite(game_assets->pieces[5], 570, 734); // queen
-    vg_render_sprite(game_assets->pieces[6], 644, 734); // king
+    vg_render_sprite(game_assets->pieces[1], 496, 734); // left bishop
+    vg_render_sprite(game_assets->pieces[1], 718, 734); // right bishop
+    vg_render_sprite(game_assets->pieces[2], 422, 734); // left horse
+    vg_render_sprite(game_assets->pieces[2], 792, 734); // right horse
+    vg_render_sprite(game_assets->pieces[3], 347, 734); // left rook
+    vg_render_sprite(game_assets->pieces[3], 865, 734); // right rook
+    vg_render_sprite(game_assets->pieces[4], 570, 734); // queen
+    vg_render_sprite(game_assets->pieces[5], 644, 734); // king
 
     // BLACK
-    vg_render_sprite(game_assets->pieces[7], 347, 291);  // pawn
-    vg_render_sprite(game_assets->pieces[7], 422, 291);  // pawn
-    vg_render_sprite(game_assets->pieces[7], 496, 291);  // pawn
-    vg_render_sprite(game_assets->pieces[7], 570, 291);  // pawn
-    vg_render_sprite(game_assets->pieces[7], 644, 291);  // pawn
-    vg_render_sprite(game_assets->pieces[7], 718, 291);  // pawn
-    vg_render_sprite(game_assets->pieces[7], 792, 291);  // pawn
-    vg_render_sprite(game_assets->pieces[7], 865, 291);  // pawn
-    vg_render_sprite(game_assets->pieces[8], 496, 220);  // left bishop
-    vg_render_sprite(game_assets->pieces[8], 718, 220);  // right bishop
-    vg_render_sprite(game_assets->pieces[9], 422, 220);  // left horse
-    vg_render_sprite(game_assets->pieces[9], 792, 220);  // right horse
-    vg_render_sprite(game_assets->pieces[10], 347, 220); // left rook
-    vg_render_sprite(game_assets->pieces[10], 865, 220); // right rook
-    vg_render_sprite(game_assets->pieces[11], 570, 220); // queen
-    vg_render_sprite(game_assets->pieces[12], 644, 220); // king
+    vg_render_sprite(game_assets->pieces[6], 347, 291);  // pawn
+    vg_render_sprite(game_assets->pieces[6], 422, 291);  // pawn
+    vg_render_sprite(game_assets->pieces[6], 496, 291);  // pawn
+    vg_render_sprite(game_assets->pieces[6], 570, 291);  // pawn
+    vg_render_sprite(game_assets->pieces[6], 644, 291);  // pawn
+    vg_render_sprite(game_assets->pieces[6], 718, 291);  // pawn
+    vg_render_sprite(game_assets->pieces[6], 792, 291);  // pawn
+    vg_render_sprite(game_assets->pieces[6], 865, 291);  // pawn
+    vg_render_sprite(game_assets->pieces[7], 496, 220);  // left bishop
+    vg_render_sprite(game_assets->pieces[7], 718, 220);  // right bishop
+    vg_render_sprite(game_assets->pieces[8], 422, 220);  // left horse
+    vg_render_sprite(game_assets->pieces[8], 792, 220);  // right horse
+    vg_render_sprite(game_assets->pieces[9], 347, 220); // left rook
+    vg_render_sprite(game_assets->pieces[9], 865, 220); // right rook
+    vg_render_sprite(game_assets->pieces[10], 570, 220); // queen
+    vg_render_sprite(game_assets->pieces[11], 644, 220); // king
 
     return EXIT_SUCCESS;
 }
 
 /* GAME MODE SELECTION */
 
-int gui_game_mode_sel_window(struct GAME_ASSETS *game_assets)
+int gui_game_mode_sel_window(struct GAME_ASSETS *game_assets, struct GAME_STATE *game_state)
 {
 
     /* RENDER VISUALS */
@@ -160,7 +160,7 @@ int gui_game_mode_sel_window(struct GAME_ASSETS *game_assets)
 
 /* CHARACTER SELECTION */
 
-int gui_char_sel_window(struct GAME_ASSETS *game_assets)
+int gui_char_sel_window(struct GAME_ASSETS *game_assets, struct GAME_STATE *game_state)
 {
 
     /* RENDER VISUALS */
