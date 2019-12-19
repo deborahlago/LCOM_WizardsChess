@@ -60,15 +60,15 @@
 xpm_map_t xpm_bgs[5] = {start_BG, mainMenu_BG, selectPlayer_BG, board_BG, inGameMenu_BG};
 xpm_map_t xpm_borders[2] = {left_player_board_button, right_player_board_button};
 xpm_map_t xpm_btns[9] = {title, start_button, singleplayer_button, multiplayer_button, exit_button, changeGameMode_button, endGame_button, inGameMenu_button, reStartGame_button};
-xpm_map_t xpm_characters[8] = {godric_button, helga_button, rowena_button, salazar_button, godric_gif_img, helga_gif_img, rowena_gif_img, salazar_gif_img};
+xpm_map_t xpm_characters[8] = {godric_gif_img, godric_button, helga_gif_img, helga_button, rowena_gif_img, rowena_button, salazar_gif_img, salazar_button};
 xpm_map_t xpm_logos[4] = {gryffindor_logo, hufflepuff_logo, ravenclaw_logo, slytherin_logo};
 xpm_map_t xpm_pieces[12] = {whitePawn, whiteBishop, whiteHorse, whiteTower, whiteQueen, whiteKing, blackPawn, blackBishop, blackHorse, blackTower, blackQueen, blackKing};
 xpm_map_t xpm_visual_fx[2] = {selectedMenu_visualFx, selectInGameMenu_visualFx};
 
-
 /* STRUCTURES */
 
-enum ASSET_TYPE {
+enum ASSET_TYPE
+{
     BTNS,
     BGS,
     PIECES,
@@ -78,21 +78,24 @@ enum ASSET_TYPE {
     V_FX
 };
 
-enum GAME_HOUSES {
+enum GAME_HOUSES
+{
     GRYFFINDOR,
     HUFFLEPUFF,
     RAVENCLAW,
     SLYTHERIN
 };
 
-typedef sprite {
+typedef sprite
+{
     uint8_t *pixmap;
     int width;
     int height;
 }
 struct;
 
-struct GAME_ASSETS {
+struct GAME_ASSETS
+{
     sprite buttons[9];
     sprite backgrounds[5];
     sprite pieces[12];
@@ -102,7 +105,8 @@ struct GAME_ASSETS {
     sprite visual_fx[2];
 };
 
-struct GAME_STATE {
+struct GAME_STATE
+{
 
     uint8_t pressed_key;
 
@@ -118,5 +122,5 @@ struct GAME_STATE {
     uint8_t mouse_y_pos;
 
     uint8_t curr_window;
-    int* gui_fn;
+    int *gui_fn;
 };
