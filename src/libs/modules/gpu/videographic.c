@@ -216,12 +216,9 @@ int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 }
 
 
-int (vg_reset_frame)(){
+void (vg_reset_frame)(){
 
-    if (vg_draw_rectangle(0, 0, H_RES, V_RES, 0x000000) == EXIT_SUCCESS)
-        return EXIT_SUCCESS;
-
-    return EXIT_FAILURE;
+    memset(ptrToGpuVAddr, 0, H_RES*V_RES*ceil(BITS_PER_PIXEL/8.0));
 }
 
 

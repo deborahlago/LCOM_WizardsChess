@@ -172,7 +172,7 @@ int vg_render_sprite(sprite sp, uint16_t x, uint16_t y);
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int (vg_rm_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
+void (vg_rm_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
 
 
 /**

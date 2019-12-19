@@ -31,7 +31,9 @@ int game_load_assets(GAME_ASSETS* game_assets){
 
 /* GAME LOOP */
 
-int game_run(GAME_ASSETS* game_assets){
+int game_run(GAME_ASSETS* game_assets, GAME_STATE* game_state){
+
+
 
 }
 

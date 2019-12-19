@@ -5,7 +5,7 @@ int main(void){
     // Load Assets
     GAME_ASSETS assets;
 
-    if (game_load_assets(&assets, &xpm_assets) != EXIT_SUCCESS)
+    if (game_load_assets(&assets) != EXIT_SUCCESS)
         return EXIT_FAILURE;
 
     // Game Start

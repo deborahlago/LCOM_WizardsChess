@@ -65,10 +65,10 @@ xpm_map_t xpm_logos[4] = {gryffindor_logo, hufflepuff_logo, ravenclaw_logo, slyt
 xpm_map_t xpm_pieces[12] = {whitePawn, whiteBishop, whiteHorse, whiteTower, whiteQueen, whiteKing, blackPawn, blackBishop, blackHorse, blackTower, blackQueen, blackKing};
 xpm_map_t xpm_visual_fx[2] = {selectedMenu_visualFx, selectInGameMenu_visualFx};
 
+
 /* STRUCTURES */
 
-enum ASSET_TYPE
-{
+enum ASSET_TYPE {
     BTNS,
     BGS,
     PIECES,
@@ -78,24 +78,21 @@ enum ASSET_TYPE
     V_FX
 };
 
-enum GAME_HOUSES
-{
+enum GAME_HOUSES {
     GRYFFINDOR,
     HUFFLEPUFF,
     RAVENCLAW,
     SLYTHERIN
 };
 
-typedef sprite
-{
+typedef sprite {
     uint8_t *pixmap;
     int width;
     int height;
 }
 struct;
 
-struct GAME_ASSETS
-{
+struct GAME_ASSETS {
     sprite buttons[9];
     sprite backgrounds[5];
     sprite pieces[12];
@@ -103,4 +100,23 @@ struct GAME_ASSETS
     sprite characters[8];
     sprite logos[4];
     sprite visual_fx[2];
+};
+
+struct GAME_STATE {
+
+    uint8_t pressed_key;
+
+    uint8_t pressable_pos[2];
+    uint8_t clicked_pos[2];
+
+    rtc_time_t curr_time;
+
+    _Bool left_click;
+    _Bool right_click;
+
+    uint8_t mouse_x_pos;
+    uint8_t mouse_y_pos;
+
+    uint8_t curr_window;
+    int* gui_fn;
 };
