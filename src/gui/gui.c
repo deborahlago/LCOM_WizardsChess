@@ -16,11 +16,11 @@ int gui_start_window(GAME_ASSETS *game_assets)
 {
 
     // BG
-    vg_render_sprite(game_assets->backgrounds[0], , );
+    vg_render_sprite(game_assets->backgrounds[0], 0, 0);
 
     // BTNS
-    vg_render_sprite(game_assets->buttons[0], , ); // title
-    vg_render_sprite(game_assets->buttons[1], , ); // start button
+    vg_render_sprite(game_assets->buttons[0], 458, 102); // title
+    vg_render_sprite(game_assets->buttons[1], 883, 870); // start button
 
     return EXIT_SUCCESS;
 }
@@ -31,12 +31,12 @@ int gui_main_menu(GAME_ASSETS *game_assets)
 {
 
     // BG
-    vg_render_sprite(game_assets->backgrounds[1], , );
+    vg_render_sprite(game_assets->backgrounds[1], 0, 0);
 
     // BTNS
-    vg_render_sprite(game_assets->buttons[2], , ); // multi player button
-    vg_render_sprite(game_assets->buttons[3], , ); // single player button
-    vg_render_sprite(game_assets->buttons[4], , ); // exit button
+    vg_render_sprite(game_assets->buttons[2], 872, 510); // multi player button
+    vg_render_sprite(game_assets->buttons[3], 871, 580); // single player button
+    vg_render_sprite(game_assets->buttons[4], 907, 644); // exit button
 
     return EXIT_SUCCESS;
 }
@@ -47,7 +47,7 @@ int gui_in_game_menu(GAME_ASSETS *game_assets)
 {
 
     // BG
-    vg_render_sprite(game_assets->backgrounds[4], , );
+    vg_render_sprite(game_assets->backgrounds[4], 0, 0);
 
     // BTNS
     vg_render_sprite(game_assets->buttons[8], 435, 310); // re-start game button
@@ -64,7 +64,7 @@ int gui_game_window(GAME_ASSETS *game_assets, GAME_HOUSES p1_house, GAME_HOUSES 
 
     /* BG */
 
-    vg_render_sprite(game_assets->backgrounds[3], , );
+    vg_render_sprite(game_assets->backgrounds[3], 0, 0);
 
     /* BTNS */
 
@@ -142,7 +142,7 @@ int gui_char_sel_window(GAME_ASSETS *game_assets)
 
     /* BG */
 
-    vg_render_sprite(game_assets->backgrounds[2], , );
+    vg_render_sprite(game_assets->backgrounds[2], 0, 0);
 
     /* CHARACTERS */
 
