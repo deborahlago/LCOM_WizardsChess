@@ -49,11 +49,23 @@
 #include "../../assets/visual_fx/SelectedMenu.h"
 #include "../../assets/visual_fx/SelectInGameMenu.h"
 
+#include "../../assets/numbers/0_zero.h"
+#include "../../assets/numbers/1_one.h"
+#include "../../assets/numbers/2_two.h"
+#include "../../assets/numbers/3_three.h"
+#include "../../assets/numbers/4_four.h"
+#include "../../assets/numbers/5_five.h"
+#include "../../assets/numbers/6_six.h"
+#include "../../assets/numbers/7_seven.h"
+#include "../../assets/numbers/8_eight.h"
+#include "../../assets/numbers/9_nine.h"
+#include "../../assets/numbers/colon.h"
+
 /* CONSTANTS */
 
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
 
-#define GAME_ASSETS_ARR_SIZE 7
+#define GAME_ASSETS_ARR_SIZE 8
 
 /* XPM ARRAYS */
 
@@ -64,6 +76,7 @@ xpm_map_t xpm_characters[8] = {godric_gif_img, godric_button, helga_gif_img, hel
 xpm_map_t xpm_logos[4] = {gryffindor_logo, hufflepuff_logo, ravenclaw_logo, slytherin_logo};
 xpm_map_t xpm_pieces[12] = {whitePawn, whiteBishop, whiteHorse, whiteTower, whiteQueen, whiteKing, blackPawn, blackBishop, blackHorse, blackTower, blackQueen, blackKing};
 xpm_map_t xpm_visual_fx[2] = {selectedMenu_visualFx, selectInGameMenu_visualFx};
+xpm_map_t xpm_numbers[11] = {zero_xpm, one_xpm, two_xpm, three_xpm, four_xpm, five_xpm, six_xpm, seven_ xpm, eight_xpm, nine_xpm, colon_xpm};
 
 /* STRUCTURES */
 
@@ -75,6 +88,7 @@ enum ASSET_TYPE
     BORDERS,
     CHARS,
     LOGOS,
+    NUMBERS,
     V_FX
 };
 
@@ -103,6 +117,7 @@ struct GAME_ASSETS
     sprite characters[8];
     sprite logos[4];
     sprite visual_fx[2];
+    sprite numbers[11];
 };
 
 struct GAME_STATE

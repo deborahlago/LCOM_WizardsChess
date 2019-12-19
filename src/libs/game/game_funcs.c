@@ -1,13 +1,12 @@
 #include "game_funcs.h"
 
-
-
-int game_load_assets(GAME_ASSETS* game_assets){
+int game_load_assets(GAME_ASSETS *game_assets)
+{
 
     if (vg_load_sprites(game_assets, xpm_btns, ARRAY_SIZE(xpm_btns), BTNS) != EXIT_SUCCESS)
         return EXIT_FAILURE;
 
-    if (vg_load_sprites(game_assets, xpm_bgs, ARRAY_SIZE(xpm_bgs), BGS)  != EXIT_SUCCESS)
+    if (vg_load_sprites(game_assets, xpm_bgs, ARRAY_SIZE(xpm_bgs), BGS) != EXIT_SUCCESS)
         return EXIT_FAILURE;
 
     if (vg_load_sprites(game_assets, xpm_pieces, ARRAY_SIZE(xpm_pieces), PIECES) != EXIT_SUCCESS)
@@ -22,19 +21,17 @@ int game_load_assets(GAME_ASSETS* game_assets){
     if (vg_load_sprites(game_assets, xpm_logos, ARRAY_SIZE(xpm_logos), LOGOS) != EXIT_SUCCESS)
         return EXIT_FAILURE;
 
+    if (vg_load_sprites(game_assets, xpm_numbers, ARRAY_SIZE(xpm_numbers), NUMBERS) != EXIT_SUCCESS)
+        return EXIT_FAILURE;
+
     if (vg_load_sprites(game_assets, xpm_visual_fx, ARRAY_SIZE(xpm_visual_fx), V_FX) != EXIT_SUCCESS)
         return EXIT_FAILURE;
 
     return EXIT_SUCCESS;
 }
 
-
 /* GAME LOOP */
 
-int game_run(GAME_ASSETS* game_assets, GAME_STATE* game_state){
-
-
-
+int game_run(GAME_ASSETS *game_assets, GAME_STATE *game_state)
+{
 }
-
-
