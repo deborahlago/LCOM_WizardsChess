@@ -112,7 +112,7 @@ int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
  * @brief Resets the current frame screen to it's original state
  *
  */
-int (vg_reset_frame)();
+void (vg_reset_frame)();
 
 
 /**
@@ -156,7 +156,7 @@ int vg_render_xpm(xpm_map_t xpm, uint16_t x, uint16_t y);
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int vg_render_sprite(struct sprite sp, uint16_t x, uint16_t y);
+int vg_render_sprite(struct Sprite sp, uint16_t x, uint16_t y);
 
 
 
@@ -171,7 +171,7 @@ int vg_render_sprite(struct sprite sp, uint16_t x, uint16_t y);
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-void (vg_rm_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
+int (vg_rm_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
 
 
 /**
@@ -185,7 +185,7 @@ void (vg_rm_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y);
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int (vg_rm_sprite)(struct sprite sp, uint16_t x, uint16_t y);
+int (vg_rm_sprite)(struct Sprite sp, uint16_t x, uint16_t y);
 
 
 
@@ -230,6 +230,6 @@ int (vg_keyframe_transition_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int (vg_keyframe_transition)(struct sprite sp, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
+int (vg_keyframe_transition)(struct Sprite sp, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
 
 

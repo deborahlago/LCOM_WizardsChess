@@ -1,6 +1,38 @@
 #include "game_funcs.h"
 
-int game_load_assets(struct GAME_ASSETS *game_assets){
+
+/* Globals */
+
+// KBC
+extern int kbcHookId;
+extern uint32_t kernelCallsCount;
+extern uint8_t scancode;
+
+// TIMER 0
+extern int timerHookId;
+extern uint64_t timerIntCounter;
+
+// PS/2
+extern int ps2HookId;
+extern uint8_t pktByte;
+extern int pktCounter;
+extern struct packet pkt;
+extern _Bool gestureComplete;
+
+// XPM ARRAYS
+xpm_map_t xpm_bgs[5] = {start_BG, mainMenu_BG, selectPlayer_BG, board_BG, inGameMenu_BG};
+xpm_map_t xpm_borders[2] = {left_player_board_button, right_player_board_button};
+xpm_map_t xpm_btns[9] = {title, start_button, singleplayer_button, multiplayer_button, exit_button, changeGameMode_button, endGame_button, inGameMenu_button, reStartGame_button};
+xpm_map_t xpm_characters[8] = {godric_gif_img, godric_button, helga_gif_img, helga_button, rowena_gif_img, rowena_button, salazar_gif_img, salazar_button};
+xpm_map_t xpm_logos[4] = {gryffindor_logo, hufflepuff_logo, ravenclaw_logo, slytherin_logo};
+xpm_map_t xpm_pieces[12] = {whitePawn, whiteBishop, whiteHorse, whiteTower, whiteQueen, whiteKing, blackPawn, blackBishop, blackHorse, blackTower, blackQueen, blackKing};
+xpm_map_t xpm_visual_fx[2] = {selectedMenu_visualFx, selectInGameMenu_visualFx};
+xpm_map_t xpm_numbers[11] = {zero_xpm, one_xpm, two_xpm, three_xpm, four_xpm, five_xpm, six_xpm, seven_xpm, eight_xpm, nine_xpm, colon_xpm};
+
+
+/* Functions */
+
+int game_load_assets(struct GAME_ASSETS* game_assets){
 
     if (vg_load_sprites(game_assets, xpm_btns, ARRAY_SIZE(xpm_btns), BTNS) != EXIT_SUCCESS)
         return EXIT_FAILURE;
@@ -29,17 +61,15 @@ int game_load_assets(struct GAME_ASSETS *game_assets){
     return EXIT_SUCCESS;
 }
 
+
 /* GAME LOOP */
 
 int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
 
     uint8_t stByte;
 
-    uint32_t totalFrames = sys_hz() / 2;    // 30fps
+    uint32_t totalFrames = sys_hz() / 30;    // 30fps
     uint16_t frameCounter = 0;
-
-    uint16_t x = game_state->mouse_x_pos;
-    uint16_t y = game_state->mouse_y_pos;
 
     // timer subscription
     uint8_t timerBitNum = TIMER0_IRQ;
@@ -61,41 +91,39 @@ int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
     _Bool mouseIrqSetIsValid =  mouse_subscribe_int(&mouseBitNum) == EXIT_SUCCESS;
 
 
-    if (mouse_enable_data_report(&stByte) != PS2_WRITE_CMD_ERR) {
+    if (mouse_enable_data_report(&stByte) != PS2_WRITE_CMD_ERR){
 
-        if (timerIrqSetIsValid && kbcIrqSetIsValid && mouseIrqSetIsValid) {
+        if (timerIrqSetIsValid && kbcIrqSetIsValid && mouseIrqSetIsValid){
 
             switch (game_state->curr_window){
                 case 0: {
-                    game_state->gui_fn = &gui_start_window;
+                    game_state->switch_window = &gui_start_window;
                     break;
                 }
                 case 1: {
-                    game_state->gui_fn = &gui_main_menu;
+                    game_state->switch_window = &gui_main_menu;
                     break;
                 }
                 case 2: {
-                    game_state->gui_fn = &gui_char_sel_window;
+                    game_state->switch_window = &gui_char_sel_window;
                     break;
                 }
                 case 3: {
                     break;
                 }
                 case 4: {
-                    game_state->gui_fn = &gui_game_window;
+                    game_state->switch_window = &gui_game_window;
                     break;
                 }
                 case 5: {
-                    game_state->gui_fn = &gui_in_game_menu;
+                    game_state->switch_window = &gui_in_game_menu;
                     break;
                 }
                 default: {
-                    game_state->gui_fn = &gui_start_window;
+                    game_state->switch_window = &gui_start_window;
                     break;
                 }
             }
-
-            game_state->gui_fn(game_assets, game_state);
 
             int request;
             int ipcStatus;
@@ -143,8 +171,31 @@ int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
                                     timerIntCounter = 0;
                                     frameCounter = 0;
 
-                                    // TODO game logic
+                                    // RENDER
+                                    game_state->switch_window(game_assets, game_state);
                                 }
+                            }
+
+
+                            // Mouse interrupt handling
+
+                            if (msg.m_notify.interrupts & mouseIrqSet){
+
+                                // Handles a new interrupt
+                                // Parses all the packet bytes into the
+                                // bytes array in the packet struct
+                                mouse_ih();
+                                mouse_parse_packet_byte();
+
+                                if (pktCounter == 3){
+                                    mouse_assemble_packet(&pkt);
+                                    mouse_print_packet(&pkt);
+
+                                    pktCounter = 0;
+                                    timerIntCounter = 0;
+                                    packetsGenerated++;
+                                }
+
                             }
                         }
                     }
@@ -154,6 +205,7 @@ int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
                 }
 
                 if (game_state->leave) break;
+
             }
 
             kbc_unsubscribe_int();
@@ -163,10 +215,12 @@ int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
             vg_exit();
         }
         else {
+            printf("INVALID_IRQ");
             vg_exit();
             return EXIT_FAILURE;
         }
     }
+    else printf("COULD NOT ENABLE MOUSE DATA REPORTING!");
 
     return EXIT_SUCCESS;
 

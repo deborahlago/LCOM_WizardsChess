@@ -1,5 +1,5 @@
-#ifndef LAB5_I8042_H
-#define LAB5_I8042_H
+#pragma once
+
 
 #include <lcom/lcf.h>
 
@@ -78,4 +78,3 @@
 #define KBC_CMD_BYTE_ENABLE_MOUSE_INTERRUPT      BIT(1)     /**< @brief Enable interrupts on the output buffer from the mouse  */
 #define KBC_CMD_BYTE_ENABLE_KBD_INTERRUPT        BIT(0)     /**< @brief Enable interrupts on the output buffer from the keyboard */
 
-#endif //LAB5_I8042_H

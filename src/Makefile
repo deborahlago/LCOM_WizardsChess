@@ -19,8 +19,9 @@ SRCS = $(wildcard *.c)
 
 # additional compilation flags
 # "-Wall -Wextra -Werror -I . -std=c11 -Wno-unused-parameter" are already set
-CPPFLAGS += -D PROJ
-CFLAGS += -pedantic
+#CPPFLAGS += -DPROJ
+#CFLAGS += -pedantic
+CPPFLAGS += -pedantic -D __LCOM_OPTIMIZED__
 
 # list of library dependencies (only LCF library)
 DPADD += ${LIBLCF}

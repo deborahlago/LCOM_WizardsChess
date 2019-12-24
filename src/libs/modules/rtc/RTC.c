@@ -12,7 +12,7 @@ uint8_t rtc_read_reg(uint32_t port){
     uint8_t data;
 
     sys_outb(RTC_ADDR_REG, port);
-    util_sys_inb(RTC_DATA_REG, data);
+    util_sys_inb(RTC_DATA_REG, &data);
 
     return data;
 }

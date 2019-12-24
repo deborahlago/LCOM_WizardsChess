@@ -1,6 +1,4 @@
-#ifndef LAB5_VBE_H
-#define LAB5_VBE_H
-
+#pragma once
 
 /** @defgroup VBE VBE
  * @{
@@ -64,4 +62,3 @@
 #define SET_LINEAR_FRAME_BUFFER     BIT(14)
 #define SET_VBE_MODE                BIT(15)
 
-#endif //LAB5_VBE_H

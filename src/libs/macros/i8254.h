@@ -1,5 +1,4 @@
-#ifndef LAB5_I8254_H_
-#define LAB5_I8254_H_
+#pragma once
 
 #include <lcom/lcf.h>
 
@@ -79,4 +78,3 @@
 
 /**@}*/
 
-#endif /* LAB5_I8254_H */

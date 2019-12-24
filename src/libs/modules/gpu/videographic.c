@@ -16,6 +16,7 @@ extern int kbcHookId;
 extern int timerHookId;
 extern uint64_t timerIntCounter;
 
+
 /* Functions */
 
 void *(vg_init)(uint16_t mode)
@@ -178,8 +179,7 @@ void(vg_exit_gfx_on_key_press)(uint8_t key_breakcode)
         vg_exit();
 }
 
-int(vg_draw_point)(uint16_t x, uint16_t y, uint32_t color)
-{
+int(vg_draw_point)(uint16_t x, uint16_t y, uint32_t color){
 
     uint8_t *ptrToVAddr = ptrToGpuVAddr;
 
@@ -190,10 +190,8 @@ int(vg_draw_point)(uint16_t x, uint16_t y, uint32_t color)
 
     ptrToVAddr += ((H_RES * y) + x) * pxBytes;
 
-    if (color != xpm_transparency_color(XPM_8_8_8))
-    {
-        for (unsigned int i = 0; i < pxBytes; i++)
-        {
+    if (color != xpm_transparency_color(XPM_8_8_8)){
+        for (unsigned int i = 0; i < pxBytes; i++){
             *ptrToVAddr = color >> (8 * i);
             ptrToVAddr++;
         }
@@ -202,11 +200,9 @@ int(vg_draw_point)(uint16_t x, uint16_t y, uint32_t color)
     return EXIT_SUCCESS;
 }
 
-int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color)
-{
+int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color){
 
-    for (int i = 0; i < len; i++)
-    {
+    for (int i = 0; i < len; i++){
         if (vg_draw_point(x + i, y, color) != EXIT_SUCCESS)
             return EXIT_FAILURE;
     }
@@ -214,11 +210,9 @@ int(vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color)
     return EXIT_SUCCESS;
 }
 
-int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color)
-{
+int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color){
 
-    for (int i = 0; i < height; i++)
-    {
+    for (int i = 0; i < height; i++){
         if (vg_draw_hline(x, y + i, width, color) != EXIT_SUCCESS)
             return EXIT_FAILURE;
     }
@@ -226,24 +220,22 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
     return EXIT_SUCCESS;
 }
 
-void(vg_reset_frame)()
-{
+void(vg_reset_frame)(){
 
     memset(ptrToGpuVAddr, 0, H_RES * V_RES * ceil(BITS_PER_PIXEL / 8.0));
 }
 
-int vg_load_sprites(GAME_ASSETS *game_assets, xpm_map_t *xpm_arr[], size_t arr_size, enum ASSET_TYPE asset_type)
+int vg_load_sprites(struct GAME_ASSETS *game_assets, xpm_map_t xpm_arr[], size_t arr_size, enum ASSET_TYPE asset_type)
 {
-
-    sprite game_sprite;
-
-    xpm_image_t img;
-    uint8_t *pixmap;
-
     for (size_t i = 0; i < arr_size; i++)
     {
 
-        pixmap = xpm_load(xpm, XPM_8_8_8, &img);
+        struct Sprite game_sprite;
+
+        xpm_image_t img;
+        uint8_t* pixmap;
+
+        pixmap = xpm_load(xpm_arr[i], XPM_8_8_8, &img);
 
         if (pixmap == NULL)
             return EXIT_FAILURE;
@@ -254,45 +246,44 @@ int vg_load_sprites(GAME_ASSETS *game_assets, xpm_map_t *xpm_arr[], size_t arr_s
 
         switch (asset_type)
         {
-        case BTN:
-        {
-            game_assets.buttons[i] = game_sprite;
-            break;
-        }
-        case BGS:
-        {
-            game_assets.backgrounds[i] = game_sprite;
-            break;
-        }
-        case BORDERS:
-        {
-            game_assets.borders[i] = game_sprite;
-            break;
-        }
-        case CHARS:
-        {
-            game_assets.characters[i] = game_sprite;
-            break;
-        }
-        case LOGOS:
-        {
-            game_assets.logos[i] = game_sprite;
-            break;
-        }
-        case NUMBERS:
-        {
-            game_assets.numbers[i] = game_sprite;
-            break;
-        }
-        case V_FX:
-        {
-            game_assets.visual_fx[i] = game_sprite;
-            break;
-        }
-        default:
-        {
-            break;
-        }
+            case BTNS:
+            {
+                game_assets->buttons[i] = game_sprite;
+                break;
+            }
+            case BGS:
+            {
+                game_assets->backgrounds[i] = game_sprite;
+                break;
+            }
+            case BORDERS:
+            {
+                game_assets->borders[i] = game_sprite;
+                break;
+            }
+            case CHARS:
+            {
+                game_assets->characters[i] = game_sprite;
+                break;
+            }
+            case LOGOS:
+            {
+                game_assets->logos[i] = game_sprite;
+                break;
+            }
+            case NUMBERS:
+            {
+                game_assets->numbers[i] = game_sprite;
+                break;
+            }
+            case V_FX:
+            {
+                game_assets->visual_fx[i] = game_sprite;
+                break;
+            }
+            default:
+                break;
+
         }
 
         free(pixmap);
@@ -334,7 +325,7 @@ int vg_render_xpm(xpm_map_t xpm, uint16_t x, uint16_t y)
     return EXIT_SUCCESS;
 }
 
-int vg_render_sprite(sprite sp, uint16_t x, uint16_t y)
+int vg_render_sprite(struct Sprite sp, uint16_t x, uint16_t y)
 {
 
     // uint8_t*() xpm_load(xpm_map_t map, enum xpm_image_type type, xpm_image_t *img)
@@ -357,8 +348,6 @@ int vg_render_sprite(sprite sp, uint16_t x, uint16_t y)
             }
         }
     }
-
-    free(pixmap);
 
     return EXIT_SUCCESS;
 }
@@ -390,7 +379,7 @@ int(vg_rm_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y)
     return EXIT_SUCCESS;
 }
 
-int(vg_rm_sprite)(sprite sp, uint16_t x, uint16_t y)
+int(vg_rm_sprite)(struct Sprite sp, uint16_t x, uint16_t y)
 {
 
     // uint8_t*() xpm_load(xpm_map_t map, enum xpm_image_type type, xpm_image_t *img)
@@ -407,8 +396,6 @@ int(vg_rm_sprite)(sprite sp, uint16_t x, uint16_t y)
             }
         }
     }
-
-    free(pixmap);
 
     return EXIT_SUCCESS;
 }
@@ -437,7 +424,7 @@ int(vg_keyframe_transition_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_
     if (timerIrqSetIsValid && kbcIrqSetIsValid)
     {
 
-        vg_render_sprite(xpm, x, y);
+        vg_render_xpm(xpm, x, y);
 
         int request;
         int ipcStatus;
@@ -497,21 +484,21 @@ int(vg_keyframe_transition_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_
 
                                     if (x < xf)
                                     {
-                                        vg_rm_sprite(xpm, x, y);
+                                        vg_rm_xpm(xpm, x, y);
 
                                         if (frameCounter == -speed)
                                             x++;
 
-                                        vg_render_sprite(xpm, x, y);
+                                        vg_render_xpm(xpm, x, y);
                                     }
 
                                     if (y < yf)
                                     {
-                                        vg_rm_sprite(xpm, x, y);
+                                        vg_rm_xpm(xpm, x, y);
 
                                         if (frameCounter == -speed)
                                             y++;
-                                        vg_render_sprite(xpm, x, y);
+                                        vg_render_xpm(xpm, x, y);
                                     }
                                 }
                                 else
@@ -520,34 +507,34 @@ int(vg_keyframe_transition_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_
                                     {
                                         if ((x - speed) > xf)
                                         {
-                                            vg_rm_sprite(xpm, x, y);
+                                            vg_rm_xpm(xpm, x, y);
 
                                             x -= speed;
-                                            vg_render_sprite(xpm, x, y);
+                                            vg_render_xpm(xpm, x, y);
                                         }
                                         else if ((x - speed) <= xf)
                                         {
-                                            vg_rm_sprite(xpm, x, y);
+                                            vg_rm_xpm(xpm, x, y);
 
                                             x = xf;
-                                            vg_render_sprite(xpm, x, y);
+                                            vg_render_xpm(xpm, x, y);
                                         }
                                     }
                                     else
                                     {
                                         if ((x + speed) < xf)
                                         {
-                                            vg_rm_sprite(xpm, x, y);
+                                            vg_rm_xpm(xpm, x, y);
 
                                             x += speed;
-                                            vg_render_sprite(xpm, x, y);
+                                            vg_render_xpm(xpm, x, y);
                                         }
                                         else if ((x + speed) >= xf)
                                         {
-                                            vg_rm_sprite(xpm, x, y);
+                                            vg_rm_xpm(xpm, x, y);
 
                                             x = xf;
-                                            vg_render_sprite(xpm, x, y);
+                                            vg_render_xpm(xpm, x, y);
                                         }
                                     }
 
@@ -555,34 +542,34 @@ int(vg_keyframe_transition_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_
                                     {
                                         if ((y - speed) < yf)
                                         {
-                                            vg_rm_sprite(xpm, x, y);
+                                            vg_rm_xpm(xpm, x, y);
 
                                             y -= speed;
-                                            vg_render_sprite(xpm, x, y);
+                                            vg_render_xpm(xpm, x, y);
                                         }
                                         else if ((y - speed) <= yf)
                                         {
-                                            vg_rm_sprite(xpm, x, y);
+                                            vg_rm_xpm(xpm, x, y);
 
                                             y = yf;
-                                            vg_render_sprite(xpm, x, y);
+                                            vg_render_xpm(xpm, x, y);
                                         }
                                     }
                                     else
                                     {
                                         if ((y + speed) > yf)
                                         {
-                                            vg_rm_sprite(xpm, x, y);
+                                            vg_rm_xpm(xpm, x, y);
 
                                             y += speed;
-                                            vg_render_sprite(xpm, x, y);
+                                            vg_render_xpm(xpm, x, y);
                                         }
                                         else if ((y + speed) >= yf)
                                         {
-                                            vg_rm_sprite(xpm, x, y);
+                                            vg_rm_xpm(xpm, x, y);
 
                                             y = yf;
-                                            vg_render_sprite(xpm, x, y);
+                                            vg_render_xpm(xpm, x, y);
                                         }
                                     }
                                 }
@@ -613,7 +600,7 @@ int(vg_keyframe_transition_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_
     return EXIT_SUCCESS;
 }
 
-int(vg_keyframe_transition)(sprite sp, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate)
+int(vg_keyframe_transition)(struct Sprite sp, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate)
 {
 
     uint32_t totalFrames = sys_hz() / fr_rate;

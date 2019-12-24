@@ -67,27 +67,29 @@
 #include "../../assets/numbers/9_nine.h"
 #include "../../assets/numbers/colon.h"
 
+
 /* CONSTANTS */
 
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
 
 #define GAME_ASSETS_ARR_SIZE 8
 
+
 /* XPM ARRAYS */
 
-xpm_map_t xpm_bgs[5] = {start_BG, mainMenu_BG, selectPlayer_BG, board_BG, inGameMenu_BG};
-xpm_map_t xpm_borders[2] = {left_player_board_button, right_player_board_button};
-xpm_map_t xpm_btns[9] = {title, start_button, singleplayer_button, multiplayer_button, exit_button, changeGameMode_button, endGame_button, inGameMenu_button, reStartGame_button};
-xpm_map_t xpm_characters[8] = {godric_gif_img, godric_button, helga_gif_img, helga_button, rowena_gif_img, rowena_button, salazar_gif_img, salazar_button};
-xpm_map_t xpm_logos[4] = {gryffindor_logo, hufflepuff_logo, ravenclaw_logo, slytherin_logo};
-xpm_map_t xpm_pieces[12] = {whitePawn, whiteBishop, whiteHorse, whiteTower, whiteQueen, whiteKing, blackPawn, blackBishop, blackHorse, blackTower, blackQueen, blackKing};
-xpm_map_t xpm_visual_fx[2] = {selectedMenu_visualFx, selectInGameMenu_visualFx};
-xpm_map_t xpm_numbers[11] = {zero_xpm, one_xpm, two_xpm, three_xpm, four_xpm, five_xpm, six_xpm, seven_xpm, eight_xpm, nine_xpm, colon_xpm};
+extern xpm_map_t xpm_bgs[5];
+extern xpm_map_t xpm_borders[2];
+extern xpm_map_t xpm_btns[9];
+extern xpm_map_t xpm_characters[8];
+extern xpm_map_t xpm_logos[4];
+extern xpm_map_t xpm_pieces[12];
+extern xpm_map_t xpm_visual_fx[2];
+extern xpm_map_t xpm_numbers[11];
+
 
 /* STRUCTURES */
 
-enum ASSET_TYPE
-{
+enum ASSET_TYPE {
     BTNS,
     BGS,
     PIECES,
@@ -106,51 +108,57 @@ enum GAME_HOUSES
     SLYTHERIN
 };
 
-struct sprite {
+struct Sprite {
     uint8_t *pixmap;
     int width;
     int height;
 };
 
-struct GAME_ASSETS
-{
-    struct sprite buttons[9];
-    struct sprite backgrounds[5];
-    struct sprite pieces[12];
-    struct sprite borders[2];
-    struct sprite characters[8];
-    struct sprite logos[4];
-    struct sprite visual_fx[2];
-    struct sprite numbers[11];
+struct GAME_ASSETS {
+    struct Sprite buttons[9];
+    struct Sprite backgrounds[5];
+    struct Sprite pieces[12];
+    struct Sprite borders[2];
+    struct Sprite characters[8];
+    struct Sprite logos[4];
+    struct Sprite visual_fx[2];
+    struct Sprite numbers[11];
 };
 
 struct GAME_STATE {
 
     _Bool leave;
 
-    uint8_t pressed_key;
-
-    uint8_t pressable_pos[2];
-    uint8_t clicked_pos[2];
-
-    rtc_time_t curr_time;
-
+    // Mouse clicks and deltas
     _Bool left_click;
     _Bool right_click;
 
-    uint8_t mouse_x_pos;
-    uint8_t mouse_y_pos;
+    uint16_t mouse_x_pos;
+    uint16_t mouse_y_pos;
 
+    // Current time, window and options
+    rtc_time_t curr_time;
     uint8_t curr_window;
-    int (*gui_fn)(struct GAME_ASSETS*, struct GAME_STATE*);
 
+    uint8_t pressed_key;
+    uint8_t pressable_pos[2];
+
+    uint8_t clicked_pos[2];
+
+    // Player characters
     enum GAME_HOUSES p1_house;
     enum GAME_HOUSES p2_house;
 
-    uint8_t white_pieces_x_pos[16];
-    uint8_t white_pieces_y_pos[16];
+    // Board pieces
+    uint16_t white_pieces_x_pos[16];
+    uint16_t white_pieces_y_pos[16];
 
-    uint8_t black_pieces_x_pos[16];
-    uint8_t black_pieces_y_pos[16];
+    uint16_t black_pieces_x_pos[16];
+    uint16_t black_pieces_y_pos[16];
+
+    // Game functions to execute
+    int (*switch_window)(struct GAME_ASSETS*, struct GAME_STATE*);
+    int (*capture_animation)(struct GAME_ASSETS*, struct GAME_STATE*);
 
 };
+

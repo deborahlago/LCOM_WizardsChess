@@ -1,5 +1,4 @@
-#ifndef LAB4_PS2_H
-#define LAB4_PS2_H
+#pragma once
 
 #include <lcom/lcf.h>
 
@@ -50,4 +49,3 @@
 #define PS2_PKT_XOVF       BIT(6)    /**< @brief TODO */
 #define PS2_PKT_YOVF       BIT(7)    /**< @brief TODO */
 
-#endif //LAB4_PS2_H
