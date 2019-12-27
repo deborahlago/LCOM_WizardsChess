@@ -18,7 +18,7 @@ int gui_start_window(game_assets_t* game_assets, game_state_t* game_state){
     // vg_render_sprite(game_assets->start_btn, 883, 870);    // start button
 
     // MOUSE
-    vg_rm_sprite(game_assets->mouse_cursor, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
+    vg_render_sprite(game_assets->transparent, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
     vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
 
     return EXIT_SUCCESS;
@@ -40,7 +40,7 @@ int gui_main_menu(game_assets_t* game_assets, game_state_t* game_state){
     vg_render_sprite(game_assets->exit_btn, 907, 644);            // exit button
 
     // MOUSE
-    vg_rm_sprite(game_assets->mouse_cursor, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
+    vg_render_sprite(game_assets->transparent, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
     vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
 
     return EXIT_SUCCESS;
@@ -62,7 +62,7 @@ int gui_in_game_menu(game_assets_t* game_assets, game_state_t* game_state){
     vg_render_sprite(game_assets->end_game_btn, 490, 628);            // end game button
 
     // MOUSE
-    vg_rm_sprite(game_assets->mouse_cursor, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
+    vg_render_sprite(game_assets->transparent, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
     vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
 
     return EXIT_SUCCESS;
@@ -174,7 +174,7 @@ int gui_game_window(game_assets_t* game_assets, game_state_t* game_state){
     vg_render_sprite(game_assets->b_king, game_state->black_pieces_x_pos[15], game_state->black_pieces_y_pos[15]);      // king
 
     // MOUSE
-    vg_rm_sprite(game_assets->mouse_cursor, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
+    vg_render_sprite(game_assets->transparent, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
     vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
 
     return EXIT_SUCCESS;
@@ -219,7 +219,7 @@ int gui_char_sel_window(game_assets_t* game_assets, game_state_t* game_state){
     vg_render_sprite(game_assets->salazar_title, 753, 143);     // character name
 
     // MOUSE
-    vg_rm_sprite(game_assets->mouse_cursor, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
+    vg_render_sprite(game_assets->transparent, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
     vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
 
     return EXIT_SUCCESS;

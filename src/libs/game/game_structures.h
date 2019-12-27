@@ -52,10 +52,6 @@
 #include "../../assets/pieces/black/BlackQueen.h"
 #include "../../assets/pieces/black/BlackKing.h"
 
-#include "../../assets/visual_fx/SelectedMenu.h"
-#include "../../assets/visual_fx/SelectInGameMenu.h"
-#include "../../assets/visual_fx/cursor_normal.h"
-
 #include "../../assets/numbers/0_zero.h"
 #include "../../assets/numbers/1_one.h"
 #include "../../assets/numbers/2_two.h"
@@ -67,6 +63,11 @@
 #include "../../assets/numbers/8_eight.h"
 #include "../../assets/numbers/9_nine.h"
 #include "../../assets/numbers/colon.h"
+
+#include "../../assets/visual_fx/SelectedMenu.h"
+#include "../../assets/visual_fx/SelectInGameMenu.h"
+#include "../../assets/visual_fx/cursor_normal.h"
+#include "../../assets/visual_fx/transparent.h"
 
 
 /* CONSTANTS */
@@ -209,6 +210,7 @@ typedef struct {
 
     /* Visual_FX */
 
+    sprite_t transparent;
     sprite_t hover_main_menu;
     sprite_t hover_in_game_menu;
 

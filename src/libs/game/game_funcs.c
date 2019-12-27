@@ -112,6 +112,7 @@ int game_load_assets(game_assets_t* game_assets){
 
     /* Visual FXs */
 
+    game_assets->transparent = vg_load_sprite(transp);
     game_assets->hover_main_menu = vg_load_sprite(selectedMenu_visualFx);
     game_assets->hover_in_game_menu = vg_load_sprite(selectInGameMenu_visualFx);
 
