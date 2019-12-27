@@ -68,20 +68,18 @@ void (mouse_ih)(){
 }
 
 
-int (mouse_write_cmd)(uint8_t arg, uint8_t *st_byte){
+int (mouse_write_cmd)(uint8_t arg, uint8_t* st_byte){
 
     // Allows for command to be passed and written to the PS/2 controller
     if (kbc_write_cmd(KBC_CMD_WRITE_BYTE, st_byte) == EXIT_SUCCESS){
 
         if (arg == PS2_CMD_READ_DATA){
 
-            if (kbc_parse_inst(KBC_OUT_BUF, arg, st_byte) == EXIT_SUCCESS){
+            if (kbc_parse_inst(KBC_OUT_BUF, PS2_CMD_READ_DATA, st_byte) == EXIT_SUCCESS){
 
                 uint8_t value;
-                _Bool isAcknowlegmentByte;
-
                 if (kbc_read_out_buf(&value) == EXIT_SUCCESS){
-                    isAcknowlegmentByte = (value == PS2_ACKOWLEDGED || value == PS2_NOT_ACKOWLEDGED || value == PS2_ACKNOWLEDGMENT_ERROR);
+                    _Bool isAcknowlegmentByte = (value == PS2_ACKOWLEDGED || value == PS2_NOT_ACKOWLEDGED || value == PS2_ACKNOWLEDGMENT_ERROR);
 
                     if (isAcknowlegmentByte)
                         return (int)value;

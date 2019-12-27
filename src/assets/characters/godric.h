@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const godric_button[] = {
 "172 163 36 1",

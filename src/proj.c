@@ -40,17 +40,26 @@ int (proj_main_loop)(int argc, char *argv[]) {
 
 
     /* Load Assets */
-    struct GAME_ASSETS assets;
+    game_assets_t assets;
 
-    if (game_load_assets(&assets) != EXIT_SUCCESS)
-        return EXIT_FAILURE;
+    while (true){
+
+        printf("\nLoading...\n");
+
+        if (game_load_assets(&assets) != EXIT_SUCCESS)
+            return EXIT_FAILURE;
+        else {
+            printf("\nAll assets loaded successfully!\n");
+            break;
+        }
+    }
 
 
     /* Game Start */
-    struct GAME_STATE game;
+    game_state_t game;
 
     game.leave = false;
-    game.curr_window = 0;
+    game.curr_state = START_WINDOW;
 
     uint16_t white_pieces_x[16] = {347, 422, 496, 570, 644, 718, 792, 865, 496, 718, 422, 792, 347, 865, 570, 644};
     uint16_t white_pieces_y[16] = {661, 661, 661, 661, 661, 661, 661, 661, 734, 734, 734, 734, 734, 734, 734, 734};
@@ -64,10 +73,9 @@ int (proj_main_loop)(int argc, char *argv[]) {
         game.black_pieces_y_pos[i] = black_pieces_y[i];
     }
 
-    game.mouse_x_pos = 883;
-    game.mouse_y_pos = 870;
+    game.mouse_x_pos = 500;
+    game.mouse_y_pos = 500;
 
-    
     if (game_run(&assets, &game) != EXIT_SUCCESS)
         return EXIT_FAILURE;
 

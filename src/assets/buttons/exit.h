@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const exit_button[] = {
 "108 40 2 1",

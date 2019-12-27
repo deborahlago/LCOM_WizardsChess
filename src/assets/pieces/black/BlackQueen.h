@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const blackQueen[] = {
 "71 71 65 1",

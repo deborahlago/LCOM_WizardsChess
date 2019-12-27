@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const selectInGameMenu_visualFx[] = {
 "550 40 12 1",

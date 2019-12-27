@@ -1,6 +1,5 @@
 #include "game_funcs.h"
 
-
 /* Globals */
 
 // KBC
@@ -19,52 +18,288 @@ extern int pktCounter;
 extern struct packet pkt;
 extern _Bool gestureComplete;
 
-// XPM ARRAYS
-xpm_map_t xpm_bgs[5] = {start_BG, mainMenu_BG, selectPlayer_BG, board_BG, inGameMenu_BG};
-xpm_map_t xpm_borders[2] = {left_player_board_button, right_player_board_button};
-xpm_map_t xpm_btns[9] = {title, start_button, singleplayer_button, multiplayer_button, exit_button, changeGameMode_button, endGame_button, inGameMenu_button, reStartGame_button};
-xpm_map_t xpm_characters[8] = {godric_gif_img, godric_button, helga_gif_img, helga_button, rowena_gif_img, rowena_button, salazar_gif_img, salazar_button};
-xpm_map_t xpm_logos[4] = {gryffindor_logo, hufflepuff_logo, ravenclaw_logo, slytherin_logo};
-xpm_map_t xpm_pieces[12] = {whitePawn, whiteBishop, whiteHorse, whiteTower, whiteQueen, whiteKing, blackPawn, blackBishop, blackHorse, blackTower, blackQueen, blackKing};
-xpm_map_t xpm_visual_fx[2] = {selectedMenu_visualFx, selectInGameMenu_visualFx};
-xpm_map_t xpm_numbers[11] = {zero_xpm, one_xpm, two_xpm, three_xpm, four_xpm, five_xpm, six_xpm, seven_xpm, eight_xpm, nine_xpm, colon_xpm};
-
 
 /* Functions */
 
-int game_load_assets(struct GAME_ASSETS* game_assets){
+int game_load_assets(game_assets_t* game_assets){
 
-    if (vg_load_sprites(game_assets, xpm_btns, ARRAY_SIZE(xpm_btns), BTNS) != EXIT_SUCCESS)
-        return EXIT_FAILURE;
+    /* Mouse */
 
-    if (vg_load_sprites(game_assets, xpm_bgs, ARRAY_SIZE(xpm_bgs), BGS) != EXIT_SUCCESS)
-        return EXIT_FAILURE;
+    game_assets->mouse_cursor = vg_load_sprite(cursor_normal);
 
-    if (vg_load_sprites(game_assets, xpm_pieces, ARRAY_SIZE(xpm_pieces), PIECES) != EXIT_SUCCESS)
-        return EXIT_FAILURE;
+    /* Backgrounds */
 
-    if (vg_load_sprites(game_assets, xpm_borders, ARRAY_SIZE(xpm_borders), BORDERS) != EXIT_SUCCESS)
-        return EXIT_FAILURE;
+    game_assets->start_bg = vg_load_sprite(start_BG);
+    game_assets->main_menu_bg = vg_load_sprite(mainMenu_BG);
+    game_assets->player_sel_bg = vg_load_sprite(selectPlayer_BG);
+    game_assets->board_bg = vg_load_sprite(board_BG);
+    game_assets->in_game_menu_bg = vg_load_sprite(inGameMenu_BG);
 
-    if (vg_load_sprites(game_assets, xpm_characters, ARRAY_SIZE(xpm_characters), CHARS) != EXIT_SUCCESS)
-        return EXIT_FAILURE;
 
-    if (vg_load_sprites(game_assets, xpm_logos, ARRAY_SIZE(xpm_logos), LOGOS) != EXIT_SUCCESS)
-        return EXIT_FAILURE;
+    /* Buttons */
 
-    if (vg_load_sprites(game_assets, xpm_numbers, ARRAY_SIZE(xpm_numbers), NUMBERS) != EXIT_SUCCESS)
-        return EXIT_FAILURE;
+    game_assets->title = vg_load_sprite(title);
+    game_assets->start_btn = vg_load_sprite(start_button);
+    game_assets->singleplayer_btn = vg_load_sprite(singleplayer_button);
+    game_assets->multiplayer_btn = vg_load_sprite(multiplayer_button);
+    game_assets->exit_btn = vg_load_sprite(exit_button);
+    game_assets->change_game_mode_btn = vg_load_sprite(changeGameMode_button);
+    game_assets->end_game_btn = vg_load_sprite(endGame_button);
+    game_assets->in_game_menu_btn = vg_load_sprite(inGameMenu_button);
+    game_assets->restart_game_btn = vg_load_sprite(reStartGame_button);
 
-    if (vg_load_sprites(game_assets, xpm_visual_fx, ARRAY_SIZE(xpm_visual_fx), V_FX) != EXIT_SUCCESS)
-        return EXIT_FAILURE;
+
+    /* Borders */
+
+    game_assets->left_p_border = vg_load_sprite(left_player_board_button);
+    game_assets->right_p_border = vg_load_sprite(right_player_board_button);
+
+
+    /* Logos */
+
+    game_assets->gryff_logo = vg_load_sprite(gryffindor_logo);
+    game_assets->huffle_logo = vg_load_sprite(hufflepuff_logo);
+    game_assets->raven_logo = vg_load_sprite(ravenclaw_logo);
+    game_assets->slyth_logo = vg_load_sprite(slytherin_logo);
+
+
+    /* Characters */
+
+    game_assets->godric_img = vg_load_sprite(godric_gif_img);
+    game_assets->godric_title = vg_load_sprite(godric_button);
+
+    game_assets->helga_img = vg_load_sprite(helga_gif_img);
+    game_assets->helga_title = vg_load_sprite(helga_button);
+
+    game_assets->rowena_img = vg_load_sprite(rowena_gif_img);
+    game_assets->rowena_title = vg_load_sprite(rowena_button);
+
+    game_assets->salazar_img = vg_load_sprite(salazar_gif_img);
+    game_assets->salazar_title = vg_load_sprite(salazar_button);
+
+
+    /* Pieces */
+
+    game_assets->w_pawn = vg_load_sprite(whitePawn);
+    game_assets->w_bishop = vg_load_sprite(whiteBishop);
+    game_assets->w_knight = vg_load_sprite(whiteHorse);
+    game_assets->w_rook = vg_load_sprite(whiteTower);
+    game_assets->w_queen = vg_load_sprite(whiteQueen);
+    game_assets->w_knight = vg_load_sprite(whiteKing);
+
+    game_assets->b_pawn = vg_load_sprite(blackPawn);
+    game_assets->b_bishop = vg_load_sprite(blackBishop);
+    game_assets->b_knight = vg_load_sprite(blackHorse);
+    game_assets->b_rook = vg_load_sprite(blackTower);
+    game_assets->b_queen = vg_load_sprite(blackQueen);
+    game_assets->b_king = vg_load_sprite(blackKing);
+
+
+    /* Numbers */
+
+    game_assets->zero_num = vg_load_sprite(zero_xpm);
+    game_assets->one_num = vg_load_sprite(one_xpm);
+    game_assets->two_num = vg_load_sprite(two_xpm);
+    game_assets->three_num = vg_load_sprite(three_xpm);
+    game_assets->four_num = vg_load_sprite(four_xpm);
+    game_assets->five_num = vg_load_sprite(five_xpm);
+    game_assets->six_num = vg_load_sprite(six_xpm);
+    game_assets->seven_num = vg_load_sprite(seven_xpm);
+    game_assets->eight_num = vg_load_sprite(eight_xpm);
+    game_assets->nine_num = vg_load_sprite(nine_xpm);
+    game_assets->colon_num = vg_load_sprite(colon_xpm);
+
+
+    /* Visual FXs */
+
+    game_assets->hover_main_menu = vg_load_sprite(selectedMenu_visualFx);
+    game_assets->hover_in_game_menu = vg_load_sprite(selectInGameMenu_visualFx);
 
     return EXIT_SUCCESS;
 }
 
+void game_update_cursor(game_state_t* game_state){
 
-/* GAME LOOP */
+    game_state->mouse_y_pos -= pkt.delta_y * 0.4;
 
-int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
+    // Update X pos
+    if (game_state->mouse_x_pos + (pkt.delta_x*0.4) > 1280)
+        game_state->mouse_x_pos = 1270;
+    else if (game_state->mouse_x_pos + (pkt.delta_x*0.4) < 0)
+        game_state->mouse_x_pos = 10;
+    else
+        game_state->mouse_x_pos += pkt.delta_x * 0.4;
+
+
+    // Update Y pos
+    if (game_state->mouse_y_pos - (pkt.delta_y*0.4) > 1014)
+        game_state->mouse_y_pos = 1014;
+    else if (game_state->mouse_y_pos - pkt.delta_y < 0)
+        game_state->mouse_y_pos = 10;
+    else
+        game_state->mouse_y_pos -= (pkt.delta_y*0.4);
+}
+
+void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
+
+    switch (game_state->curr_state){
+        case START_WINDOW: {
+            // game_state->update_window = &gui_start_window;
+
+            switch (game_state->curr_event){
+                case TIMER: {
+                    gui_start_window(game_assets, game_state);
+                    break;
+                }
+                case MOUSE: {
+                    game_update_cursor(game_state);
+                    printf("%d\n", game_state->mouse_x_pos);
+                    printf("\n");
+                    printf("%d\n", game_state->mouse_y_pos);
+                    break;
+                }
+                case KEYBOARD: {
+                    break;
+                }
+                case RTC: {
+                    break;
+                }
+                default : {
+
+                }
+            }
+
+            break;
+        }
+        case MAIN_MENU: {
+            // game_state->update_window = &gui_main_menu;
+
+            switch (game_state->curr_event){
+                case TIMER: {
+                    gui_main_menu(game_assets, game_state);
+                    break;
+                }
+                case MOUSE: {
+                    break;
+                }
+                case KEYBOARD: {
+                    break;
+                }
+                case RTC: {
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+
+            break;
+        }
+        case CHAR_SELECT: {
+            // game_state->update_window = &gui_char_sel_window;
+
+            switch (game_state->curr_event) {
+                case TIMER: {
+                    gui_char_sel_window(game_assets, game_state);
+                    break;
+                }
+                case MOUSE: {
+                    break;
+                }
+                case KEYBOARD: {
+                    break;
+                }
+                case RTC: {
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+
+            break;
+        }
+        case GAME_MODE_SELECT: {
+            break;
+        }
+        case PLAY_GAME: {
+            // game_state->update_window = &gui_game_window;
+
+            switch (game_state->curr_event) {
+                case TIMER: {
+                    gui_game_window(game_assets, game_state);
+                    break;
+                }
+                case MOUSE: {
+                    break;
+                }
+                case KEYBOARD: {
+                    break;
+                }
+                case RTC: {
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+
+            break;
+        }
+        case IN_GAME_MENU: {
+            // game_state->update_window = &gui_in_game_menu;
+
+            switch (game_state->curr_event) {
+                case TIMER: {
+                    gui_in_game_menu(game_assets, game_state);
+                    break;
+                }
+                case MOUSE: {
+                    break;
+                }
+                case KEYBOARD: {
+                    break;
+                }
+                case RTC: {
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+
+            break;
+        }
+        default: {
+            // game_state->update_window = &gui_start_window;
+
+            switch (game_state->curr_event) {
+                case TIMER: {
+                    gui_start_window(game_assets, game_state);
+                    break;
+                }
+                case MOUSE: {
+                    break;
+                }
+                case KEYBOARD: {
+                    break;
+                }
+                case RTC: {
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+
+            break;
+        }
+    }
+}
+
+int game_run(game_assets_t* game_assets, game_state_t* game_state){
+
+    vg_init(VBE_MODE_11BH);
 
     uint8_t stByte;
 
@@ -95,36 +330,6 @@ int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
 
         if (timerIrqSetIsValid && kbcIrqSetIsValid && mouseIrqSetIsValid){
 
-            switch (game_state->curr_window){
-                case 0: {
-                    game_state->switch_window = &gui_start_window;
-                    break;
-                }
-                case 1: {
-                    game_state->switch_window = &gui_main_menu;
-                    break;
-                }
-                case 2: {
-                    game_state->switch_window = &gui_char_sel_window;
-                    break;
-                }
-                case 3: {
-                    break;
-                }
-                case 4: {
-                    game_state->switch_window = &gui_game_window;
-                    break;
-                }
-                case 5: {
-                    game_state->switch_window = &gui_in_game_menu;
-                    break;
-                }
-                default: {
-                    game_state->switch_window = &gui_start_window;
-                    break;
-                }
-            }
-
             int request;
             int ipcStatus;
             message msg;
@@ -135,7 +340,7 @@ int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
             _Bool scancodeHasTwoBytes = false;
 
             // Interrupt loop
-            while (true) {
+            while (scancodeArr[0] != KBC_ESC_KEY_BREAKCODE) {
 
                 request = driver_receive(ANY, &msg, &ipcStatus);
                 if (request == EXIT_SUCCESS) {
@@ -152,11 +357,18 @@ int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
                                     scancodeArr[1] = scancode;
                                     scancodeHasTwoBytes = true;
                                     continue;
-                                } else scancodeArr[0] = scancode;
+                                }
+                                else scancodeArr[0] = scancode;
 
-                                if (scancodeHasTwoBytes) scancodeHasTwoBytes = false;
+                                if (scancodeHasTwoBytes){
+                                    kbd_print_scancode(kbc_is_make_code(scancodeArr[1]), 2, scancodeArr);
+                                    scancodeHasTwoBytes = false;
+                                }
+                                else kbd_print_scancode(kbc_is_make_code(scancodeArr[0]), 1, scancodeArr);
 
-                                // TODO implement keyboard input logic
+                                game_state->curr_event = KEYBOARD;
+                                game_update_state(game_assets, game_state);
+
                             }
 
 
@@ -172,7 +384,8 @@ int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
                                     frameCounter = 0;
 
                                     // RENDER
-                                    game_state->switch_window(game_assets, game_state);
+                                    game_state->curr_event = TIMER;
+                                    game_update_state(game_assets, game_state);
                                 }
                             }
 
@@ -188,18 +401,22 @@ int game_run(struct GAME_ASSETS* game_assets, struct GAME_STATE* game_state){
                                 mouse_parse_packet_byte();
 
                                 if (pktCounter == 3){
-                                    mouse_assemble_packet(&pkt);
-                                    mouse_print_packet(&pkt);
+                                    mouse_assemble_packet();
+                                    // mouse_print_packet(&pkt);
 
                                     pktCounter = 0;
                                     timerIntCounter = 0;
                                     packetsGenerated++;
                                 }
 
+                                game_state->curr_event = MOUSE;
+                                game_update_state(game_assets, game_state);
+
                             }
                         }
                     }
-                } else {
+                }
+                else {
                     printf("driver_receive failed with: %d", request);
                     continue;
                 }

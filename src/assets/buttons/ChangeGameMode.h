@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const changeGameMode_button[] = {
 "546 79 2 1",

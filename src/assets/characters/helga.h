@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const helga_button[] = {
 "172 163 28 1",

@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const four_xpm[] = {
 "40 83 4 1",

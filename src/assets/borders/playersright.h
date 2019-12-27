@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const right_player_board_button[] = {
 "221 433 3638 2",

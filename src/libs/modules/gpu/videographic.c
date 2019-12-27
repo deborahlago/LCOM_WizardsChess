@@ -225,71 +225,20 @@ void(vg_reset_frame)(){
     memset(ptrToGpuVAddr, 0, H_RES * V_RES * ceil(BITS_PER_PIXEL / 8.0));
 }
 
-int vg_load_sprites(struct GAME_ASSETS *game_assets, xpm_map_t xpm_arr[], size_t arr_size, enum ASSET_TYPE asset_type)
-{
-    for (size_t i = 0; i < arr_size; i++)
-    {
+sprite_t vg_load_sprite(xpm_map_t xpm){
 
-        struct Sprite game_sprite;
+    sprite_t newSprite;
 
-        xpm_image_t img;
-        uint8_t* pixmap;
+    xpm_image_t img;
+    uint8_t* pixmap;
 
-        pixmap = xpm_load(xpm_arr[i], XPM_8_8_8, &img);
+    pixmap = xpm_load(xpm, XPM_8_8_8, &img);
 
-        if (pixmap == NULL)
-            return EXIT_FAILURE;
+    newSprite.width = img.width;
+    newSprite.height = img.height;
+    newSprite.pixmap = pixmap;
 
-        game_sprite.width = img.width;
-        game_sprite.height = img.height;
-        game_sprite.pixmap = pixmap;
-
-        switch (asset_type)
-        {
-            case BTNS:
-            {
-                game_assets->buttons[i] = game_sprite;
-                break;
-            }
-            case BGS:
-            {
-                game_assets->backgrounds[i] = game_sprite;
-                break;
-            }
-            case BORDERS:
-            {
-                game_assets->borders[i] = game_sprite;
-                break;
-            }
-            case CHARS:
-            {
-                game_assets->characters[i] = game_sprite;
-                break;
-            }
-            case LOGOS:
-            {
-                game_assets->logos[i] = game_sprite;
-                break;
-            }
-            case NUMBERS:
-            {
-                game_assets->numbers[i] = game_sprite;
-                break;
-            }
-            case V_FX:
-            {
-                game_assets->visual_fx[i] = game_sprite;
-                break;
-            }
-            default:
-                break;
-
-        }
-
-        free(pixmap);
-    }
-
-    return EXIT_SUCCESS;
+    return newSprite;
 }
 
 int vg_render_xpm(xpm_map_t xpm, uint16_t x, uint16_t y)
@@ -299,7 +248,7 @@ int vg_render_xpm(xpm_map_t xpm, uint16_t x, uint16_t y)
     // type can be XPM_1_5_5_5, XPM_5_6_5, XPM_8_8_8 or XPM_8_8_8_8
 
     xpm_image_t img;
-    uint8_t *pixmap;
+    uint8_t* pixmap;
     pixmap = xpm_load(xpm, XPM_8_8_8, &img);
 
     for (int i = 0; i < img.height; i++)
@@ -325,7 +274,7 @@ int vg_render_xpm(xpm_map_t xpm, uint16_t x, uint16_t y)
     return EXIT_SUCCESS;
 }
 
-int vg_render_sprite(struct Sprite sp, uint16_t x, uint16_t y)
+int vg_render_sprite(sprite_t sp, uint16_t x, uint16_t y)
 {
 
     // uint8_t*() xpm_load(xpm_map_t map, enum xpm_image_type type, xpm_image_t *img)
@@ -379,7 +328,7 @@ int(vg_rm_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y)
     return EXIT_SUCCESS;
 }
 
-int(vg_rm_sprite)(struct Sprite sp, uint16_t x, uint16_t y)
+int(vg_rm_sprite)(sprite_t sp, uint16_t x, uint16_t y)
 {
 
     // uint8_t*() xpm_load(xpm_map_t map, enum xpm_image_type type, xpm_image_t *img)
@@ -600,7 +549,7 @@ int(vg_keyframe_transition_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_
     return EXIT_SUCCESS;
 }
 
-int(vg_keyframe_transition)(struct Sprite sp, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate)
+int(vg_keyframe_transition)(sprite_t sp, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate)
 {
 
     uint32_t totalFrames = sys_hz() / fr_rate;

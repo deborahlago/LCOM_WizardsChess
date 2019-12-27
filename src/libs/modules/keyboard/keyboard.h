@@ -25,9 +25,7 @@
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-#ifdef WIZARDSCHESS
 int (kbc_sys_inb)(int port, uint8_t *value);
-#endif
 
 
 /**

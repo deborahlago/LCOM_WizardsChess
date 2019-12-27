@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const godric_gif_img[] = {
 "320 450 65 1",

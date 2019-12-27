@@ -54,6 +54,7 @@
 
 #include "../../assets/visual_fx/SelectedMenu.h"
 #include "../../assets/visual_fx/SelectInGameMenu.h"
+#include "../../assets/visual_fx/cursor_normal.h"
 
 #include "../../assets/numbers/0_zero.h"
 #include "../../assets/numbers/1_one.h"
@@ -75,18 +76,6 @@
 #define GAME_ASSETS_ARR_SIZE 8
 
 
-/* XPM ARRAYS */
-
-extern xpm_map_t xpm_bgs[5];
-extern xpm_map_t xpm_borders[2];
-extern xpm_map_t xpm_btns[9];
-extern xpm_map_t xpm_characters[8];
-extern xpm_map_t xpm_logos[4];
-extern xpm_map_t xpm_pieces[12];
-extern xpm_map_t xpm_visual_fx[2];
-extern xpm_map_t xpm_numbers[11];
-
-
 /* STRUCTURES */
 
 enum ASSET_TYPE {
@@ -100,32 +89,132 @@ enum ASSET_TYPE {
     V_FX
 };
 
-enum GAME_HOUSES
-{
+enum GAME_HOUSES {
     GRYFFINDOR,
     HUFFLEPUFF,
     RAVENCLAW,
     SLYTHERIN
 };
 
-struct Sprite {
-    uint8_t *pixmap;
+enum GAME_STATE {
+    START_WINDOW,
+    MAIN_MENU,
+    CHAR_SELECT,
+    GAME_MODE_SELECT,
+    PLAY_GAME,
+    IN_GAME_MENU
+};
+
+enum GAME_EVENT {
+    TIMER,
+    KEYBOARD,
+    MOUSE,
+    RTC
+};
+
+typedef struct {
+    uint8_t* pixmap;
     int width;
     int height;
-};
+} sprite_t;
 
-struct GAME_ASSETS {
-    struct Sprite buttons[9];
-    struct Sprite backgrounds[5];
-    struct Sprite pieces[12];
-    struct Sprite borders[2];
-    struct Sprite characters[8];
-    struct Sprite logos[4];
-    struct Sprite visual_fx[2];
-    struct Sprite numbers[11];
-};
+typedef struct {
 
-struct GAME_STATE {
+    /* Mouse */
+
+    sprite_t mouse_cursor;
+
+    /* Backgrounds */
+
+    sprite_t start_bg;
+    sprite_t main_menu_bg;
+    sprite_t player_sel_bg;
+    sprite_t board_bg;
+    sprite_t in_game_menu_bg;
+
+
+    /* Buttons */
+
+    sprite_t title;
+    sprite_t start_btn;
+    sprite_t singleplayer_btn;
+    sprite_t multiplayer_btn;
+    sprite_t exit_btn;
+    sprite_t change_game_mode_btn;
+    sprite_t end_game_btn;
+    sprite_t in_game_menu_btn;
+    sprite_t restart_game_btn;
+
+
+    /* Borders */
+
+    sprite_t left_p_border;
+    sprite_t right_p_border;
+
+
+    /* Logos */
+
+    sprite_t gryff_logo;
+    sprite_t huffle_logo;
+    sprite_t raven_logo;
+    sprite_t slyth_logo;
+
+
+    /* Characters */
+
+    sprite_t godric_img;
+    sprite_t godric_title;
+
+    sprite_t helga_img;
+    sprite_t helga_title;
+
+    sprite_t rowena_img;
+    sprite_t rowena_title;
+
+    sprite_t salazar_img;
+    sprite_t salazar_title;
+
+
+    /* Pieces */
+
+    sprite_t w_pawn;
+    sprite_t w_bishop;
+    sprite_t w_rook;
+    sprite_t w_knight;
+    sprite_t w_queen;
+    sprite_t w_king;
+
+    sprite_t b_pawn;
+    sprite_t b_bishop;
+    sprite_t b_rook;
+    sprite_t b_knight;
+    sprite_t b_queen;
+    sprite_t b_king;
+
+
+    /* Numbers */
+
+    sprite_t zero_num;
+    sprite_t one_num;
+    sprite_t two_num;
+    sprite_t three_num;
+    sprite_t four_num;
+    sprite_t five_num;
+    sprite_t six_num;
+    sprite_t seven_num;
+    sprite_t eight_num;
+    sprite_t nine_num;
+    sprite_t colon_num;
+
+
+    /* Visual_FX */
+
+    sprite_t hover_main_menu;
+    sprite_t hover_in_game_menu;
+
+} game_assets_t;
+
+typedef struct {
 
     _Bool leave;
 
@@ -136,16 +225,18 @@ struct GAME_STATE {
     uint16_t mouse_x_pos;
     uint16_t mouse_y_pos;
 
-    // Current time, window and options
+    // Current state, event, time and options
+    enum GAME_STATE curr_state;
+    enum GAME_EVENT curr_event;
+
     rtc_time_t curr_time;
-    uint8_t curr_window;
 
     uint8_t pressed_key;
     uint8_t pressable_pos[2];
 
     uint8_t clicked_pos[2];
 
-    // Player characters
+    // Player houses
     enum GAME_HOUSES p1_house;
     enum GAME_HOUSES p2_house;
 
@@ -157,8 +248,8 @@ struct GAME_STATE {
     uint16_t black_pieces_y_pos[16];
 
     // Game functions to execute
-    int (*switch_window)(struct GAME_ASSETS*, struct GAME_STATE*);
-    int (*capture_animation)(struct GAME_ASSETS*, struct GAME_STATE*);
+    // int (*update_window)(game_assets_t*, game_state_t*);
+    // int (*capture_animation)(game_assets_t*, game_state_t*);
 
-};
+} game_state_t;
 

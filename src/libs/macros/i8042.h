@@ -25,7 +25,21 @@
 
 /* Scancodes */
 
-#define KBC_ESC_KEY_BREAKCODE           0x81      /**< @brief Breakcode of Esc Key */
+#define KBC_ESC_KEY_MAKECODE              0x01      /**< @brief Makecode of Esc Key */
+#define KBC_ESC_KEY_BREAKCODE             0x81      /**< @brief Breakcode of Esc Key */
+#define KBC_ENTER_KEY_MAKECODE            0x1C      /**< @brief Makecode of Enter Key */
+#define KBC_ENTER_KEY_BREAKCODE           0x9C      /**< @brief Breakcode of Enter Key */
+#define KBC_SPACE_KEY_MAKECODE            0x39      /**< @brief Makecode of Space Key */
+#define KBC_SPACE_KEY_BREAKCODE           0xB9      /**< @brief Breakcode of Space Key */
+#define KBC_UP_KEY_MAKECODE               0x48      /**< @brief Makecode of Up Key */
+#define KBC_UP_KEY_BREAKCODE              0xC8      /**< @brief Breakcode of Up Key */
+#define KBC_DOWN_KEY_MAKECODE             0x50      /**< @brief Makecode of Down Key */
+#define KBC_DOWN_KEY_BREAKCODE            0xD0      /**< @brief Breakcode of Down Key */
+#define KBC_LEFT_KEY_MAKECODE             0x4B      /**< @brief Makecode of Left Key */
+#define KBC_LEFT_KEY_BREAKCODE            0xCB      /**< @brief Breakcode of Left Key */
+#define KBC_RIGHT_KEY_MAKECODE            0x4D      /**< @brief Makecode of Right Key */
+#define KBC_RIGHT_KEY_BREAKCODE           0xCD      /**< @brief Breakcode of Right Key */
+
 #define KBC_SCANCODE_TWO_BYTE_CHECK     0xE0      /**< @brief Check for first byte of two byte scancode */
 #define KBC_BREAK_CODE_CHECK            BIT(7)    /**< @brief Check for makecode */
 

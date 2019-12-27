@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const start_button[] = {
 "322 188 9 1",

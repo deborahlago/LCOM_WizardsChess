@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const selectPlayer_BG[] = {
 "1280 1024 65 1",

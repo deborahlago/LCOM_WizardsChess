@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const reStartGame_button[] = {
 "411 67 2 1",

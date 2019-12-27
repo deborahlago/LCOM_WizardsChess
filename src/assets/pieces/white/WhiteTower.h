@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const whiteTower[] = {
 "71 71 65 1",

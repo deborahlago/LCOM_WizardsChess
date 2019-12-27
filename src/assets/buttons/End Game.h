@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const endGame_button[] = {
 "288 67 2 1",

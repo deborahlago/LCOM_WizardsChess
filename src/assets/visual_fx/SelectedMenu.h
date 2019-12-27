@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const selectedMenu_visualFx[] = {
 "148 40 11 1",

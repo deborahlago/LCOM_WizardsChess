@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const slytherin_logo[] = {
 "120 146 65 1",

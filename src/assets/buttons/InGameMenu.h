@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const inGameMenu_button[] = {
 "206 129 65 1",

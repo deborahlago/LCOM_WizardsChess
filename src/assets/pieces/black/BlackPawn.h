@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const blackPawn[] = {
 "71 71 2 1",

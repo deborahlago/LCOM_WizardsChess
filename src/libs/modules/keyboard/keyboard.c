@@ -12,7 +12,6 @@ uint8_t scancode;
 int kbcHookId;
 
 
-#ifdef PROJ
 int (kbc_sys_inb)(int port, uint8_t *value){
 
     kernelCallsCount++;
@@ -22,7 +21,6 @@ int (kbc_sys_inb)(int port, uint8_t *value){
 
     return EXIT_FAILURE;
 }
-#endif
 
 
 int (kbc_read_st_byte)(uint8_t *st_byte){

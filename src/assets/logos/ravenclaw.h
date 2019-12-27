@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const ravenclaw_logo[] = {
 "120 146 65 1",

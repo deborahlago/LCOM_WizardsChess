@@ -1,3 +1,5 @@
+#pragma once
+
 /* XPM */
 static xpm_row_t const title[] = {
 "371 352 14 1",
