@@ -222,8 +222,11 @@ typedef struct {
     _Bool left_click;
     _Bool right_click;
 
-    uint16_t mouse_x_pos;
-    uint16_t mouse_y_pos;
+    uint16_t mouse_curr_x_pos;
+    uint16_t mouse_curr_y_pos;
+
+    uint16_t mouse_prev_x_pos;
+    uint16_t mouse_prev_y_pos;
 
     // Current state, event, time and options
     enum GAME_STATE curr_state;

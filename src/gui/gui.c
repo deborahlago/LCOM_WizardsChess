@@ -10,17 +10,16 @@ int gui_start_window(game_assets_t* game_assets, game_state_t* game_state){
 
     /* RENDER VISUALS */
 
-    vg_reset_frame();
-
     // BG
     vg_render_sprite(game_assets->start_bg, 0, 0);
 
     // BTNS
-    vg_render_sprite(game_assets->title, 458, 102);        // title
-    vg_render_sprite(game_assets->start_btn, 883, 870);    // start button
+    // vg_render_sprite(game_assets->title, 458, 102);        // title
+    // vg_render_sprite(game_assets->start_btn, 883, 870);    // start button
 
     // MOUSE
-    vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_x_pos, game_state->mouse_y_pos);
+    vg_rm_sprite(game_assets->mouse_cursor, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
+    vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
 
     return EXIT_SUCCESS;
 }
@@ -32,8 +31,6 @@ int gui_main_menu(game_assets_t* game_assets, game_state_t* game_state){
 
     /* RENDER VISUALS */
 
-    vg_reset_frame();
-
     // BG
     vg_render_sprite(game_assets->main_menu_bg, 0, 0);
 
@@ -43,7 +40,8 @@ int gui_main_menu(game_assets_t* game_assets, game_state_t* game_state){
     vg_render_sprite(game_assets->exit_btn, 907, 644);            // exit button
 
     // MOUSE
-    vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_x_pos, game_state->mouse_y_pos);
+    vg_rm_sprite(game_assets->mouse_cursor, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
+    vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
 
     return EXIT_SUCCESS;
 }
@@ -55,8 +53,6 @@ int gui_in_game_menu(game_assets_t* game_assets, game_state_t* game_state){
 
     /* RENDER VISUALS */
 
-    vg_reset_frame();
-
     // BG
     vg_render_sprite(game_assets->in_game_menu_bg, 0, 0);
 
@@ -66,7 +62,8 @@ int gui_in_game_menu(game_assets_t* game_assets, game_state_t* game_state){
     vg_render_sprite(game_assets->end_game_btn, 490, 628);            // end game button
 
     // MOUSE
-    vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_x_pos, game_state->mouse_y_pos);
+    vg_rm_sprite(game_assets->mouse_cursor, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
+    vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
 
     return EXIT_SUCCESS;
 }
@@ -77,8 +74,6 @@ int gui_in_game_menu(game_assets_t* game_assets, game_state_t* game_state){
 int gui_game_window(game_assets_t* game_assets, game_state_t* game_state){
 
     /* RENDER VISUALS */
-
-    vg_reset_frame();
 
     // BG
     vg_render_sprite(game_assets->board_bg, 0, 0);
@@ -179,7 +174,8 @@ int gui_game_window(game_assets_t* game_assets, game_state_t* game_state){
     vg_render_sprite(game_assets->b_king, game_state->black_pieces_x_pos[15], game_state->black_pieces_y_pos[15]);      // king
 
     // MOUSE
-    vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_x_pos, game_state->mouse_y_pos);
+    vg_rm_sprite(game_assets->mouse_cursor, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
+    vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
 
     return EXIT_SUCCESS;
 }
@@ -191,8 +187,6 @@ int gui_game_mode_sel_window(game_assets_t* game_assets, game_state_t* game_stat
 
     /* RENDER VISUALS */
 
-    vg_reset_frame();
-
     return EXIT_SUCCESS;
 }
 
@@ -202,8 +196,6 @@ int gui_game_mode_sel_window(game_assets_t* game_assets, game_state_t* game_stat
 int gui_char_sel_window(game_assets_t* game_assets, game_state_t* game_state){
 
     /* RENDER VISUALS */
-
-    vg_reset_frame();
 
     // BG
     vg_render_sprite(game_assets->player_sel_bg, 0, 0);
@@ -227,7 +219,8 @@ int gui_char_sel_window(game_assets_t* game_assets, game_state_t* game_state){
     vg_render_sprite(game_assets->salazar_title, 753, 143);     // character name
 
     // MOUSE
-    vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_x_pos, game_state->mouse_y_pos);
+    vg_rm_sprite(game_assets->mouse_cursor, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
+    vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
 
     return EXIT_SUCCESS;
 }

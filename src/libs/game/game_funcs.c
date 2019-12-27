@@ -120,24 +120,25 @@ int game_load_assets(game_assets_t* game_assets){
 
 void game_update_cursor(game_state_t* game_state){
 
-    game_state->mouse_y_pos -= pkt.delta_y * 0.4;
+    game_state->mouse_prev_x_pos = game_state->mouse_curr_x_pos;
+    game_state->mouse_prev_y_pos = game_state->mouse_curr_y_pos;
 
     // Update X pos
-    if (game_state->mouse_x_pos + (pkt.delta_x*0.4) > 1280)
-        game_state->mouse_x_pos = 1270;
-    else if (game_state->mouse_x_pos + (pkt.delta_x*0.4) < 0)
-        game_state->mouse_x_pos = 10;
+    if (game_state->mouse_curr_x_pos + (pkt.delta_x*0.4) > 1280)
+        game_state->mouse_curr_x_pos = 1270;
+    else if (game_state->mouse_curr_x_pos + (pkt.delta_x*0.4) < 0)
+        game_state->mouse_curr_x_pos = 10;
     else
-        game_state->mouse_x_pos += pkt.delta_x * 0.4;
+        game_state->mouse_curr_x_pos += pkt.delta_x * 0.4;
 
 
     // Update Y pos
-    if (game_state->mouse_y_pos - (pkt.delta_y*0.4) > 1014)
-        game_state->mouse_y_pos = 1014;
-    else if (game_state->mouse_y_pos - pkt.delta_y < 0)
-        game_state->mouse_y_pos = 10;
+    if (game_state->mouse_curr_y_pos - (pkt.delta_y*0.4) > 1014)
+        game_state->mouse_curr_y_pos = 1014;
+    else if (game_state->mouse_curr_y_pos - pkt.delta_y < 0)
+        game_state->mouse_curr_y_pos = 10;
     else
-        game_state->mouse_y_pos -= (pkt.delta_y*0.4);
+        game_state->mouse_curr_y_pos -= (pkt.delta_y*0.4);
 }
 
 void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
@@ -153,9 +154,9 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                 }
                 case MOUSE: {
                     game_update_cursor(game_state);
-                    printf("%d\n", game_state->mouse_x_pos);
+                    printf("%d\n", game_state->mouse_curr_x_pos);
                     printf("\n");
-                    printf("%d\n", game_state->mouse_y_pos);
+                    printf("%d\n", game_state->mouse_curr_y_pos);
                     break;
                 }
                 case KEYBOARD: {

@@ -73,8 +73,8 @@ int (proj_main_loop)(int argc, char *argv[]) {
         game.black_pieces_y_pos[i] = black_pieces_y[i];
     }
 
-    game.mouse_x_pos = 500;
-    game.mouse_y_pos = 500;
+    game.mouse_curr_x_pos = 500;
+    game.mouse_curr_y_pos = 500;
 
     if (game_run(&assets, &game) != EXIT_SUCCESS)
         return EXIT_FAILURE;
