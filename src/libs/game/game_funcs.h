@@ -40,10 +40,26 @@ int game_load_assets(game_assets_t* game_assets);
 void game_update_cursor(game_state_t* game_state);
 
 /**
+ * @brief Handles and updates the latest mouse event
+ *
+ * @param pkt latest assembled mouse packet
+ *
+ * @param game_state current state of game data
+ *
+ * @return Returns the update mouse event struct
+ */
+struct mouse_event game_mouse_ev_handler(struct packet* pkt, game_state_t* game_state);
+
+/**
  * @brief TODO
  *
+ * @param game_sprite Element to be clicked
+ *
+ * @param game_state current state of game data
+ *
+ * @return Returns true if within the element's area, otherwise returns false
  */
-struct mouse_event (game_mouse_ev_handler)(struct packet* pkt, game_state_t* game_state);
+_Bool game_elem_clicked(sprite_t game_sprite, game_state_t* game_state);
 
 /**
  * @brief Updates the current state of the game

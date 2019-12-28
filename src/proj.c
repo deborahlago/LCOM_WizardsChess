@@ -63,6 +63,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
 
     // initialize game values
     game.leave = false;
+    game.multiplayer = false;
     game.curr_state = START_WINDOW;
 
     uint16_t white_pieces_x[16] = {347, 422, 496, 570, 644, 718, 792, 865, 496, 718, 422, 792, 347, 865, 570, 644};
@@ -79,6 +80,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
 
     game.mouse_curr_x_pos = 500;
     game.mouse_curr_y_pos = 500;
+
     game.lb = false;
     game.rb = false;
     game.mb = false;

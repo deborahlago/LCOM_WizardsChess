@@ -104,7 +104,8 @@ enum GAME_STATE {
     CHAR_SELECT,
     GAME_MODE_SELECT,
     PLAY_GAME,
-    IN_GAME_MENU
+    IN_GAME_MENU,
+    RESTART_GAME
 };
 
 enum GAME_EVENT {
@@ -118,6 +119,8 @@ typedef struct {
     uint8_t* pixmap;
     int width;
     int height;
+    uint16_t start_x;
+    uint16_t start_y;
 } sprite_t;
 
 typedef struct {
@@ -220,6 +223,7 @@ typedef struct {
 typedef struct {
 
     _Bool leave;
+    _Bool multiplayer;
 
     // Mouse event and positions
     struct mouse_event curr_mouse_event;

@@ -35,9 +35,9 @@ int gui_main_menu(game_assets_t* game_assets, game_state_t* game_state){
     vg_render_sprite(game_assets->main_menu_bg, 0, 0);
 
     // BTNS
-    vg_render_sprite(game_assets->multiplayer_btn, 872, 510);     // multi player button
-    vg_render_sprite(game_assets->singleplayer_btn, 871, 580);    // single player button
-    vg_render_sprite(game_assets->exit_btn, 907, 644);            // exit button
+    vg_render_sprite(game_assets->singleplayer_btn, 872, 510);      // single player button
+    vg_render_sprite(game_assets->multiplayer_btn, 871, 580);       // multiplayer button
+    vg_render_sprite(game_assets->exit_btn, 907, 644);              // exit button
 
     // MOUSE
     vg_render_sprite(game_assets->transparent, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);

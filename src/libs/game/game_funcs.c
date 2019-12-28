@@ -39,20 +39,51 @@ int game_load_assets(game_assets_t* game_assets){
     /* Buttons */
 
     game_assets->title = vg_load_sprite(title);
+    game_assets->title.start_x = 458;
+    game_assets->title.start_y = 102;
+
     game_assets->start_btn = vg_load_sprite(start_button);
+    game_assets->start_btn.start_x = 500;
+    game_assets->start_btn.start_y = 720;
+
     game_assets->singleplayer_btn = vg_load_sprite(singleplayer_button);
+    game_assets->singleplayer_btn.start_x = 871;
+    game_assets->singleplayer_btn.start_y = 580;
+
     game_assets->multiplayer_btn = vg_load_sprite(multiplayer_button);
+    game_assets->multiplayer_btn.start_x = 872;
+    game_assets->multiplayer_btn.start_y = 510;
+
     game_assets->exit_btn = vg_load_sprite(exit_button);
+    game_assets->exit_btn.start_x = 907;
+    game_assets->exit_btn.start_y = 644;
+
     game_assets->change_game_mode_btn = vg_load_sprite(changeGameMode_button);
+    game_assets->change_game_mode_btn.start_x = 367;
+    game_assets->change_game_mode_btn.start_y = 470;
+
     game_assets->end_game_btn = vg_load_sprite(endGame_button);
+    game_assets->end_game_btn.start_x = 490;
+    game_assets->end_game_btn.start_y = 628;
+
     game_assets->in_game_menu_btn = vg_load_sprite(inGameMenu_button);
+    game_assets->in_game_menu_btn.start_x = 0;
+    game_assets->in_game_menu_btn.start_y = 0;
+
     game_assets->restart_game_btn = vg_load_sprite(reStartGame_button);
+    game_assets->restart_game_btn.start_x = 435;
+    game_assets->restart_game_btn.start_y = 310;
 
 
     /* Borders */
 
     game_assets->left_p_border = vg_load_sprite(left_player_board_button);
+    game_assets->left_p_border.start_x = 0;
+    game_assets->left_p_border.start_y = 591;
+
     game_assets->right_p_border = vg_load_sprite(right_player_board_button);
+    game_assets->right_p_border.start_x = 1059;
+    game_assets->right_p_border.start_y = 0;
 
 
     /* Logos */
@@ -66,16 +97,36 @@ int game_load_assets(game_assets_t* game_assets){
     /* Characters */
 
     game_assets->godric_img = vg_load_sprite(godric_gif_img);
+    game_assets->godric_img.start_x = 0;
+    game_assets->godric_img.start_y = 63;
+
     game_assets->godric_title = vg_load_sprite(godric_button);
+    game_assets->godric_title.start_x = 349;
+    game_assets->godric_title.start_y = 143;
 
     game_assets->helga_img = vg_load_sprite(helga_gif_img);
+    game_assets->helga_img.start_x = 0;
+    game_assets->helga_img.start_y = 574;
+
     game_assets->helga_title = vg_load_sprite(helga_button);
+    game_assets->helga_title.start_x = 349;
+    game_assets->helga_title.start_y = 821;
 
     game_assets->rowena_img = vg_load_sprite(rowena_gif_img);
+    game_assets->rowena_img.start_x = 960;
+    game_assets->rowena_img.start_y = 574;
+
     game_assets->rowena_title = vg_load_sprite(rowena_button);
+    game_assets->rowena_title.start_x = 753;
+    game_assets->rowena_title.start_y = 821;
 
     game_assets->salazar_img = vg_load_sprite(salazar_gif_img);
+    game_assets->salazar_img.start_x = 960;
+    game_assets->salazar_img.start_y = 63;
+
     game_assets->salazar_title = vg_load_sprite(salazar_button);
+    game_assets->salazar_title.start_x = 753;
+    game_assets->salazar_title.start_y = 143;
 
 
     /* Pieces */
@@ -125,21 +176,21 @@ void game_update_cursor(game_state_t* game_state){
     game_state->mouse_prev_y_pos = game_state->mouse_curr_y_pos;
 
     // Update X pos
-    if (game_state->mouse_curr_x_pos + (game_state->curr_mouse_event.delta_x*0.4) > 1280)
+    if (game_state->mouse_curr_x_pos + (game_state->curr_mouse_event.delta_x*0.6) > 1280)
         game_state->mouse_curr_x_pos = 1270;
-    else if (game_state->mouse_curr_x_pos + (game_state->curr_mouse_event.delta_x*0.4) < 0)
+    else if (game_state->mouse_curr_x_pos + (game_state->curr_mouse_event.delta_x*0.6) < 0)
         game_state->mouse_curr_x_pos = 10;
     else
-        game_state->mouse_curr_x_pos += game_state->curr_mouse_event.delta_x * 0.4;
+        game_state->mouse_curr_x_pos += game_state->curr_mouse_event.delta_x * 0.6;
 
 
     // Update Y pos
-    if (game_state->mouse_curr_y_pos - (game_state->curr_mouse_event.delta_y*0.4) > 1014)
+    if (game_state->mouse_curr_y_pos - (game_state->curr_mouse_event.delta_y*0.6) > 1014)
         game_state->mouse_curr_y_pos = 1014;
-    else if (game_state->mouse_curr_y_pos - game_state->curr_mouse_event.delta_y < 0)
+    else if (game_state->mouse_curr_y_pos - (game_state->curr_mouse_event.delta_y*0.6) < 0)
         game_state->mouse_curr_y_pos = 10;
     else
-        game_state->mouse_curr_y_pos -= game_state->curr_mouse_event.delta_y * 0.4;
+        game_state->mouse_curr_y_pos -= game_state->curr_mouse_event.delta_y * 0.6;
 }
 
 struct mouse_event game_mouse_ev_handler(struct packet* pkt, game_state_t* game_state){
@@ -149,16 +200,16 @@ struct mouse_event game_mouse_ev_handler(struct packet* pkt, game_state_t* game_
     // Left button released
     if (game_state->lb && !pkt->lb) curr_event.type = LB_REL;
 
-        // Left button pressed
+    // Left button pressed
     else if (!game_state->lb && pkt->lb) curr_event.type = LB_PRE;
 
-        // Right button released
+    // Right button released
     else if (game_state->rb && !pkt->rb) curr_event.type = RB_REL;
 
-        // Right button pressed
+    // Right button pressed
     else if (!game_state->rb && pkt->rb) curr_event.type = RB_PRE;
 
-        // Mouse movement
+    // Mouse movement
     else if (pkt->delta_x != 0 || pkt->delta_x != 0){
         curr_event.type = MOV;
         curr_event.delta_x = pkt->delta_x;
@@ -183,6 +234,17 @@ struct mouse_event game_mouse_ev_handler(struct packet* pkt, game_state_t* game_
     return curr_event;
 }
 
+_Bool game_elem_clicked(sprite_t game_sprite, game_state_t* game_state){
+
+    if (game_state->mouse_curr_x_pos > game_sprite.start_x  && game_state->mouse_curr_x_pos < (game_sprite.start_x + game_sprite.width)){
+        if (game_state->mouse_curr_y_pos > game_sprite.start_y  && game_state->mouse_curr_y_pos < (game_sprite.start_y + game_sprite.height)){
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
 
     switch (game_state->curr_state){
@@ -194,17 +256,38 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                     break;
                 }
                 case MOUSE: {
-                    game_update_cursor(game_state);
+
+                    switch (game_state->curr_mouse_event.type){
+                        case MOV: {
+                            game_update_cursor(game_state);
+                            break;
+                        }
+                        case LB_REL: {
+
+                            if (game_elem_clicked(game_assets->start_btn, game_state))
+                                game_state->curr_state = MAIN_MENU;
+
+                            break;
+                        }
+                        default: {
+                            game_update_cursor(game_state);
+                            break;
+                        }
+                    }
 
                 }
                 case KEYBOARD: {
+
+                    if (game_state->pressed_key == KBC_ENTER_KEY_MAKECODE)
+                        game_state->curr_state = MAIN_MENU;
+
                     break;
                 }
                 case RTC: {
                     break;
                 }
-                default : {
-
+                default: {
+                    break;
                 }
             }
 
@@ -218,6 +301,36 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                     break;
                 }
                 case MOUSE: {
+
+                    switch (game_state->curr_mouse_event.type){
+                        case MOV: {
+                            game_update_cursor(game_state);
+                            break;
+                        }
+                        case LB_REL: {
+
+                            // Single player
+                            if (game_elem_clicked(game_assets->singleplayer_btn, game_state))
+                                game_state->curr_state = CHAR_SELECT;
+
+                            // Multiplayer
+                            else if (game_elem_clicked(game_assets->multiplayer_btn, game_state)){
+                                game_state->multiplayer = true;
+                                game_state->curr_state = CHAR_SELECT;
+                            }
+
+                            // Exit
+                            else if (game_elem_clicked(game_assets->exit_btn, game_state))
+                                game_state->leave = true;
+
+                            break;
+                        }
+                        default: {
+                            game_update_cursor(game_state);
+                            break;
+                        }
+                    }
+
                     break;
                 }
                 case KEYBOARD: {
@@ -241,6 +354,46 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                     break;
                 }
                 case MOUSE: {
+
+                    switch (game_state->curr_mouse_event.type){
+                        case MOV: {
+                            game_update_cursor(game_state);
+                            break;
+                        }
+                        case LB_REL: {
+
+                            // Choose Gryffindor
+                            if (game_elem_clicked(game_assets->godric_img, game_state)){
+                                game_state->p1_house = GRYFFINDOR;
+                                game_state->curr_state = PLAY_GAME;
+                            }
+
+                            // Choose Hufflepuff
+                            else if (game_elem_clicked(game_assets->helga_img, game_state)){
+                                game_state->p1_house = HUFFLEPUFF;
+                                game_state->curr_state = PLAY_GAME;
+                            }
+
+                            // Choose Ravenclaw
+                            else if (game_elem_clicked(game_assets->rowena_img, game_state)){
+                                game_state->p1_house = RAVENCLAW;
+                                game_state->curr_state = PLAY_GAME;
+                            }
+
+                            // Choose Slytherin
+                            else if (game_elem_clicked(game_assets->salazar_img, game_state)){
+                                game_state->p1_house = SLYTHERIN;
+                                game_state->curr_state = PLAY_GAME;
+                            }
+
+                            break;
+                        }
+                        default: {
+                            game_update_cursor(game_state);
+                            break;
+                        }
+                    }
+
                     break;
                 }
                 case KEYBOARD: {
@@ -267,7 +420,25 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                     break;
                 }
                 case MOUSE: {
-                    break;
+
+                    switch (game_state->curr_mouse_event.type){
+                        case MOV: {
+                            game_update_cursor(game_state);
+                            break;
+                        }
+                        case LB_REL: {
+
+                            // In-game menu
+                            if (game_elem_clicked(game_assets->in_game_menu_btn, game_state))
+                                game_state->curr_state = IN_GAME_MENU;
+
+                            break;
+                        }
+                        default: {
+                            game_update_cursor(game_state);
+                            break;
+                        }
+                    }
                 }
                 case KEYBOARD: {
                     break;
@@ -290,9 +461,21 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                     break;
                 }
                 case MOUSE: {
+
+                    // Re-start Game
+                    if (game_elem_clicked(game_assets->restart_game_btn, game_state))
+                        game_state->curr_state = RESTART_GAME;
+
+                    // End Game
+                    if (game_elem_clicked(game_assets->end_game_btn, game_state))
+                        game_state->curr_state = MAIN_MENU;
+
                     break;
                 }
                 case KEYBOARD: {
+                    if (game_state->pressed_key == KBC_ESC_KEY_BREAKCODE)
+                        game_state->curr_state = PLAY_GAME;
+
                     break;
                 }
                 case RTC: {
@@ -306,26 +489,6 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
             break;
         }
         default: {
-
-            switch (game_state->curr_event) {
-                case TIMER: {
-                    gui_start_window(game_assets, game_state);
-                    break;
-                }
-                case MOUSE: {
-                    break;
-                }
-                case KEYBOARD: {
-                    break;
-                }
-                case RTC: {
-                    break;
-                }
-                default: {
-                    break;
-                }
-            }
-
             break;
         }
     }
@@ -357,7 +520,7 @@ int game_run(game_assets_t* game_assets, game_state_t* game_state){
     uint8_t mouseBitNum = PS2_IRQ;
     int mouseIrqSet = BIT(mouseBitNum);
 
-    _Bool mouseIrqSetIsValid =  mouse_subscribe_int(&mouseBitNum) == EXIT_SUCCESS;
+    _Bool mouseIrqSetIsValid = mouse_subscribe_int(&mouseBitNum) == EXIT_SUCCESS;
 
 
     if (mouse_enable_data_report(&stByte) != PS2_WRITE_CMD_ERR){
@@ -374,7 +537,7 @@ int game_run(game_assets_t* game_assets, game_state_t* game_state){
             _Bool scancodeHasTwoBytes = false;
 
             // Interrupt loop
-            while (scancodeArr[0] != KBC_ESC_KEY_BREAKCODE) {
+            while (true) {
 
                 request = driver_receive(ANY, &msg, &ipcStatus);
                 if (request == EXIT_SUCCESS) {
@@ -394,14 +557,19 @@ int game_run(game_assets_t* game_assets, game_state_t* game_state){
                                 }
                                 else scancodeArr[0] = scancode;
 
+                                if (scancodeHasTwoBytes) scancodeHasTwoBytes = false;
+
+                                /*
                                 if (scancodeHasTwoBytes){
                                     kbd_print_scancode(kbc_is_make_code(scancodeArr[1]), 2, scancodeArr);
                                     scancodeHasTwoBytes = false;
                                 }
                                 else kbd_print_scancode(kbc_is_make_code(scancodeArr[0]), 1, scancodeArr);
+                                */
 
                                 // UPDATE
                                 game_state->curr_event = KEYBOARD;
+                                game_state->pressed_key = scancodeArr[0];
                                 game_update_state(game_assets, game_state);
 
                             }

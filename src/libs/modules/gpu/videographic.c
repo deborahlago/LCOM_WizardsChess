@@ -236,6 +236,8 @@ sprite_t vg_load_sprite(xpm_map_t xpm){
 
     newSprite.width = img.width;
     newSprite.height = img.height;
+    newSprite.start_x = 0;
+    newSprite.start_y = 0;
     newSprite.pixmap = pixmap;
 
     return newSprite;
