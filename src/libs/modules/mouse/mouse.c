@@ -266,8 +266,7 @@ int (mouse_fetch_data)(uint8_t *st_byte, int max_tries){
     return EXIT_FAILURE;
 }
 
-
-struct mouse_event* (mouse_event_handler)(struct packet *pkt){
+struct mouse_event* (mouse_event_handler)(struct packet* pkt){
 
     static struct mouse_event curr_event;
     static _Bool lb = false, mb = false, rb = false;
@@ -310,7 +309,7 @@ struct mouse_event* (mouse_event_handler)(struct packet *pkt){
 }
 
 
-void mouse_state_machine(struct mouse_event *curr_ev, uint8_t x_len, uint8_t tol){
+void mouse_state_machine(struct mouse_event* curr_ev, uint8_t x_len, uint8_t tol){
 
     static mouse_states mouseState = INIT;
     static int x_mov, y_mov;

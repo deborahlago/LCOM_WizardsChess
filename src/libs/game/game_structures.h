@@ -5,6 +5,7 @@
 #include <lcom/lcf.h>
 
 #include "../macros/rtc_macros.h"
+#include "../modules/mouse/mouse.h"
 
 #include "../../assets/backgrounds/BoardBG.h"
 #include "../../assets/backgrounds/InGameMenuBG.h"
@@ -220,9 +221,10 @@ typedef struct {
 
     _Bool leave;
 
-    // Mouse clicks and deltas
-    _Bool left_click;
-    _Bool right_click;
+    // Mouse event and positions
+    struct mouse_event curr_mouse_event;
+
+    _Bool lb, mb, rb;
 
     uint16_t mouse_curr_x_pos;
     uint16_t mouse_curr_y_pos;
@@ -235,11 +237,7 @@ typedef struct {
     enum GAME_EVENT curr_event;
 
     rtc_time_t curr_time;
-
     uint8_t pressed_key;
-    uint8_t pressable_pos[2];
-
-    uint8_t clicked_pos[2];
 
     // Player houses
     enum GAME_HOUSES p1_house;
@@ -251,10 +249,6 @@ typedef struct {
 
     uint16_t black_pieces_x_pos[16];
     uint16_t black_pieces_y_pos[16];
-
-    // Game functions to execute
-    // int (*update_window)(game_assets_t*, game_state_t*);
-    // int (*capture_animation)(game_assets_t*, game_state_t*);
 
 } game_state_t;
 

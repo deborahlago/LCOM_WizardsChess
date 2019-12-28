@@ -125,28 +125,68 @@ void game_update_cursor(game_state_t* game_state){
     game_state->mouse_prev_y_pos = game_state->mouse_curr_y_pos;
 
     // Update X pos
-    if (game_state->mouse_curr_x_pos + (pkt.delta_x*0.4) > 1280)
+    if (game_state->mouse_curr_x_pos + (game_state->curr_mouse_event.delta_x*0.4) > 1280)
         game_state->mouse_curr_x_pos = 1270;
-    else if (game_state->mouse_curr_x_pos + (pkt.delta_x*0.4) < 0)
+    else if (game_state->mouse_curr_x_pos + (game_state->curr_mouse_event.delta_x*0.4) < 0)
         game_state->mouse_curr_x_pos = 10;
     else
-        game_state->mouse_curr_x_pos += pkt.delta_x * 0.4;
+        game_state->mouse_curr_x_pos += game_state->curr_mouse_event.delta_x * 0.4;
 
 
     // Update Y pos
-    if (game_state->mouse_curr_y_pos - (pkt.delta_y*0.4) > 1014)
+    if (game_state->mouse_curr_y_pos - (game_state->curr_mouse_event.delta_y*0.4) > 1014)
         game_state->mouse_curr_y_pos = 1014;
-    else if (game_state->mouse_curr_y_pos - pkt.delta_y < 0)
+    else if (game_state->mouse_curr_y_pos - game_state->curr_mouse_event.delta_y < 0)
         game_state->mouse_curr_y_pos = 10;
     else
-        game_state->mouse_curr_y_pos -= (pkt.delta_y*0.4);
+        game_state->mouse_curr_y_pos -= game_state->curr_mouse_event.delta_y * 0.4;
+}
+
+struct mouse_event game_mouse_ev_handler(struct packet* pkt, game_state_t* game_state){
+
+    struct mouse_event curr_event;
+
+    // Left button released
+    if (game_state->lb && !pkt->lb) curr_event.type = LB_REL;
+
+        // Left button pressed
+    else if (!game_state->lb && pkt->lb) curr_event.type = LB_PRE;
+
+        // Right button released
+    else if (game_state->rb && !pkt->rb) curr_event.type = RB_REL;
+
+        // Right button pressed
+    else if (!game_state->rb && pkt->rb) curr_event.type = RB_PRE;
+
+        // Mouse movement
+    else if (pkt->delta_x != 0 || pkt->delta_x != 0){
+        curr_event.type = MOV;
+        curr_event.delta_x = pkt->delta_x;
+        curr_event.delta_y = pkt->delta_y;
+    }
+
+        // Middle button pressed
+    else if (game_state->mb && !pkt->mb) curr_event.type = OTHER;
+
+        // Middle button released
+    else if (!game_state->mb && pkt->mb) curr_event.type = OTHER;
+
+        // Other scenarios
+    else curr_event.type = OTHER;
+
+
+    // Update mouse button values
+    game_state->lb = pkt->lb;
+    game_state->rb = pkt->rb;
+    game_state->mb = pkt->mb;
+
+    return curr_event;
 }
 
 void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
 
     switch (game_state->curr_state){
         case START_WINDOW: {
-            // game_state->update_window = &gui_start_window;
 
             switch (game_state->curr_event){
                 case TIMER: {
@@ -155,10 +195,7 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                 }
                 case MOUSE: {
                     game_update_cursor(game_state);
-                    printf("%d\n", game_state->mouse_curr_x_pos);
-                    printf("\n");
-                    printf("%d\n", game_state->mouse_curr_y_pos);
-                    break;
+
                 }
                 case KEYBOARD: {
                     break;
@@ -174,7 +211,6 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
             break;
         }
         case MAIN_MENU: {
-            // game_state->update_window = &gui_main_menu;
 
             switch (game_state->curr_event){
                 case TIMER: {
@@ -198,7 +234,6 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
             break;
         }
         case CHAR_SELECT: {
-            // game_state->update_window = &gui_char_sel_window;
 
             switch (game_state->curr_event) {
                 case TIMER: {
@@ -225,7 +260,6 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
             break;
         }
         case PLAY_GAME: {
-            // game_state->update_window = &gui_game_window;
 
             switch (game_state->curr_event) {
                 case TIMER: {
@@ -249,7 +283,6 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
             break;
         }
         case IN_GAME_MENU: {
-            // game_state->update_window = &gui_in_game_menu;
 
             switch (game_state->curr_event) {
                 case TIMER: {
@@ -273,7 +306,6 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
             break;
         }
         default: {
-            // game_state->update_window = &gui_start_window;
 
             switch (game_state->curr_event) {
                 case TIMER: {
@@ -368,6 +400,7 @@ int game_run(game_assets_t* game_assets, game_state_t* game_state){
                                 }
                                 else kbd_print_scancode(kbc_is_make_code(scancodeArr[0]), 1, scancodeArr);
 
+                                // UPDATE
                                 game_state->curr_event = KEYBOARD;
                                 game_update_state(game_assets, game_state);
 
@@ -385,7 +418,7 @@ int game_run(game_assets_t* game_assets, game_state_t* game_state){
                                     timerIntCounter = 0;
                                     frameCounter = 0;
 
-                                    // RENDER
+                                    // UPDATE
                                     game_state->curr_event = TIMER;
                                     game_update_state(game_assets, game_state);
                                 }
@@ -404,16 +437,16 @@ int game_run(game_assets_t* game_assets, game_state_t* game_state){
 
                                 if (pktCounter == 3){
                                     mouse_assemble_packet();
-                                    // mouse_print_packet(&pkt);
+                                    game_state->curr_mouse_event = game_mouse_ev_handler(&pkt, game_state);
 
                                     pktCounter = 0;
                                     timerIntCounter = 0;
                                     packetsGenerated++;
                                 }
 
+                                // UPDATE
                                 game_state->curr_event = MOUSE;
                                 game_update_state(game_assets, game_state);
-
                             }
                         }
                     }

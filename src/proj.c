@@ -36,10 +36,12 @@ int main(int argc, char *argv[]) {
 int (proj_main_loop)(int argc, char *argv[]) {
 
     /* Enables I/O operations */
+
     sys_enable_iop(SELF);
 
 
     /* Load Assets */
+
     game_assets_t assets;
 
     while (true){
@@ -56,8 +58,10 @@ int (proj_main_loop)(int argc, char *argv[]) {
 
 
     /* Game Start */
+
     game_state_t game;
 
+    // initialize game values
     game.leave = false;
     game.curr_state = START_WINDOW;
 
@@ -75,7 +79,11 @@ int (proj_main_loop)(int argc, char *argv[]) {
 
     game.mouse_curr_x_pos = 500;
     game.mouse_curr_y_pos = 500;
+    game.lb = false;
+    game.rb = false;
+    game.mb = false;
 
+    // run game
     if (game_run(&assets, &game) != EXIT_SUCCESS)
         return EXIT_FAILURE;
 

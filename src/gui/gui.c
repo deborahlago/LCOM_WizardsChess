@@ -14,8 +14,8 @@ int gui_start_window(game_assets_t* game_assets, game_state_t* game_state){
     vg_render_sprite(game_assets->start_bg, 0, 0);
 
     // BTNS
-    // vg_render_sprite(game_assets->title, 458, 102);        // title
-    // vg_render_sprite(game_assets->start_btn, 883, 870);    // start button
+    vg_render_sprite(game_assets->title, 458, 102);        // title
+    vg_render_sprite(game_assets->start_btn, 500, 720);    // start button
 
     // MOUSE
     vg_render_sprite(game_assets->transparent, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);

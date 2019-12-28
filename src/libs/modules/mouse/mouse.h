@@ -3,7 +3,6 @@
 #include "../../macros/ps2.h"
 #include "../keyboard/keyboard.h"
 
-
 typedef enum {
     INIT,
     DRAW_1st_LINE,

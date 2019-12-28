@@ -40,6 +40,12 @@ int game_load_assets(game_assets_t* game_assets);
 void game_update_cursor(game_state_t* game_state);
 
 /**
+ * @brief TODO
+ *
+ */
+struct mouse_event (game_mouse_ev_handler)(struct packet* pkt, game_state_t* game_state);
+
+/**
  * @brief Updates the current state of the game
  *
  * @param game_assets structure to contain all the loaded assets of the game
