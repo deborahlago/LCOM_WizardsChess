@@ -136,7 +136,7 @@ int game_load_assets(game_assets_t* game_assets){
     game_assets->w_knight = vg_load_sprite(whiteHorse);
     game_assets->w_rook = vg_load_sprite(whiteTower);
     game_assets->w_queen = vg_load_sprite(whiteQueen);
-    game_assets->w_knight = vg_load_sprite(whiteKing);
+    game_assets->w_king = vg_load_sprite(whiteKing);
 
     game_assets->b_pawn = vg_load_sprite(blackPawn);
     game_assets->b_bishop = vg_load_sprite(blackBishop);
@@ -462,15 +462,28 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                 }
                 case MOUSE: {
 
-                    // Re-start Game
-                    if (game_elem_clicked(game_assets->restart_game_btn, game_state))
-                        game_state->curr_state = RESTART_GAME;
+                    switch (game_state->curr_mouse_event.type){
+                        case MOV: {
+                            game_update_cursor(game_state);
+                            break;
+                        }
+                        case LB_REL: {
 
-                    // End Game
-                    if (game_elem_clicked(game_assets->end_game_btn, game_state))
-                        game_state->curr_state = MAIN_MENU;
+                            // Re-start Game
+                            if (game_elem_clicked(game_assets->restart_game_btn, game_state))
+                                game_state->curr_state = RESTART_GAME;
 
-                    break;
+                            // End Game
+                            if (game_elem_clicked(game_assets->end_game_btn, game_state))
+                                game_state->curr_state = MAIN_MENU;
+                            
+                            break;
+                        }
+                        default: {
+                            game_update_cursor(game_state);
+                            break;
+                        }
+                    }
                 }
                 case KEYBOARD: {
                     if (game_state->pressed_key == KBC_ESC_KEY_BREAKCODE)
@@ -487,6 +500,181 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
             }
 
             break;
+        }
+        case RESTART_GAME: {
+
+            // Reset pieces position
+            uint16_t white_pieces_x[16] = {347, 422, 496, 570, 644, 718, 792, 865, 496, 718, 422, 792, 347, 865, 570, 644};
+            uint16_t white_pieces_y[16] = {661, 661, 661, 661, 661, 661, 661, 661, 734, 734, 734, 734, 734, 734, 734, 734};
+            uint16_t black_pieces_x[16] = {347, 422, 496, 570, 644, 718, 792, 865, 496, 718, 422, 792, 347, 865, 570, 644};
+            uint16_t black_pieces_y[16] = {291, 291, 291, 291, 291, 291, 291, 291, 220, 220, 220, 220, 220, 220, 220, 220};
+
+            for (int i = 0; i < 16; i++){
+                game_state->white_pieces_x_pos[i] = white_pieces_x[i];
+                game_state->white_pieces_y_pos[i] = white_pieces_y[i];
+                game_state->black_pieces_x_pos[i] = black_pieces_x[i];
+                game_state->black_pieces_y_pos[i] = black_pieces_y[i];
+            }
+
+
+            //          ---- WHITE PIECES ----
+
+            // --- white pawns
+            game_state->w_pawn_1.captured = false;
+            game_state->w_pawn_1.x_pos = game_state->white_pieces_x_pos[0];
+            game_state->w_pawn_1.y_pos = game_state->white_pieces_y_pos[0];
+
+            game_state->w_pawn_2.captured = false;
+            game_state->w_pawn_2.x_pos = game_state->white_pieces_x_pos[1];
+            game_state->w_pawn_2.y_pos = game_state->white_pieces_y_pos[1];
+
+            game_state->w_pawn_3.captured = false;
+            game_state->w_pawn_3.x_pos = game_state->white_pieces_x_pos[2];
+            game_state->w_pawn_3.y_pos = game_state->white_pieces_y_pos[2];
+
+            game_state->w_pawn_4.captured = false;
+            game_state->w_pawn_4.x_pos = game_state->white_pieces_x_pos[3];
+            game_state->w_pawn_4.y_pos = game_state->white_pieces_y_pos[3];
+
+            game_state->w_pawn_5.captured = false;
+            game_state->w_pawn_5.x_pos = game_state->white_pieces_x_pos[4];
+            game_state->w_pawn_5.y_pos = game_state->white_pieces_y_pos[4];
+
+            game_state->w_pawn_6.captured = false;
+            game_state->w_pawn_6.x_pos = game_state->white_pieces_x_pos[5];
+            game_state->w_pawn_6.y_pos = game_state->white_pieces_y_pos[5];
+
+            game_state->w_pawn_7.captured = false;
+            game_state->w_pawn_7.x_pos = game_state->white_pieces_x_pos[6];
+            game_state->w_pawn_7.y_pos = game_state->white_pieces_y_pos[6];
+
+            game_state->w_pawn_8.captured = false;
+            game_state->w_pawn_8.x_pos = game_state->white_pieces_x_pos[7];
+            game_state->w_pawn_8.y_pos = game_state->white_pieces_y_pos[7];
+
+            // --- white bishops
+            game_state->w_bishop_l.captured = false;
+            game_state->w_bishop_l.x_pos = game_state->white_pieces_x_pos[8];
+            game_state->w_bishop_l.y_pos = game_state->white_pieces_y_pos[8];
+
+            game_state->w_bishop_r.captured = false;
+            game_state->w_bishop_r.x_pos = game_state->white_pieces_x_pos[9];
+            game_state->w_bishop_r.y_pos = game_state->white_pieces_y_pos[9];
+
+            // --- white knights
+            game_state->w_knight_l.captured = false;
+            game_state->w_knight_l.x_pos = game_state->white_pieces_x_pos[10];
+            game_state->w_knight_l.y_pos = game_state->white_pieces_y_pos[10];
+
+            game_state->w_knight_r.captured = false;
+            game_state->w_knight_r.x_pos = game_state->white_pieces_x_pos[11];
+            game_state->w_knight_r.y_pos = game_state->white_pieces_y_pos[11];
+
+            // --- white rook
+            game_state->w_rook_l.captured = false;
+            game_state->w_rook_l.x_pos = game_state->white_pieces_x_pos[12];
+            game_state->w_rook_l.y_pos = game_state->white_pieces_y_pos[12];
+
+            game_state->w_rook_r.captured = false;
+            game_state->w_rook_r.x_pos = game_state->white_pieces_x_pos[13];
+            game_state->w_rook_r.y_pos = game_state->white_pieces_y_pos[13];
+
+            // --- white queen
+            game_state->w_queen.captured = false;
+            game_state->w_queen.x_pos = game_state->white_pieces_x_pos[14];
+            game_state->w_queen.y_pos = game_state->white_pieces_y_pos[14];
+
+            // --- white king
+            game_state->w_king.captured = false;
+            game_state->w_king.x_pos = game_state->white_pieces_x_pos[15];
+            game_state->w_king.y_pos = game_state->white_pieces_y_pos[15];
+
+
+            //            ---- BLACK PIECES ----
+
+            // --- black pawns
+            game_state->b_pawn_1.captured = false;
+            game_state->b_pawn_1.x_pos = game_state->black_pieces_x_pos[0];
+            game_state->b_pawn_1.y_pos = game_state->black_pieces_y_pos[0];
+
+            game_state->b_pawn_2.captured = false;
+            game_state->b_pawn_2.x_pos = game_state->black_pieces_x_pos[1];
+            game_state->b_pawn_2.y_pos = game_state->black_pieces_y_pos[1];
+
+            game_state->b_pawn_3.captured = false;
+            game_state->b_pawn_3.x_pos = game_state->black_pieces_x_pos[2];
+            game_state->b_pawn_3.y_pos = game_state->black_pieces_y_pos[2];
+
+            game_state->b_pawn_4.captured = false;
+            game_state->b_pawn_4.x_pos = game_state->black_pieces_x_pos[3];
+            game_state->b_pawn_4.y_pos = game_state->black_pieces_y_pos[3];
+
+            game_state->b_pawn_5.captured = false;
+            game_state->b_pawn_5.x_pos = game_state->black_pieces_x_pos[4];
+            game_state->b_pawn_5.y_pos = game_state->black_pieces_y_pos[4];
+
+            game_state->b_pawn_6.captured = false;
+            game_state->b_pawn_6.x_pos = game_state->black_pieces_x_pos[5];
+            game_state->b_pawn_6.y_pos = game_state->black_pieces_y_pos[5];
+
+            game_state->b_pawn_7.captured = false;
+            game_state->b_pawn_7.x_pos = game_state->black_pieces_x_pos[6];
+            game_state->b_pawn_7.y_pos = game_state->black_pieces_y_pos[6];
+
+            game_state->b_pawn_8.captured = false;
+            game_state->b_pawn_8.x_pos = game_state->black_pieces_x_pos[7];
+            game_state->b_pawn_8.y_pos = game_state->black_pieces_y_pos[7];
+
+            // --- black bishops
+            game_state->b_bishop_l.captured = false;
+            game_state->b_bishop_l.x_pos = game_state->black_pieces_x_pos[8];
+            game_state->b_bishop_l.y_pos = game_state->black_pieces_y_pos[8];
+
+            game_state->b_bishop_r.captured = false;
+            game_state->b_bishop_r.x_pos = game_state->black_pieces_x_pos[9];
+            game_state->b_bishop_r.y_pos = game_state->black_pieces_y_pos[9];
+
+            // --- black knights
+            game_state->b_knight_l.captured = false;
+            game_state->b_knight_l.x_pos = game_state->black_pieces_x_pos[10];
+            game_state->b_knight_l.y_pos = game_state->black_pieces_y_pos[10];
+
+            game_state->b_knight_r.captured = false;
+            game_state->b_knight_r.x_pos = game_state->black_pieces_x_pos[11];
+            game_state->b_knight_r.y_pos = game_state->black_pieces_y_pos[11];
+
+            // --- black knights
+            game_state->b_knight_l.captured = false;
+            game_state->b_knight_l.x_pos = game_state->black_pieces_x_pos[10];
+            game_state->b_knight_l.y_pos = game_state->black_pieces_y_pos[10];
+
+            game_state->b_knight_r.captured = false;
+            game_state->b_knight_r.x_pos = game_state->black_pieces_x_pos[11];
+            game_state->b_knight_r.y_pos = game_state->black_pieces_y_pos[11];
+
+            // --- black rooks
+            game_state->b_rook_l.captured = false;
+            game_state->b_rook_l.x_pos = game_state->black_pieces_x_pos[12];
+            game_state->b_rook_l.y_pos = game_state->black_pieces_y_pos[12];
+
+            game_state->b_rook_r.captured = false;
+            game_state->b_rook_r.x_pos = game_state->black_pieces_x_pos[13];
+            game_state->b_rook_r.y_pos = game_state->black_pieces_y_pos[13];
+
+            // --- black queen
+            game_state->b_queen.captured = false;
+            game_state->b_queen.x_pos = game_state->black_pieces_x_pos[14];
+            game_state->b_queen.y_pos = game_state->black_pieces_y_pos[14];
+
+            // --- black king
+            game_state->b_king.captured = false;
+            game_state->b_king.x_pos = game_state->black_pieces_x_pos[15];
+            game_state->b_king.y_pos = game_state->black_pieces_y_pos[15];
+
+            // ----------------------------------------------------
+
+            game_state->curr_state = PLAY_GAME;
+
         }
         default: {
             break;

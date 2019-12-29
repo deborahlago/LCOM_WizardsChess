@@ -222,6 +222,15 @@ typedef struct {
 
 typedef struct {
 
+    _Bool captured;
+
+    uint16_t x_pos;
+    uint16_t y_pos;
+
+} game_piece_t;
+
+typedef struct {
+
     _Bool leave;
     _Bool multiplayer;
 
@@ -253,6 +262,50 @@ typedef struct {
 
     uint16_t black_pieces_x_pos[16];
     uint16_t black_pieces_y_pos[16];
+
+    // white
+    game_piece_t w_pawn_1;
+    game_piece_t w_pawn_2;
+    game_piece_t w_pawn_3;
+    game_piece_t w_pawn_4;
+    game_piece_t w_pawn_5;
+    game_piece_t w_pawn_6;
+    game_piece_t w_pawn_7;
+    game_piece_t w_pawn_8;
+
+    game_piece_t w_bishop_l;
+    game_piece_t w_bishop_r;
+
+    game_piece_t w_knight_l;
+    game_piece_t w_knight_r;
+
+    game_piece_t w_rook_l;
+    game_piece_t w_rook_r;
+
+    game_piece_t w_queen;
+    game_piece_t w_king;
+
+    // black
+    game_piece_t b_pawn_1;
+    game_piece_t b_pawn_2;
+    game_piece_t b_pawn_3;
+    game_piece_t b_pawn_4;
+    game_piece_t b_pawn_5;
+    game_piece_t b_pawn_6;
+    game_piece_t b_pawn_7;
+    game_piece_t b_pawn_8;
+
+    game_piece_t b_bishop_l;
+    game_piece_t b_bishop_r;
+
+    game_piece_t b_knight_l;
+    game_piece_t b_knight_r;
+
+    game_piece_t b_rook_l;
+    game_piece_t b_rook_r;
+
+    game_piece_t b_queen;
+    game_piece_t b_king;
 
 } game_state_t;
 

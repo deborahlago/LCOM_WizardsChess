@@ -137,41 +137,50 @@ int gui_game_window(game_assets_t* game_assets, game_state_t* game_state){
 
     /* PIECES */
 
-    // WHITE
-    vg_render_sprite(game_assets->w_pawn, game_state->white_pieces_x_pos[0], game_state->white_pieces_y_pos[0]);        // pawn
-    vg_render_sprite(game_assets->w_pawn, game_state->white_pieces_x_pos[1], game_state->white_pieces_y_pos[1]);        // pawn
-    vg_render_sprite(game_assets->w_pawn, game_state->white_pieces_x_pos[2], game_state->white_pieces_y_pos[2]);        // pawn
-    vg_render_sprite(game_assets->w_pawn, game_state->white_pieces_x_pos[3], game_state->white_pieces_y_pos[3]);        // pawn
-    vg_render_sprite(game_assets->w_pawn, game_state->white_pieces_x_pos[4], game_state->white_pieces_y_pos[4]);        // pawn
-    vg_render_sprite(game_assets->w_pawn, game_state->white_pieces_x_pos[5], game_state->white_pieces_y_pos[5]);        // pawn
-    vg_render_sprite(game_assets->w_pawn, game_state->white_pieces_x_pos[6], game_state->white_pieces_y_pos[6]);        // pawn
-    vg_render_sprite(game_assets->w_pawn, game_state->white_pieces_x_pos[7], game_state->white_pieces_y_pos[7]);        // pawn
-    vg_render_sprite(game_assets->w_bishop, game_state->white_pieces_x_pos[8], game_state->white_pieces_y_pos[8]);      // left bishop
-    vg_render_sprite(game_assets->w_bishop, game_state->white_pieces_x_pos[9], game_state->white_pieces_y_pos[9]);      // right bishop
-    vg_render_sprite(game_assets->w_knight, game_state->white_pieces_x_pos[10], game_state->white_pieces_y_pos[10]);    // left knight
-    vg_render_sprite(game_assets->w_knight, game_state->white_pieces_x_pos[11], game_state->white_pieces_y_pos[11]);    // right knight
-    vg_render_sprite(game_assets->w_rook, game_state->white_pieces_x_pos[12], game_state->white_pieces_y_pos[12]);      // left rook
-    vg_render_sprite(game_assets->w_rook, game_state->white_pieces_x_pos[13], game_state->white_pieces_y_pos[13]);      // right rook
-    vg_render_sprite(game_assets->w_queen, game_state->white_pieces_x_pos[14], game_state->white_pieces_y_pos[14]);     // queen
-    vg_render_sprite(game_assets->w_king, game_state->white_pieces_x_pos[15], game_state->white_pieces_y_pos[15]);      // king
+    // --- WHITE
+    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_1.x_pos, game_state->w_pawn_1.y_pos);              // pawn 1
+    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_2.x_pos, game_state->w_pawn_2.y_pos);              // pawn 2
+    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_3.x_pos, game_state->w_pawn_3.y_pos);              // pawn 3
+    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_4.x_pos, game_state->w_pawn_4.y_pos);              // pawn 4
+    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_5.x_pos, game_state->w_pawn_5.y_pos);              // pawn 5
+    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_6.x_pos, game_state->w_pawn_6.y_pos);              // pawn 6
+    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_7.x_pos, game_state->w_pawn_7.y_pos);              // pawn 7
+    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_8.x_pos, game_state->w_pawn_8.y_pos);              // pawn 8
 
-    // BLACK
-    vg_render_sprite(game_assets->b_pawn, game_state->black_pieces_x_pos[0], game_state->black_pieces_y_pos[0]);        // pawn
-    vg_render_sprite(game_assets->b_pawn, game_state->black_pieces_x_pos[1], game_state->black_pieces_y_pos[1]);        // pawn
-    vg_render_sprite(game_assets->b_pawn, game_state->black_pieces_x_pos[2], game_state->black_pieces_y_pos[2]);        // pawn
-    vg_render_sprite(game_assets->b_pawn, game_state->black_pieces_x_pos[3], game_state->black_pieces_y_pos[3]);        // pawn
-    vg_render_sprite(game_assets->b_pawn, game_state->black_pieces_x_pos[4], game_state->black_pieces_y_pos[4]);        // pawn
-    vg_render_sprite(game_assets->b_pawn, game_state->black_pieces_x_pos[5], game_state->black_pieces_y_pos[5]);        // pawn
-    vg_render_sprite(game_assets->b_pawn, game_state->black_pieces_x_pos[6], game_state->black_pieces_y_pos[6]);        // pawn
-    vg_render_sprite(game_assets->b_pawn, game_state->black_pieces_x_pos[7], game_state->black_pieces_y_pos[7]);        // pawn
-    vg_render_sprite(game_assets->b_bishop, game_state->black_pieces_x_pos[8], game_state->black_pieces_y_pos[8]);      // left bishop
-    vg_render_sprite(game_assets->b_bishop, game_state->black_pieces_x_pos[9], game_state->black_pieces_y_pos[9]);      // right bishop
-    vg_render_sprite(game_assets->b_knight, game_state->black_pieces_x_pos[10], game_state->black_pieces_y_pos[10]);    // left knight
-    vg_render_sprite(game_assets->b_knight, game_state->black_pieces_x_pos[11], game_state->black_pieces_y_pos[11]);    // right knight
-    vg_render_sprite(game_assets->b_rook, game_state->black_pieces_x_pos[12], game_state->black_pieces_y_pos[12]);      // left rook
-    vg_render_sprite(game_assets->b_rook, game_state->black_pieces_x_pos[13], game_state->black_pieces_y_pos[13]);      // right rook
-    vg_render_sprite(game_assets->b_queen, game_state->black_pieces_x_pos[14], game_state->black_pieces_y_pos[14]);     // queen
-    vg_render_sprite(game_assets->b_king, game_state->black_pieces_x_pos[15], game_state->black_pieces_y_pos[15]);      // king
+    vg_render_sprite(game_assets->w_bishop, game_state->w_bishop_l.x_pos, game_state->w_bishop_l.y_pos);        // left bishop
+    vg_render_sprite(game_assets->w_bishop, game_state->w_bishop_r.x_pos, game_state->w_bishop_r.y_pos);        // right bishop
+
+    vg_render_sprite(game_assets->w_knight, game_state->w_knight_l.x_pos, game_state->w_knight_l.y_pos);        // left knight
+    vg_render_sprite(game_assets->w_knight, game_state->w_knight_r.x_pos, game_state->w_knight_r.y_pos);        // right knight
+
+    vg_render_sprite(game_assets->w_rook, game_state->w_rook_l.x_pos, game_state->w_rook_l.y_pos);              // left rook
+    vg_render_sprite(game_assets->w_rook, game_state->w_rook_r.x_pos, game_state->w_rook_r.y_pos);              // right rook
+
+    vg_render_sprite(game_assets->w_queen, game_state->w_queen.x_pos, game_state->w_queen.y_pos);               // queen
+    vg_render_sprite(game_assets->w_king, game_state->w_king.x_pos, game_state->w_king.y_pos);                  // king
+
+
+    // --- BLACK
+    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_1.x_pos, game_state->b_pawn_1.y_pos);              // pawn 1
+    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_2.x_pos, game_state->b_pawn_2.y_pos);              // pawn 2
+    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_3.x_pos, game_state->b_pawn_3.y_pos);              // pawn 3
+    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_4.x_pos, game_state->b_pawn_4.y_pos);              // pawn 4
+    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_5.x_pos, game_state->b_pawn_5.y_pos);              // pawn 5
+    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_6.x_pos, game_state->b_pawn_6.y_pos);              // pawn 6
+    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_7.x_pos, game_state->b_pawn_7.y_pos);              // pawn 7
+    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_8.x_pos, game_state->b_pawn_8.y_pos);              // pawn 8
+
+    vg_render_sprite(game_assets->b_bishop, game_state->b_bishop_l.x_pos, game_state->b_bishop_l.y_pos);        // left bishop
+    vg_render_sprite(game_assets->b_bishop, game_state->b_bishop_r.x_pos, game_state->b_bishop_r.y_pos);        // right bishop
+
+    vg_render_sprite(game_assets->b_knight, game_state->b_knight_l.x_pos, game_state->b_knight_l.y_pos);        // left knight
+    vg_render_sprite(game_assets->b_knight, game_state->b_knight_r.x_pos, game_state->b_knight_r.y_pos);        // right knight
+
+    vg_render_sprite(game_assets->b_rook, game_state->b_rook_l.x_pos, game_state->b_rook_l.y_pos);              // left rook
+    vg_render_sprite(game_assets->b_rook, game_state->b_rook_r.x_pos, game_state->b_rook_r.y_pos);              // right rook
+
+    vg_render_sprite(game_assets->b_queen, game_state->b_queen.x_pos, game_state->b_queen.y_pos);               // queen
+    vg_render_sprite(game_assets->b_king, game_state->b_king.x_pos, game_state->b_king.y_pos);                  // king
 
     // MOUSE
     vg_render_sprite(game_assets->transparent, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);
