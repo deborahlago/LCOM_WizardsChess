@@ -164,6 +164,7 @@ int game_load_assets(game_assets_t* game_assets){
     /* Visual FXs */
 
     game_assets->transparent = vg_load_sprite(transp);
+    game_assets->transp_piece = vg_load_sprite(transpPiece);
     game_assets->hover_main_menu = vg_load_sprite(selectedMenu_visualFx);
     game_assets->hover_in_game_menu = vg_load_sprite(selectInGameMenu_visualFx);
 
@@ -243,6 +244,148 @@ _Bool game_elem_clicked(sprite_t game_sprite, game_state_t* game_state){
     }
 
     return false;
+}
+
+_Bool game_piece_clicked(game_piece_t* game_piece, sprite_t game_sprite, game_state_t* game_state){
+
+    if (game_state->mouse_curr_x_pos > game_piece->start_x  && game_state->mouse_curr_x_pos < (game_piece->start_x + game_sprite.width)){
+        if (game_state->mouse_curr_y_pos > game_piece->start_y  && game_state->mouse_curr_y_pos < (game_piece->start_y + game_sprite.height)){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void game_update_pieces_start_pos(game_state_t* game_state){
+
+    /* WHITE PIECES */
+
+    // Pawns
+    game_state->w_pawn_1.start_x = game_state->w_pawn_1.x_pos;
+    game_state->w_pawn_1.start_y = game_state->w_pawn_1.y_pos;
+
+    game_state->w_pawn_2.start_x = game_state->w_pawn_2.x_pos;
+    game_state->w_pawn_2.start_y = game_state->w_pawn_2.y_pos;
+
+    game_state->w_pawn_3.start_x = game_state->w_pawn_3.x_pos;
+    game_state->w_pawn_3.start_y = game_state->w_pawn_3.y_pos;
+
+    game_state->w_pawn_4.start_x = game_state->w_pawn_4.x_pos;
+    game_state->w_pawn_4.start_y = game_state->w_pawn_4.y_pos;
+
+    game_state->w_pawn_5.start_x = game_state->w_pawn_5.x_pos;
+    game_state->w_pawn_5.start_y = game_state->w_pawn_5.y_pos;
+
+    game_state->w_pawn_6.start_x = game_state->w_pawn_6.x_pos;
+    game_state->w_pawn_6.start_y = game_state->w_pawn_6.y_pos;
+
+    game_state->w_pawn_7.start_x = game_state->w_pawn_7.x_pos;
+    game_state->w_pawn_7.start_y = game_state->w_pawn_7.y_pos;
+
+    game_state->w_pawn_8.start_x = game_state->w_pawn_8.x_pos;
+    game_state->w_pawn_8.start_y = game_state->w_pawn_8.y_pos;
+
+    // Bishops
+    game_state->w_bishop_l.start_x = game_state->w_bishop_l.x_pos;
+    game_state->w_bishop_l.start_y = game_state->w_bishop_l.y_pos;
+
+    game_state->w_bishop_r.start_x = game_state->w_bishop_r.x_pos;
+    game_state->w_bishop_r.start_y = game_state->w_bishop_r.y_pos;
+
+    // Knights
+    game_state->w_knight_l.start_x = game_state->w_knight_l.x_pos;
+    game_state->w_knight_l.start_y = game_state->w_knight_l.y_pos;
+
+    game_state->w_knight_r.start_x = game_state->w_knight_r.x_pos;
+    game_state->w_knight_r.start_y = game_state->w_knight_r.y_pos;
+
+    // Rooks
+    game_state->w_rook_l.start_x = game_state->w_rook_l.x_pos;
+    game_state->w_rook_l.start_y = game_state->w_rook_l.y_pos;
+
+    game_state->w_rook_r.start_x = game_state->w_rook_r.x_pos;
+    game_state->w_rook_r.start_y = game_state->w_rook_r.y_pos;
+
+    // King and Queen
+    game_state->w_queen.start_x = game_state->w_queen.x_pos;
+    game_state->w_queen.start_y = game_state->w_queen.y_pos;
+
+    game_state->w_king.start_x = game_state->w_king.x_pos;
+    game_state->w_king.start_y = game_state->w_king.y_pos;
+
+
+    /* BLACK PIECES */
+
+    // Pawns
+    game_state->b_pawn_1.start_x = game_state->b_pawn_1.x_pos;
+    game_state->b_pawn_1.start_y = game_state->b_pawn_1.y_pos;
+
+    game_state->b_pawn_2.start_x = game_state->b_pawn_2.x_pos;
+    game_state->b_pawn_2.start_y = game_state->b_pawn_2.y_pos;
+
+    game_state->b_pawn_3.start_x = game_state->b_pawn_3.x_pos;
+    game_state->b_pawn_3.start_y = game_state->b_pawn_3.y_pos;
+
+    game_state->b_pawn_4.start_x = game_state->b_pawn_4.x_pos;
+    game_state->b_pawn_4.start_y = game_state->b_pawn_4.y_pos;
+
+    game_state->b_pawn_5.start_x = game_state->b_pawn_5.x_pos;
+    game_state->b_pawn_5.start_y = game_state->b_pawn_5.y_pos;
+
+    game_state->b_pawn_6.start_x = game_state->b_pawn_6.x_pos;
+    game_state->b_pawn_6.start_y = game_state->b_pawn_6.y_pos;
+
+    game_state->b_pawn_7.start_x = game_state->b_pawn_7.x_pos;
+    game_state->b_pawn_7.start_y = game_state->b_pawn_7.y_pos;
+
+    game_state->b_pawn_8.start_x = game_state->b_pawn_8.x_pos;
+    game_state->b_pawn_8.start_y = game_state->b_pawn_8.y_pos;
+
+    // Bishops
+    game_state->b_bishop_l.start_x = game_state->b_bishop_l.x_pos;
+    game_state->b_bishop_l.start_y = game_state->b_bishop_l.y_pos;
+
+    game_state->b_bishop_r.start_x = game_state->b_bishop_r.x_pos;
+    game_state->b_bishop_r.start_y = game_state->b_bishop_r.y_pos;
+
+    // Knights
+    game_state->b_knight_l.start_x = game_state->b_knight_l.x_pos;
+    game_state->b_knight_l.start_y = game_state->b_knight_l.y_pos;
+
+    game_state->b_knight_r.start_x = game_state->b_knight_r.x_pos;
+    game_state->b_knight_r.start_y = game_state->b_knight_r.y_pos;
+
+    // Rooks
+    game_state->b_rook_l.start_x = game_state->b_rook_l.x_pos;
+    game_state->b_rook_l.start_y = game_state->b_rook_l.y_pos;
+
+    game_state->b_rook_r.start_x = game_state->b_rook_r.x_pos;
+    game_state->b_rook_r.start_y = game_state->b_rook_r.y_pos;
+
+    // King and Queen
+    game_state->b_queen.start_x = game_state->b_queen.x_pos;
+    game_state->b_queen.start_y = game_state->b_queen.y_pos;
+
+    game_state->b_king.start_x = game_state->b_king.x_pos;
+    game_state->b_king.start_y = game_state->b_king.y_pos;
+}
+
+void game_drag_piece(game_state_t* game_state, game_piece_t* game_piece){
+
+    game_piece->prev_x_pos = game_piece->x_pos;
+    game_piece->prev_y_pos = game_piece->y_pos;
+
+    game_piece->x_pos = game_state->mouse_curr_x_pos;
+    game_piece->y_pos = game_state->mouse_curr_y_pos;
+}
+
+void game_drop_piece(game_state_t* game_state, game_piece_t* game_piece){
+
+    if (true){
+        game_piece->x_pos = game_piece->start_x;
+        game_piece->y_pos = game_piece->start_y;
+    }
 }
 
 void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
@@ -424,9 +567,35 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                     switch (game_state->curr_mouse_event.type){
                         case MOV: {
                             game_update_cursor(game_state);
+
+                            while (game_state->w_pawn_1.drag)
+                                game_drag_piece(game_state, &game_state->w_pawn_1);
+
+
                             break;
                         }
+                        case LB_PRE: {
+
+                            game_update_pieces_start_pos(game_state);
+
+                            /* WHITE PIECES */
+                            if (game_piece_clicked(&game_state->w_pawn_1, game_assets->w_pawn, game_state))
+                                game_state->w_pawn_1.drag = true;
+
+
+                            /* BLACK PIECES */
+
+                        }
                         case LB_REL: {
+
+                            /* WHITE PIECES */
+                            if (game_state->w_pawn_1.drag == true){
+                                game_state->w_pawn_1.drag = false;
+                                game_drop_piece(game_state, &game_state->w_pawn_1);
+                            }
+
+                            /* BLACK PIECES */
+
 
                             // In-game menu
                             if (game_elem_clicked(game_assets->in_game_menu_btn, game_state))
@@ -476,7 +645,7 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                             // End Game
                             if (game_elem_clicked(game_assets->end_game_btn, game_state))
                                 game_state->curr_state = MAIN_MENU;
-                            
+
                             break;
                         }
                         default: {

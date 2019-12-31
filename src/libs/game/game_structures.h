@@ -116,9 +116,12 @@ enum GAME_EVENT {
 };
 
 typedef struct {
+
     uint8_t* pixmap;
+
     int width;
     int height;
+
     uint16_t start_x;
     uint16_t start_y;
 } sprite_t;
@@ -215,6 +218,7 @@ typedef struct {
     /* Visual_FX */
 
     sprite_t transparent;
+    sprite_t transp_piece;
     sprite_t hover_main_menu;
     sprite_t hover_in_game_menu;
 
@@ -223,9 +227,16 @@ typedef struct {
 typedef struct {
 
     _Bool captured;
+    _Bool drag;
+
+    uint16_t start_x;
+    uint16_t start_y;
 
     uint16_t x_pos;
     uint16_t y_pos;
+
+    uint16_t prev_x_pos;
+    uint16_t prev_y_pos;
 
 } game_piece_t;
 

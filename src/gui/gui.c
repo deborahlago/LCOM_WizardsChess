@@ -105,6 +105,7 @@ int gui_game_window(game_assets_t* game_assets, game_state_t* game_state){
             break;
         }
         default: {
+            vg_render_sprite(game_assets->gryff_logo, 32, 806);
             break;
         }
     }
@@ -128,6 +129,7 @@ int gui_game_window(game_assets_t* game_assets, game_state_t* game_state){
             break;
         }
         default: {
+            vg_render_sprite(game_assets->slyth_logo, 1136, 239);
             break;
         }
     }
@@ -135,52 +137,152 @@ int gui_game_window(game_assets_t* game_assets, game_state_t* game_state){
 
     /* TIMERS */
 
+
+
     /* PIECES */
 
     // --- WHITE
-    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_1.x_pos, game_state->w_pawn_1.y_pos);              // pawn 1
-    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_2.x_pos, game_state->w_pawn_2.y_pos);              // pawn 2
-    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_3.x_pos, game_state->w_pawn_3.y_pos);              // pawn 3
-    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_4.x_pos, game_state->w_pawn_4.y_pos);              // pawn 4
-    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_5.x_pos, game_state->w_pawn_5.y_pos);              // pawn 5
-    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_6.x_pos, game_state->w_pawn_6.y_pos);              // pawn 6
-    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_7.x_pos, game_state->w_pawn_7.y_pos);              // pawn 7
-    vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_8.x_pos, game_state->w_pawn_8.y_pos);              // pawn 8
+    if (!game_state->w_pawn_1.captured){
+        // vg_render_sprite(game_assets->transp_piece, game_state->w_pawn_1.prev_x_pos, game_state->w_pawn_1.prev_y_pos);
+        vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_1.x_pos, game_state->w_pawn_1.y_pos);                  // pawn 1
+    }
+    /*
+    if (!game_state->w_pawn_2.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_pawn_2.prev_x_pos, game_state->w_pawn_2.prev_y_pos);
+        vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_2.x_pos, game_state->w_pawn_2.y_pos);                  // pawn 2
+    }
+    if (!game_state->w_pawn_3.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_pawn_3.prev_x_pos, game_state->w_pawn_3.prev_y_pos);
+        vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_3.x_pos, game_state->w_pawn_3.y_pos);                  // pawn 3
+    }
+    if (!game_state->w_pawn_4.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_pawn_4.prev_x_pos, game_state->w_pawn_4.prev_y_pos);
+        vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_4.x_pos, game_state->w_pawn_4.y_pos);                  // pawn 4
+    }
+    if (!game_state->w_pawn_5.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_pawn_5.prev_x_pos, game_state->w_pawn_5.prev_y_pos);
+        vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_5.x_pos, game_state->w_pawn_5.y_pos);                  // pawn 5
+    }
+    if (!game_state->w_pawn_6.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_pawn_6.prev_x_pos, game_state->w_pawn_6.prev_y_pos);
+        vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_6.x_pos, game_state->w_pawn_6.y_pos);                  // pawn 6
+    }
+    if (!game_state->w_pawn_7.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_pawn_7.prev_x_pos, game_state->w_pawn_7.prev_y_pos);
+        vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_7.x_pos, game_state->w_pawn_7.y_pos);                  // pawn 7
+    }
+    if (!game_state->w_pawn_8.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_pawn_8.prev_x_pos, game_state->w_pawn_8.prev_y_pos);
+        vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_8.x_pos, game_state->w_pawn_8.y_pos);                  // pawn 8
+    }
 
-    vg_render_sprite(game_assets->w_bishop, game_state->w_bishop_l.x_pos, game_state->w_bishop_l.y_pos);        // left bishop
-    vg_render_sprite(game_assets->w_bishop, game_state->w_bishop_r.x_pos, game_state->w_bishop_r.y_pos);        // right bishop
+    if (!game_state->w_bishop_l.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_bishop_l.prev_x_pos, game_state->w_bishop_l.prev_y_pos);
+        vg_render_sprite(game_assets->w_bishop, game_state->w_bishop_l.x_pos, game_state->w_bishop_l.y_pos);            // left bishop
+    }
+    if (!game_state->w_bishop_r.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_bishop_r.prev_x_pos, game_state->w_bishop_r.prev_y_pos);
+        vg_render_sprite(game_assets->w_bishop, game_state->w_bishop_r.x_pos, game_state->w_bishop_r.y_pos);            // right bishop
+    }
 
-    vg_render_sprite(game_assets->w_knight, game_state->w_knight_l.x_pos, game_state->w_knight_l.y_pos);        // left knight
-    vg_render_sprite(game_assets->w_knight, game_state->w_knight_r.x_pos, game_state->w_knight_r.y_pos);        // right knight
+    if (!game_state->w_knight_l.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_knight_l.prev_x_pos, game_state->w_knight_l.prev_y_pos);
+        vg_render_sprite(game_assets->w_knight, game_state->w_knight_l.x_pos, game_state->w_knight_l.y_pos);            // left knight
+    }
+    if (!game_state->w_knight_r.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_knight_r.prev_x_pos, game_state->w_knight_r.prev_y_pos);
+        vg_render_sprite(game_assets->w_knight, game_state->w_knight_r.x_pos, game_state->w_knight_r.y_pos);            // right knight
+    }
 
-    vg_render_sprite(game_assets->w_rook, game_state->w_rook_l.x_pos, game_state->w_rook_l.y_pos);              // left rook
-    vg_render_sprite(game_assets->w_rook, game_state->w_rook_r.x_pos, game_state->w_rook_r.y_pos);              // right rook
+    if (!game_state->w_rook_l.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_rook_l.prev_x_pos, game_state->w_rook_l.prev_y_pos);
+        vg_render_sprite(game_assets->w_rook, game_state->w_rook_l.x_pos, game_state->w_rook_l.y_pos);                  // left rook
+    }
+    if (!game_state->w_rook_r.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_rook_r.prev_x_pos, game_state->w_rook_r.prev_y_pos);
+        vg_render_sprite(game_assets->w_rook, game_state->w_rook_r.x_pos, game_state->w_rook_r.y_pos);                  // right rook
+    }
 
-    vg_render_sprite(game_assets->w_queen, game_state->w_queen.x_pos, game_state->w_queen.y_pos);               // queen
-    vg_render_sprite(game_assets->w_king, game_state->w_king.x_pos, game_state->w_king.y_pos);                  // king
+    if (!game_state->w_queen.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_queen.prev_x_pos, game_state->w_queen.prev_y_pos);
+        vg_render_sprite(game_assets->w_queen, game_state->w_queen.x_pos, game_state->w_queen.y_pos);                   // queen
+    }
+    if (!game_state->w_king.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->w_king.prev_x_pos, game_state->w_king.prev_y_pos);
+        vg_render_sprite(game_assets->w_king, game_state->w_king.x_pos, game_state->w_king.y_pos);                      // king
+    }
 
 
     // --- BLACK
-    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_1.x_pos, game_state->b_pawn_1.y_pos);              // pawn 1
-    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_2.x_pos, game_state->b_pawn_2.y_pos);              // pawn 2
-    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_3.x_pos, game_state->b_pawn_3.y_pos);              // pawn 3
-    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_4.x_pos, game_state->b_pawn_4.y_pos);              // pawn 4
-    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_5.x_pos, game_state->b_pawn_5.y_pos);              // pawn 5
-    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_6.x_pos, game_state->b_pawn_6.y_pos);              // pawn 6
-    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_7.x_pos, game_state->b_pawn_7.y_pos);              // pawn 7
-    vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_8.x_pos, game_state->b_pawn_8.y_pos);              // pawn 8
+    if (!game_state->b_pawn_1.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_pawn_1.prev_x_pos, game_state->b_pawn_1.prev_y_pos);
+        vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_1.x_pos, game_state->b_pawn_1.y_pos);                  // pawn 1
+    }
+    if (!game_state->b_pawn_2.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_pawn_2.prev_x_pos, game_state->b_pawn_2.prev_y_pos);
+        vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_2.x_pos, game_state->b_pawn_2.y_pos);                  // pawn 2
+    }
+    if (!game_state->b_pawn_3.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_pawn_3.prev_x_pos, game_state->b_pawn_3.prev_y_pos);
+        vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_3.x_pos, game_state->b_pawn_3.y_pos);                  // pawn 3
+    }
+    if (!game_state->b_pawn_4.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_pawn_4.prev_x_pos, game_state->b_pawn_4.prev_y_pos);
+        vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_4.x_pos, game_state->b_pawn_4.y_pos);                  // pawn 4
+    }
+    if (!game_state->b_pawn_5.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_pawn_5.prev_x_pos, game_state->b_pawn_5.prev_y_pos);
+        vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_5.x_pos, game_state->b_pawn_5.y_pos);                  // pawn 5
+    }
+    if (!game_state->b_pawn_6.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_pawn_6.prev_x_pos, game_state->b_pawn_6.prev_y_pos);
+        vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_6.x_pos, game_state->b_pawn_6.y_pos);                  // pawn 6
+    }
+    if (!game_state->b_pawn_7.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_pawn_7.prev_x_pos, game_state->b_pawn_7.prev_y_pos);
+        vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_7.x_pos, game_state->b_pawn_7.y_pos);                  // pawn 7
+    }
+    if (!game_state->b_pawn_8.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_pawn_8.prev_x_pos, game_state->b_pawn_8.prev_y_pos);
+        vg_render_sprite(game_assets->b_pawn, game_state->b_pawn_8.x_pos, game_state->b_pawn_8.y_pos);                  // pawn 8
+    }
 
-    vg_render_sprite(game_assets->b_bishop, game_state->b_bishop_l.x_pos, game_state->b_bishop_l.y_pos);        // left bishop
-    vg_render_sprite(game_assets->b_bishop, game_state->b_bishop_r.x_pos, game_state->b_bishop_r.y_pos);        // right bishop
+    if (!game_state->b_bishop_l.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_bishop_l.prev_x_pos, game_state->b_bishop_l.prev_y_pos);
+        vg_render_sprite(game_assets->b_bishop, game_state->b_bishop_l.x_pos, game_state->b_bishop_l.y_pos);            // left bishop
+    }
+    if (!game_state->b_bishop_r.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_bishop_r.prev_x_pos, game_state->b_bishop_r.prev_y_pos);
+        vg_render_sprite(game_assets->b_bishop, game_state->b_bishop_r.x_pos, game_state->b_bishop_r.y_pos);            // right bishop
+    }
 
-    vg_render_sprite(game_assets->b_knight, game_state->b_knight_l.x_pos, game_state->b_knight_l.y_pos);        // left knight
-    vg_render_sprite(game_assets->b_knight, game_state->b_knight_r.x_pos, game_state->b_knight_r.y_pos);        // right knight
+    if (!game_state->b_knight_l.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_knight_l.prev_x_pos, game_state->b_knight_l.prev_y_pos);
+        vg_render_sprite(game_assets->b_knight, game_state->b_knight_l.x_pos, game_state->b_knight_l.y_pos);            // left knight
+    }
+    if (!game_state->b_knight_r.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_knight_r.prev_x_pos, game_state->b_knight_r.prev_y_pos);
+        vg_render_sprite(game_assets->b_knight, game_state->b_knight_r.x_pos, game_state->b_knight_r.y_pos);            // right knight
+    }
 
-    vg_render_sprite(game_assets->b_rook, game_state->b_rook_l.x_pos, game_state->b_rook_l.y_pos);              // left rook
-    vg_render_sprite(game_assets->b_rook, game_state->b_rook_r.x_pos, game_state->b_rook_r.y_pos);              // right rook
+    if (!game_state->b_rook_l.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_rook_l.prev_x_pos, game_state->b_rook_l.prev_y_pos);
+        vg_render_sprite(game_assets->b_rook, game_state->b_rook_l.x_pos, game_state->b_rook_l.y_pos);                  // left rook
+    }
+    if (!game_state->b_rook_r.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_rook_r.prev_x_pos, game_state->b_rook_r.prev_y_pos);
+        vg_render_sprite(game_assets->b_rook, game_state->b_rook_r.x_pos, game_state->b_rook_r.y_pos);                  // right rook
+    }
 
-    vg_render_sprite(game_assets->b_queen, game_state->b_queen.x_pos, game_state->b_queen.y_pos);               // queen
-    vg_render_sprite(game_assets->b_king, game_state->b_king.x_pos, game_state->b_king.y_pos);                  // king
+    if (!game_state->b_queen.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_queen.prev_x_pos, game_state->b_queen.prev_y_pos);
+        vg_render_sprite(game_assets->b_queen, game_state->b_queen.x_pos, game_state->b_queen.y_pos);                   // queen
+    }
+    if (!game_state->b_king.captured){
+        vg_render_sprite(game_assets->transp_piece, game_state->b_king.prev_x_pos, game_state->b_king.prev_y_pos);
+        vg_render_sprite(game_assets->b_king, game_state->b_king.x_pos, game_state->b_king.y_pos);                      // king
+    }
+    */
 
     // MOUSE
     vg_render_sprite(game_assets->transparent, game_state->mouse_prev_x_pos, game_state->mouse_prev_y_pos);

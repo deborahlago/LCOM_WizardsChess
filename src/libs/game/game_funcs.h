@@ -51,15 +51,52 @@ void game_update_cursor(game_state_t* game_state);
 struct mouse_event game_mouse_ev_handler(struct packet* pkt, game_state_t* game_state);
 
 /**
- * @brief TODO
+ * @brief Checks if a game element (i.e. a button or an interactable) has been clicked on
  *
  * @param game_sprite Element to be clicked
  *
- * @param game_state current state of game data
+ * @param game_state current state of game data, used to get the state of current mouse position
  *
- * @return Returns true if within the element's area, otherwise returns false
+ * @return Returns true if click happened within the element's area, otherwise returns false
  */
 _Bool game_elem_clicked(sprite_t game_sprite, game_state_t* game_state);
+
+/**
+ * @brief Checks if a game piece has been clicked on
+ *
+ * @param game_piece Game piece to check click
+ *
+ * @param game_sprite sprite of the piece to check width and height
+ *
+ * @param game_state current state of game data, used to get the state of current mouse position
+ *
+ * @return Returns true if click happened within the element's area, otherwise returns false
+ */
+_Bool game_piece_clicked(game_piece_t* game_piece,  sprite_t game_sprite, game_state_t* game_state);
+
+/**
+ * @brief Updates the start position of every piece in the game board
+ *
+ * @param game_state Current state of game data. Used to get each pieces start and current position
+ *
+ */
+void game_update_pieces_start_pos(game_state_t* game_state);
+
+/**
+ * @brief Drags piece around the board updating game piece position upon position movement
+ *
+ * @param game_piece Game piece to be moved
+ *
+ */
+void game_drag_piece(game_state_t* game_state, game_piece_t* game_piece);
+
+/**
+ * @brief Drops piece in a game cell if it is a valid one
+ *
+ * @param game_piece Game piece to be moved
+ *
+ */
+void game_drop_piece(game_state_t* game_state, game_piece_t* game_piece);
 
 /**
  * @brief Updates the current state of the game
