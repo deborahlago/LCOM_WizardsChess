@@ -25,7 +25,7 @@
 
 static unsigned int H_RES, V_RES, BITS_PER_PIXEL;
 static uint8_t *ptrToGpuVAddr;
-
+static uint8_t *doubleBuffer;
 
 /* Data Structures */
 
@@ -113,6 +113,12 @@ int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
  *
  */
 void (vg_reset_frame)();
+
+/**
+ * @brief TODO
+ *
+ */
+void (vg_double_buffering)();
 
 
 /**

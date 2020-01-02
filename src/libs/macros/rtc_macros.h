@@ -19,7 +19,7 @@ typedef struct {
 /* Access to the RTC */
 
 #define RTC_IRQ         8        /**< @brief RTC's IRQ line */
-#define READ_FAILURE
+#define READ_FAILURE    -1
 
 #define RTC_ADDR_REG	0x70     /**< @brief Used to write the address of the register.
                                              Must be loaded with the address of the RTC register to be accessed */

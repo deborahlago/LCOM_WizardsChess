@@ -65,7 +65,7 @@ uint8_t rtc_bcd_to_bin(uint8_t date){
     return date;
 }
 
-void rtc_read_time(rtc_time_t *time){
+void rtc_read_time(rtc_time_t* time){
 
     _Bool bcd = true;
     uint8_t reg_b_cfg = rtc_read_reg(RTC_REG_B);
@@ -88,6 +88,5 @@ void rtc_read_time(rtc_time_t *time){
 
     temp &= ~BIT(7);
     rtc_write_data(RTC_REG_B, temp);
-
 }
 

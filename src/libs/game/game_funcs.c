@@ -198,8 +198,15 @@ struct mouse_event game_mouse_ev_handler(struct packet* pkt, game_state_t* game_
 
     struct mouse_event curr_event;
 
+    // Mouse movement
+    if (pkt->delta_x != 0 || pkt->delta_x != 0){
+        curr_event.type = MOV;
+        curr_event.delta_x = pkt->delta_x;
+        curr_event.delta_y = pkt->delta_y;
+    }
+
     // Left button released
-    if (game_state->lb && !pkt->lb) curr_event.type = LB_REL;
+    else if (game_state->lb && !pkt->lb) curr_event.type = LB_REL;
 
     // Left button pressed
     else if (!game_state->lb && pkt->lb) curr_event.type = LB_PRE;
@@ -210,20 +217,13 @@ struct mouse_event game_mouse_ev_handler(struct packet* pkt, game_state_t* game_
     // Right button pressed
     else if (!game_state->rb && pkt->rb) curr_event.type = RB_PRE;
 
-    // Mouse movement
-    else if (pkt->delta_x != 0 || pkt->delta_x != 0){
-        curr_event.type = MOV;
-        curr_event.delta_x = pkt->delta_x;
-        curr_event.delta_y = pkt->delta_y;
-    }
-
-        // Middle button pressed
+    // Middle button pressed
     else if (game_state->mb && !pkt->mb) curr_event.type = OTHER;
 
-        // Middle button released
+    // Middle button released
     else if (!game_state->mb && pkt->mb) curr_event.type = OTHER;
 
-        // Other scenarios
+    // Other scenarios
     else curr_event.type = OTHER;
 
 
@@ -568,9 +568,8 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                         case MOV: {
                             game_update_cursor(game_state);
 
-                            while (game_state->w_pawn_1.drag)
+                            if (game_state->w_pawn_1.drag)
                                 game_drag_piece(game_state, &game_state->w_pawn_1);
-
 
                             break;
                         }
@@ -590,8 +589,10 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
 
                             /* WHITE PIECES */
                             if (game_state->w_pawn_1.drag == true){
-                                game_state->w_pawn_1.drag = false;
-                                game_drop_piece(game_state, &game_state->w_pawn_1);
+                                if (!game_piece_clicked(&game_state->w_pawn_1, game_assets->w_pawn, game_state)) {
+                                    game_state->w_pawn_1.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_pawn_1);
+                                }
                             }
 
                             /* BLACK PIECES */
@@ -945,7 +946,7 @@ int game_run(game_assets_t* game_assets, game_state_t* game_state){
                             // Mouse interrupt handling
 
                             if (msg.m_notify.interrupts & mouseIrqSet){
-                                
+
                                 mouse_ih();
                                 mouse_parse_packet_byte();
 
@@ -961,8 +962,6 @@ int game_run(game_assets_t* game_assets, game_state_t* game_state){
                                     game_state->curr_event = MOUSE;
                                     game_update_state(game_assets, game_state);
                                 }
-
-
                             }
                         }
                     }

@@ -9,8 +9,8 @@
  * Functions for using the The PC's Serial Port (UART)
  */
 
-typedef enum
-{
+
+typedef enum {
     NEWTRNM,
     CONNECTED,
     KB,
@@ -20,19 +20,21 @@ typedef enum
     C_MSG
 } serial_evt_tp;
 
+
+
 /**
  * @brief Gets COM1 line control register
  *
  * @return Returns COM1 line control register
  */
-int(sp_get_ctrl)(uint32_t *com1_ctrl_reg);
+int (sp_get_ctrl)(uint32_t *com1_ctrl_reg);
 
 /**
  * @brief Gets COM1 line status register
  *
  * @return Returns COM1 line status register
  */
-int(sp_get_status)(uint32_t *com1_st_reg);
+int (sp_get_status)(uint32_t *com1_st_reg);
 
 /**
  * @brief Writes character to transmitter holding register
@@ -40,7 +42,7 @@ int(sp_get_status)(uint32_t *com1_st_reg);
  * @param port Address of serial port COM port
  * @param char_data Character to write
  */
-int sp_write_th(uint16_t port, uint32_t char_data);
+int sp_write_th (uint16_t port, uint32_t char_data);
 
 /**
  * @brief Reads character from receiver buffer register
@@ -48,12 +50,12 @@ int sp_write_th(uint16_t port, uint32_t char_data);
  * @param port Address of serial port COM port
  * @param cdata pointer to where character will be stored
  */
-int sp_read_buffer(uint16_t port, uint8_t *cdata);
+int sp_read_buffer (uint16_t port, uint8_t *cdata);
 
 /**
  * @brief Subscribes to serial port interrupts
  */
-int sp_subscribe_int();
+int sp_subscribe_int ();
 
 /**
  * @brief Unubscribes to serial port interrupts

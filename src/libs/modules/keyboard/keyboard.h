@@ -28,7 +28,6 @@
 int (kbc_sys_inb)(int port, uint8_t *value);
 
 
-
 /**
  * @brief Reads and stores the status register content
  *

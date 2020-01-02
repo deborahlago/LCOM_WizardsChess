@@ -85,6 +85,8 @@ void *(vg_init)(uint16_t mode)
     if (VIDEO_MEMORY_FRAME_BUFF_ADDR == MAP_FAILED)
         panic("couldn't map video memory");
 
+    doubleBuffer = malloc(VRAM_SIZE);
+
     ///////////// MODIFY GRAPHIC MODE /////////////
 
     // int sys_int86(struct reg86 * reg86p)
@@ -95,6 +97,8 @@ void *(vg_init)(uint16_t mode)
     // Initialize struct and function to empty the register REG_86 struct
     struct reg86 REG_86;
     memset(&REG_86, 0, sizeof(REG_86));
+
+    REG_86.ah = VBE_FUNC_RETURN_SUCCESS_AX;
 
     // Identify VBE Function (SetVideoMode)
     REG_86.ax = VBE_FUNC_SET_MODE_AX;
@@ -181,6 +185,7 @@ void(vg_exit_gfx_on_key_press)(uint8_t key_breakcode)
 
 int(vg_draw_point)(uint16_t x, uint16_t y, uint32_t color){
 
+    /*
     uint8_t *ptrToVAddr = ptrToGpuVAddr;
 
     if (x > H_RES || y > V_RES)
@@ -189,6 +194,23 @@ int(vg_draw_point)(uint16_t x, uint16_t y, uint32_t color){
     unsigned int pxBytes = ceil(BITS_PER_PIXEL / 8.0);
 
     ptrToVAddr += ((H_RES * y) + x) * pxBytes;
+
+    if (color != xpm_transparency_color(XPM_8_8_8)){
+        for (unsigned int i = 0; i < pxBytes; i++){
+            *ptrToVAddr = color >> (8 * i);
+            ptrToVAddr++;
+        }
+    }
+    */
+
+    uint8_t *ptrToVAddr = ptrToGpuVAddr;
+
+    if (x > H_RES || y > V_RES)
+        return EXIT_FAILURE;
+
+    unsigned int pxBytes = ceil(BITS_PER_PIXEL / 8.0);
+
+    ptrToVAddr = (uint8_t*) doubleBuffer + (((H_RES * y) + x) * pxBytes);
 
     if (color != xpm_transparency_color(XPM_8_8_8)){
         for (unsigned int i = 0; i < pxBytes; i++){
@@ -221,8 +243,12 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
 }
 
 void(vg_reset_frame)(){
+    // memset(ptrToGpuVAddr, 0, H_RES * V_RES * ceil(BITS_PER_PIXEL / 8.0));
+    memset(doubleBuffer, 0, H_RES * V_RES * ceil(BITS_PER_PIXEL / 8.0));
+}
 
-    memset(ptrToGpuVAddr, 0, H_RES * V_RES * ceil(BITS_PER_PIXEL / 8.0));
+void (vg_double_buffering)(){
+    memcpy(ptrToGpuVAddr, doubleBuffer, H_RES * V_RES * ceil(BITS_PER_PIXEL / 8.0));
 }
 
 sprite_t vg_load_sprite(xpm_map_t xpm){
