@@ -185,24 +185,6 @@ void(vg_exit_gfx_on_key_press)(uint8_t key_breakcode)
 
 int(vg_draw_point)(uint16_t x, uint16_t y, uint32_t color){
 
-    /*
-    uint8_t *ptrToVAddr = ptrToGpuVAddr;
-
-    if (x > H_RES || y > V_RES)
-        return EXIT_FAILURE;
-
-    unsigned int pxBytes = ceil(BITS_PER_PIXEL / 8.0);
-
-    ptrToVAddr += ((H_RES * y) + x) * pxBytes;
-
-    if (color != xpm_transparency_color(XPM_8_8_8)){
-        for (unsigned int i = 0; i < pxBytes; i++){
-            *ptrToVAddr = color >> (8 * i);
-            ptrToVAddr++;
-        }
-    }
-    */
-
     uint8_t *ptrToVAddr = ptrToGpuVAddr;
 
     if (x > H_RES || y > V_RES)

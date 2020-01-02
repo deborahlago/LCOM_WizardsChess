@@ -303,21 +303,6 @@ int (proj_main_loop)(int argc, char *argv[]) {
     game.b_knight_r.x_pos = game.black_pieces_x_pos[11];
     game.b_knight_r.y_pos = game.black_pieces_y_pos[11];
 
-    // --- black knights
-    game.b_knight_l.captured = false;
-    game.b_knight_l.drag = false;
-    game.b_knight_l.prev_x_pos = game.black_pieces_x_pos[10];
-    game.b_knight_l.prev_y_pos = game.black_pieces_y_pos[10];
-    game.b_knight_l.x_pos = game.black_pieces_x_pos[10];
-    game.b_knight_l.y_pos = game.black_pieces_y_pos[10];
-
-    game.b_knight_r.captured = false;
-    game.b_knight_r.drag = false;
-    game.b_knight_r.prev_x_pos = game.black_pieces_x_pos[11];
-    game.b_knight_r.prev_y_pos = game.black_pieces_y_pos[11];
-    game.b_knight_r.x_pos = game.black_pieces_x_pos[11];
-    game.b_knight_r.y_pos = game.black_pieces_y_pos[11];
-
     // --- black rooks
     game.b_rook_l.captured = false;
     game.b_rook_l.drag = false;

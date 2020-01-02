@@ -177,21 +177,21 @@ void game_update_cursor(game_state_t* game_state){
     game_state->mouse_prev_y_pos = game_state->mouse_curr_y_pos;
 
     // Update X pos
-    if (game_state->mouse_curr_x_pos + (game_state->curr_mouse_event.delta_x*0.6) > 1280)
-        game_state->mouse_curr_x_pos = 1270;
-    else if (game_state->mouse_curr_x_pos + (game_state->curr_mouse_event.delta_x*0.6) < 0)
-        game_state->mouse_curr_x_pos = 10;
+    if (game_state->mouse_curr_x_pos + (game_state->curr_mouse_event.delta_x*0.8) > 1280)
+        game_state->mouse_curr_x_pos = 1250;
+    else if (game_state->mouse_curr_x_pos + (game_state->curr_mouse_event.delta_x*0.8) < 0)
+        game_state->mouse_curr_x_pos = 0;
     else
-        game_state->mouse_curr_x_pos += game_state->curr_mouse_event.delta_x * 0.6;
+        game_state->mouse_curr_x_pos += game_state->curr_mouse_event.delta_x * 0.8;
 
 
     // Update Y pos
-    if (game_state->mouse_curr_y_pos - (game_state->curr_mouse_event.delta_y*0.6) > 1014)
-        game_state->mouse_curr_y_pos = 1014;
-    else if (game_state->mouse_curr_y_pos - (game_state->curr_mouse_event.delta_y*0.6) < 0)
-        game_state->mouse_curr_y_pos = 10;
+    if (game_state->mouse_curr_y_pos - (game_state->curr_mouse_event.delta_y*0.8) > 1004)
+        game_state->mouse_curr_y_pos = 1004;
+    else if (game_state->mouse_curr_y_pos - (game_state->curr_mouse_event.delta_y*0.8) < 0)
+        game_state->mouse_curr_y_pos = 0;
     else
-        game_state->mouse_curr_y_pos -= game_state->curr_mouse_event.delta_y * 0.6;
+        game_state->mouse_curr_y_pos -= game_state->curr_mouse_event.delta_y * 0.8;
 }
 
 struct mouse_event game_mouse_ev_handler(struct packet* pkt, game_state_t* game_state){
@@ -568,8 +568,110 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                         case MOV: {
                             game_update_cursor(game_state);
 
+                            /* WHITE PIECES DRAG */
+
                             if (game_state->w_pawn_1.drag)
                                 game_drag_piece(game_state, &game_state->w_pawn_1);
+
+                            else if (game_state->w_pawn_2.drag)
+                                game_drag_piece(game_state, &game_state->w_pawn_2);
+
+                            else if (game_state->w_pawn_3.drag)
+                                game_drag_piece(game_state, &game_state->w_pawn_3);
+
+                            else if (game_state->w_pawn_4.drag)
+                                game_drag_piece(game_state, &game_state->w_pawn_4);
+
+                            else if (game_state->w_pawn_5.drag)
+                                game_drag_piece(game_state, &game_state->w_pawn_5);
+
+                            else if (game_state->w_pawn_6.drag)
+                                game_drag_piece(game_state, &game_state->w_pawn_6);
+
+                            else if (game_state->w_pawn_7.drag)
+                                game_drag_piece(game_state, &game_state->w_pawn_7);
+
+                            else if (game_state->w_pawn_8.drag)
+                                game_drag_piece(game_state, &game_state->w_pawn_8);
+
+                            else if (game_state->w_bishop_l.drag)
+                                game_drag_piece(game_state, &game_state->w_bishop_l);
+
+                            else if (game_state->w_bishop_r.drag)
+                                game_drag_piece(game_state, &game_state->w_bishop_r);
+
+                            else if (game_state->w_knight_l.drag)
+                                game_drag_piece(game_state, &game_state->w_knight_l);
+
+                            else if (game_state->w_knight_r.drag)
+                                game_drag_piece(game_state, &game_state->w_knight_r);
+
+                            else if (game_state->w_rook_l.drag)
+                                game_drag_piece(game_state, &game_state->w_rook_l);
+
+                            else if (game_state->w_rook_r.drag)
+                                game_drag_piece(game_state, &game_state->w_rook_r);
+
+                            else if (game_state->w_queen.drag)
+                                game_drag_piece(game_state, &game_state->w_queen);
+
+                            else if (game_state->w_king.drag)
+                                game_drag_piece(game_state, &game_state->w_king);
+
+                            else {}
+
+
+                            /* BLACK PIECES DRAG */
+
+                            if (game_state->b_pawn_1.drag)
+                                game_drag_piece(game_state, &game_state->b_pawn_1);
+
+                            else if (game_state->b_pawn_2.drag)
+                                game_drag_piece(game_state, &game_state->b_pawn_2);
+
+                            else if (game_state->b_pawn_3.drag)
+                                game_drag_piece(game_state, &game_state->b_pawn_3);
+
+                            else if (game_state->b_pawn_4.drag)
+                                game_drag_piece(game_state, &game_state->b_pawn_4);
+
+                            else if (game_state->b_pawn_5.drag)
+                                game_drag_piece(game_state, &game_state->b_pawn_5);
+
+                            else if (game_state->b_pawn_6.drag)
+                                game_drag_piece(game_state, &game_state->b_pawn_6);
+
+                            else if (game_state->b_pawn_7.drag)
+                                game_drag_piece(game_state, &game_state->b_pawn_7);
+
+                            else if (game_state->b_pawn_8.drag)
+                                game_drag_piece(game_state, &game_state->b_pawn_8);
+
+                            else if (game_state->b_bishop_l.drag)
+                                game_drag_piece(game_state, &game_state->b_bishop_l);
+
+                            else if (game_state->b_bishop_r.drag)
+                                game_drag_piece(game_state, &game_state->b_bishop_r);
+
+                            else if (game_state->b_knight_l.drag)
+                                game_drag_piece(game_state, &game_state->b_knight_l);
+
+                            else if (game_state->b_knight_r.drag)
+                                game_drag_piece(game_state, &game_state->b_knight_r);
+
+                            else if (game_state->b_rook_l.drag)
+                                game_drag_piece(game_state, &game_state->b_rook_l);
+
+                            else if (game_state->b_rook_r.drag)
+                                game_drag_piece(game_state, &game_state->b_rook_r);
+
+                            else if (game_state->b_queen.drag)
+                                game_drag_piece(game_state, &game_state->b_queen);
+
+                            else if (game_state->b_king.drag)
+                                game_drag_piece(game_state, &game_state->b_king);
+
+                            else {}
 
                             break;
                         }
@@ -577,26 +679,317 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
 
                             game_update_pieces_start_pos(game_state);
 
-                            /* WHITE PIECES */
+                            /* WHITE PIECES CLICK */
+
                             if (game_piece_clicked(&game_state->w_pawn_1, game_assets->w_pawn, game_state))
                                 game_state->w_pawn_1.drag = true;
 
+                            else if (game_piece_clicked(&game_state->w_pawn_2, game_assets->w_pawn, game_state))
+                                game_state->w_pawn_2.drag = true;
 
-                            /* BLACK PIECES */
+                            else if (game_piece_clicked(&game_state->w_pawn_3, game_assets->w_pawn, game_state))
+                                game_state->w_pawn_3.drag = true;
 
+                            else if (game_piece_clicked(&game_state->w_pawn_4, game_assets->w_pawn, game_state))
+                                game_state->w_pawn_4.drag = true;
+
+                            else if (game_piece_clicked(&game_state->w_pawn_5, game_assets->w_pawn, game_state))
+                                game_state->w_pawn_5.drag = true;
+
+                            else if (game_piece_clicked(&game_state->w_pawn_6, game_assets->w_pawn, game_state))
+                                game_state->w_pawn_6.drag = true;
+
+                            else if (game_piece_clicked(&game_state->w_pawn_7, game_assets->w_pawn, game_state))
+                                game_state->w_pawn_7.drag = true;
+
+                            else if (game_piece_clicked(&game_state->w_pawn_8, game_assets->w_pawn, game_state))
+                                game_state->w_pawn_8.drag = true;
+
+                            else if (game_piece_clicked(&game_state->w_bishop_l, game_assets->w_bishop, game_state))
+                                game_state->w_bishop_l.drag = true;
+
+                            else if (game_piece_clicked(&game_state->w_bishop_r, game_assets->w_bishop, game_state))
+                                game_state->w_bishop_r.drag = true;
+
+                            else if (game_piece_clicked(&game_state->w_knight_l, game_assets->w_knight, game_state))
+                                game_state->w_knight_l.drag = true;
+
+                            else if (game_piece_clicked(&game_state->w_knight_r, game_assets->w_knight, game_state))
+                                game_state->w_knight_r.drag = true;
+
+                            else if (game_piece_clicked(&game_state->w_rook_l, game_assets->w_rook, game_state))
+                                game_state->w_rook_r.drag = true;
+
+                            else if (game_piece_clicked(&game_state->w_rook_r, game_assets->w_rook, game_state))
+                                game_state->w_rook_r.drag = true;
+
+                            else if (game_piece_clicked(&game_state->w_queen, game_assets->w_queen, game_state))
+                                game_state->w_queen.drag = true;
+
+                            else if (game_piece_clicked(&game_state->w_king, game_assets->w_king, game_state))
+                                game_state->w_king.drag = true;
+
+                            else {}
+
+
+                            /* BLACK PIECES CLICK */
+
+                            if (game_piece_clicked(&game_state->b_pawn_1, game_assets->b_pawn, game_state))
+                                game_state->b_pawn_1.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_pawn_2, game_assets->b_pawn, game_state))
+                                game_state->b_pawn_2.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_pawn_3, game_assets->b_pawn, game_state))
+                                game_state->b_pawn_3.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_pawn_4, game_assets->b_pawn, game_state))
+                                game_state->b_pawn_4.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_pawn_5, game_assets->b_pawn, game_state))
+                                game_state->b_pawn_5.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_pawn_6, game_assets->b_pawn, game_state))
+                                game_state->b_pawn_6.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_pawn_7, game_assets->b_pawn, game_state))
+                                game_state->b_pawn_7.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_pawn_8, game_assets->b_pawn, game_state))
+                                game_state->b_pawn_8.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_bishop_l, game_assets->b_bishop, game_state))
+                                game_state->b_bishop_l.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_bishop_r, game_assets->b_bishop, game_state))
+                                game_state->b_bishop_r.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_knight_l, game_assets->b_knight, game_state))
+                                game_state->b_knight_l.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_knight_r, game_assets->b_knight, game_state))
+                                game_state->b_knight_r.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_rook_l, game_assets->b_rook, game_state))
+                                game_state->b_rook_r.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_rook_r, game_assets->b_rook, game_state))
+                                game_state->b_rook_r.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_queen, game_assets->b_queen, game_state))
+                                game_state->b_queen.drag = true;
+
+                            else if (game_piece_clicked(&game_state->b_king, game_assets->b_king, game_state))
+                                game_state->b_king.drag = true;
+
+                            else {}
+
+                            break;
                         }
                         case LB_REL: {
 
-                            /* WHITE PIECES */
-                            if (game_state->w_pawn_1.drag == true){
+                            /* WHITE PIECES DROP */
+
+                            if (game_state->w_pawn_1.drag){
                                 if (!game_piece_clicked(&game_state->w_pawn_1, game_assets->w_pawn, game_state)) {
                                     game_state->w_pawn_1.drag = false;
                                     game_drop_piece(game_state, &game_state->w_pawn_1);
                                 }
                             }
+                            else if (game_state->w_pawn_2.drag){
+                                if (!game_piece_clicked(&game_state->w_pawn_2, game_assets->w_pawn, game_state)) {
+                                    game_state->w_pawn_2.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_pawn_2);
+                                }
+                            }
+                            else if (game_state->w_pawn_3.drag){
+                                if (!game_piece_clicked(&game_state->w_pawn_3, game_assets->w_pawn, game_state)) {
+                                    game_state->w_pawn_3.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_pawn_3);
+                                }
+                            }
+                            else if (game_state->w_pawn_4.drag){
+                                if (!game_piece_clicked(&game_state->w_pawn_4, game_assets->w_pawn, game_state)) {
+                                    game_state->w_pawn_4.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_pawn_4);
+                                }
+                            }
+                            else if (game_state->w_pawn_5.drag){
+                                if (!game_piece_clicked(&game_state->w_pawn_5, game_assets->w_pawn, game_state)) {
+                                    game_state->w_pawn_5.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_pawn_5);
+                                }
+                            }
+                            else if (game_state->w_pawn_6.drag){
+                                if (!game_piece_clicked(&game_state->w_pawn_6, game_assets->w_pawn, game_state)) {
+                                    game_state->w_pawn_6.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_pawn_6);
+                                }
+                            }
+                            else if (game_state->w_pawn_7.drag){
+                                if (!game_piece_clicked(&game_state->w_pawn_7, game_assets->w_pawn, game_state)) {
+                                    game_state->w_pawn_7.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_pawn_7);
+                                }
+                            }
+                            else if (game_state->w_pawn_8.drag){
+                                if (!game_piece_clicked(&game_state->w_pawn_8, game_assets->w_pawn, game_state)) {
+                                    game_state->w_pawn_8.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_pawn_8);
+                                }
+                            }
+                            else if (game_state->w_bishop_l.drag){
+                                if (!game_piece_clicked(&game_state->w_bishop_l, game_assets->w_bishop, game_state)) {
+                                    game_state->w_bishop_l.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_bishop_l);
+                                }
+                            }
+                            else if (game_state->w_bishop_r.drag){
+                                if (!game_piece_clicked(&game_state->w_bishop_r, game_assets->w_bishop, game_state)) {
+                                    game_state->w_bishop_r.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_bishop_r);
+                                }
+                            }
+                            else if (game_state->w_knight_l.drag){
+                                if (!game_piece_clicked(&game_state->w_knight_l, game_assets->w_knight, game_state)) {
+                                    game_state->w_knight_l.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_knight_l);
+                                }
+                            }
+                            else if (game_state->w_knight_r.drag){
+                                if (!game_piece_clicked(&game_state->w_knight_r, game_assets->w_knight, game_state)) {
+                                    game_state->w_knight_r.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_knight_r);
+                                }
+                            }
+                            else if (game_state->w_rook_l.drag){
+                                if (!game_piece_clicked(&game_state->w_rook_l, game_assets->w_rook, game_state)) {
+                                    game_state->w_rook_l.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_rook_l);
+                                }
+                            }
+                            else if (game_state->w_rook_r.drag){
+                                if (!game_piece_clicked(&game_state->w_rook_r, game_assets->w_rook, game_state)) {
+                                    game_state->w_rook_r.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_rook_r);
+                                }
+                            }
+                            else if (game_state->w_queen.drag){
+                                if (!game_piece_clicked(&game_state->w_queen, game_assets->w_queen, game_state)) {
+                                    game_state->w_queen.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_queen);
+                                }
+                            }
+                            else if (game_state->w_king.drag){
+                                if (!game_piece_clicked(&game_state->w_king, game_assets->w_king, game_state)) {
+                                    game_state->w_king.drag = false;
+                                    game_drop_piece(game_state, &game_state->w_king);
+                                }
+                            }
+                            else {}
 
-                            /* BLACK PIECES */
 
+                            /* BLACK PIECES DROP */
+
+                            if (game_state->b_pawn_1.drag){
+                                if (!game_piece_clicked(&game_state->b_pawn_1, game_assets->b_pawn, game_state)) {
+                                    game_state->b_pawn_1.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_pawn_1);
+                                }
+                            }
+                            else if (game_state->b_pawn_2.drag){
+                                if (!game_piece_clicked(&game_state->b_pawn_2, game_assets->b_pawn, game_state)) {
+                                    game_state->b_pawn_2.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_pawn_2);
+                                }
+                            }
+                            else if (game_state->b_pawn_3.drag){
+                                if (!game_piece_clicked(&game_state->b_pawn_3, game_assets->b_pawn, game_state)) {
+                                    game_state->b_pawn_3.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_pawn_3);
+                                }
+                            }
+                            else if (game_state->b_pawn_4.drag){
+                                if (!game_piece_clicked(&game_state->b_pawn_4, game_assets->b_pawn, game_state)) {
+                                    game_state->b_pawn_4.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_pawn_4);
+                                }
+                            }
+                            else if (game_state->b_pawn_5.drag){
+                                if (!game_piece_clicked(&game_state->b_pawn_5, game_assets->b_pawn, game_state)) {
+                                    game_state->b_pawn_5.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_pawn_5);
+                                }
+                            }
+                            else if (game_state->b_pawn_6.drag){
+                                if (!game_piece_clicked(&game_state->b_pawn_6, game_assets->b_pawn, game_state)) {
+                                    game_state->b_pawn_6.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_pawn_6);
+                                }
+                            }
+                            else if (game_state->b_pawn_7.drag){
+                                if (!game_piece_clicked(&game_state->b_pawn_7, game_assets->b_pawn, game_state)) {
+                                    game_state->b_pawn_7.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_pawn_7);
+                                }
+                            }
+                            else if (game_state->b_pawn_8.drag){
+                                if (!game_piece_clicked(&game_state->b_pawn_8, game_assets->b_pawn, game_state)) {
+                                    game_state->b_pawn_8.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_pawn_8);
+                                }
+                            }
+                            else if (game_state->b_bishop_l.drag){
+                                if (!game_piece_clicked(&game_state->b_bishop_l, game_assets->b_bishop, game_state)) {
+                                    game_state->b_bishop_l.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_bishop_l);
+                                }
+                            }
+                            else if (game_state->b_bishop_r.drag){
+                                if (!game_piece_clicked(&game_state->b_bishop_r, game_assets->b_bishop, game_state)) {
+                                    game_state->b_bishop_r.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_bishop_r);
+                                }
+                            }
+                            else if (game_state->b_knight_l.drag){
+                                if (!game_piece_clicked(&game_state->b_knight_l, game_assets->b_knight, game_state)) {
+                                    game_state->b_knight_l.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_knight_l);
+                                }
+                            }
+                            else if (game_state->b_knight_r.drag){
+                                if (!game_piece_clicked(&game_state->b_knight_r, game_assets->b_knight, game_state)) {
+                                    game_state->b_knight_r.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_knight_r);
+                                }
+                            }
+                            else if (game_state->b_rook_l.drag){
+                                if (!game_piece_clicked(&game_state->b_rook_l, game_assets->b_rook, game_state)) {
+                                    game_state->b_rook_l.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_rook_l);
+                                }
+                            }
+                            else if (game_state->b_rook_r.drag){
+                                if (!game_piece_clicked(&game_state->b_rook_r, game_assets->b_rook, game_state)) {
+                                    game_state->b_rook_r.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_rook_r);
+                                }
+                            }
+                            else if (game_state->b_queen.drag){
+                                if (!game_piece_clicked(&game_state->b_queen, game_assets->b_queen, game_state)) {
+                                    game_state->b_queen.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_queen);
+                                }
+                            }
+                            else if (game_state->b_king.drag){
+                                if (!game_piece_clicked(&game_state->b_king, game_assets->b_king, game_state)) {
+                                    game_state->b_king.drag = false;
+                                    game_drop_piece(game_state, &game_state->b_king);
+                                }
+                            }
+                            else {}
+
+                            /* MENU BUTTON */
 
                             // In-game menu
                             if (game_elem_clicked(game_assets->in_game_menu_btn, game_state))
