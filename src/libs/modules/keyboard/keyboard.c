@@ -23,6 +23,7 @@ int (kbc_sys_inb)(int port, uint8_t *value){
 }
 
 
+
 int (kbc_read_st_byte)(uint8_t *st_byte){
 
     if (kbc_sys_inb(KBC_STATUS_REG, st_byte) == EXIT_SUCCESS)

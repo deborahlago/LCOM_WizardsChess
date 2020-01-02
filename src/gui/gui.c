@@ -143,7 +143,7 @@ int gui_game_window(game_assets_t* game_assets, game_state_t* game_state){
 
     // --- WHITE
     if (!game_state->w_pawn_1.captured){
-        // vg_render_sprite(game_assets->transp_piece, game_state->w_pawn_1.prev_x_pos, game_state->w_pawn_1.prev_y_pos);
+        vg_render_sprite(game_assets->transp_piece, game_state->w_pawn_1.prev_x_pos, game_state->w_pawn_1.prev_y_pos);
         vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_1.x_pos, game_state->w_pawn_1.y_pos);                  // pawn 1
     }
     /*

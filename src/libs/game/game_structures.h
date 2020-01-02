@@ -124,6 +124,7 @@ typedef struct {
 
     uint16_t start_x;
     uint16_t start_y;
+
 } sprite_t;
 
 typedef struct {

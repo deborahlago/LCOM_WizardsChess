@@ -182,31 +182,23 @@ int (proj_main_loop)(int argc, char *argv[]) {
     // --- white rook
     game.w_rook_l.captured = false;
     game.w_rook_l.drag = false;
-    game.w_rook_l.prev_x_pos = game.white_pieces_x_pos[12];
-    game.w_rook_l.prev_y_pos = game.white_pieces_y_pos[12];
     game.w_rook_l.x_pos = game.white_pieces_x_pos[12];
     game.w_rook_l.y_pos = game.white_pieces_y_pos[12];
 
     game.w_rook_r.captured = false;
     game.w_rook_r.drag = false;
-    game.w_rook_r.prev_x_pos = game.white_pieces_x_pos[13];
-    game.w_rook_r.prev_y_pos = game.white_pieces_y_pos[13];
     game.w_rook_r.x_pos = game.white_pieces_x_pos[13];
     game.w_rook_r.y_pos = game.white_pieces_y_pos[13];
 
     // --- white queen
     game.w_queen.captured = false;
     game.w_queen.drag = false;
-    game.w_queen.prev_x_pos = game.white_pieces_x_pos[14];
-    game.w_queen.prev_y_pos = game.white_pieces_y_pos[14];
     game.w_queen.x_pos = game.white_pieces_x_pos[14];
     game.w_queen.y_pos = game.white_pieces_y_pos[14];
 
     // --- white king
     game.w_king.captured = false;
     game.w_king.drag = false;
-    game.w_king.prev_x_pos = game.white_pieces_x_pos[15];
-    game.w_king.prev_y_pos = game.white_pieces_y_pos[15];
     game.w_king.x_pos = game.white_pieces_x_pos[15];
     game.w_king.y_pos = game.white_pieces_y_pos[15];
 

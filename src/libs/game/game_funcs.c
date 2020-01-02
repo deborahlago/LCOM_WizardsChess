@@ -916,14 +916,6 @@ int game_run(game_assets_t* game_assets, game_state_t* game_state){
 
                                 if (scancodeHasTwoBytes) scancodeHasTwoBytes = false;
 
-                                /*
-                                if (scancodeHasTwoBytes){
-                                    kbd_print_scancode(kbc_is_make_code(scancodeArr[1]), 2, scancodeArr);
-                                    scancodeHasTwoBytes = false;
-                                }
-                                else kbd_print_scancode(kbc_is_make_code(scancodeArr[0]), 1, scancodeArr);
-                                */
-
                                 // UPDATE
                                 game_state->curr_event = KEYBOARD;
                                 game_state->pressed_key = scancodeArr[0];
@@ -953,10 +945,7 @@ int game_run(game_assets_t* game_assets, game_state_t* game_state){
                             // Mouse interrupt handling
 
                             if (msg.m_notify.interrupts & mouseIrqSet){
-
-                                // Handles a new interrupt
-                                // Parses all the packet bytes into the
-                                // bytes array in the packet struct
+                                
                                 mouse_ih();
                                 mouse_parse_packet_byte();
 
@@ -967,11 +956,13 @@ int game_run(game_assets_t* game_assets, game_state_t* game_state){
                                     pktCounter = 0;
                                     timerIntCounter = 0;
                                     packetsGenerated++;
+
+                                    // UPDATE
+                                    game_state->curr_event = MOUSE;
+                                    game_update_state(game_assets, game_state);
                                 }
 
-                                // UPDATE
-                                game_state->curr_event = MOUSE;
-                                game_update_state(game_assets, game_state);
+
                             }
                         }
                     }
