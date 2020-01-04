@@ -62,9 +62,13 @@ int (proj_main_loop)(int argc, char *argv[]) {
     // initialize game values
     game_state_t game;
 
-    // booleans
+    // general game data
     game.leave = false;
     game.multiplayer = false;
+    game.move_made = false;
+
+    game.play_time = 30;
+
     game.curr_state = START_WINDOW;
 
     // mouse data
@@ -77,9 +81,38 @@ int (proj_main_loop)(int argc, char *argv[]) {
     game.rb = false;
     game.mb = false;
 
+    // player data
+    game.p1_timer_int_count = 0;
+    game.p2_timer_int_count = 0;
+
+    game.p1_turn = true;
+    game.p2_turn = false;
+
+    game.p1_victory = false;
+    game.p2_victory = false;
+
+    // timers
+    game.p1_ten_secs_counter = 0;
+    game.p1_sec_loop_counter = 4;
+
+    game.p2_ten_secs_counter = 0;
+    game.p2_sec_loop_counter = 4;
+
+    game.p1_f_digit_left = 9 - game.play_time / 10;
+    game.p1_s_digit_left = 9;
+    game.p1_f_digit_right = 9;
+    game.p1_s_digit_right = 9;
+
+    game.p2_f_digit_left = 9 - game.play_time / 10;
+    game.p2_s_digit_left = 9;
+    game.p2_f_digit_right = 9;
+    game.p2_s_digit_right = 9;
 
     // -----------------------------------------------
     // game pieces
+
+    game.last_played_piece = NULL;
+
     uint16_t white_pieces_x[16] = {347, 422, 496, 570, 644, 718, 792, 865, 496, 718, 422, 792, 347, 865, 570, 644};
     uint16_t white_pieces_y[16] = {661, 661, 661, 661, 661, 661, 661, 661, 734, 734, 734, 734, 734, 734, 734, 734};
     uint16_t black_pieces_x[16] = {347, 422, 496, 570, 644, 718, 792, 865, 496, 718, 422, 792, 347, 865, 570, 644};

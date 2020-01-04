@@ -242,8 +242,12 @@ typedef struct {
 
 typedef struct {
 
+    // Game general data
     _Bool leave;
     _Bool multiplayer;
+    _Bool move_made;
+
+    uint32_t play_time;
 
     // Mouse event and positions
     struct mouse_event curr_mouse_event;
@@ -263,11 +267,39 @@ typedef struct {
     rtc_time_t curr_time;
     uint8_t pressed_key;
 
-    // Player houses
+    // Player Data
     enum GAME_HOUSES p1_house;
     enum GAME_HOUSES p2_house;
 
+    _Bool p1_turn;
+    _Bool p2_turn;
+
+    _Bool p1_victory;
+    _Bool p2_victory;
+
+    // Timers
+    uint32_t p1_ten_secs_counter;
+    uint8_t p1_sec_loop_counter;
+
+    uint32_t p2_ten_secs_counter;
+    uint8_t p2_sec_loop_counter;
+
+    uint8_t p1_f_digit_left;
+    uint8_t p1_s_digit_left;
+    uint8_t p1_f_digit_right;
+    uint8_t p1_s_digit_right;
+
+    uint8_t p2_f_digit_left;
+    uint8_t p2_s_digit_left;
+    uint8_t p2_f_digit_right;
+    uint8_t p2_s_digit_right;
+
+    uint32_t p1_timer_int_count;
+    uint32_t p2_timer_int_count;
+
     // Board pieces
+    game_piece_t* last_played_piece;
+
     uint16_t white_pieces_x_pos[16];
     uint16_t white_pieces_y_pos[16];
 

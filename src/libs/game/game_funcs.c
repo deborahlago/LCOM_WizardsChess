@@ -386,6 +386,9 @@ void game_drop_piece(game_state_t* game_state, game_piece_t* game_piece){
         game_piece->x_pos = game_piece->start_x;
         game_piece->y_pos = game_piece->start_y;
     }
+
+    game_state->last_played_piece = game_piece;
+    game_state->move_made = true;
 }
 
 void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
@@ -423,6 +426,8 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
 
                     if (game_state->pressed_key == KBC_ENTER_KEY_MAKECODE)
                         game_state->curr_state = MAIN_MENU;
+
+                    game_state->pressed_key = 0;
 
                     break;
                 }
@@ -559,7 +564,73 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
 
             switch (game_state->curr_event) {
                 case TIMER: {
+
+                    // Update game timers
+                    uint32_t secs_elapsed;
+
+                    if (game_state->p1_turn){
+
+                        // Update p1 timer
+                        game_state->p1_timer_int_count++;
+                        secs_elapsed = game_state->p1_timer_int_count/60;
+
+                        if (game_state->p1_timer_int_count % 30 == 0){
+                            game_state->p1_ten_secs_counter++;
+
+                            uint8_t mins_elapsed = ceil(secs_elapsed/60.0);
+
+                            game_state->p1_s_digit_right = game_state->p1_ten_secs_counter - 1;
+                            game_state->p1_f_digit_right = game_state->p1_sec_loop_counter;
+                            game_state->p1_s_digit_left = 9 - ((game_state->play_time - mins_elapsed) % 10);
+                            game_state->p1_f_digit_left = 9 - ((game_state->play_time - mins_elapsed) / 10);
+
+                            if (game_state->p1_ten_secs_counter == 10){
+                                game_state->p1_ten_secs_counter = 0;
+                                game_state->p1_sec_loop_counter++;
+
+                                if (game_state->p1_sec_loop_counter == 9)
+                                    game_state->p1_sec_loop_counter = 4;
+                            }
+                        }
+
+                        if (secs_elapsed == game_state->play_time*60){
+                            if (game_state->p2_timer_int_count/60 < game_state->play_time*60)
+                                game_state->p2_victory = true;
+                        }
+                    }
+                    else if (game_state->p2_turn){
+
+                        // Update p2 timer
+                        game_state->p2_timer_int_count++;
+                        secs_elapsed = game_state->p2_timer_int_count/60;
+
+                        if (game_state->p2_timer_int_count % 30 == 0){
+                            game_state->p2_ten_secs_counter++;
+
+                            uint8_t mins_elapsed = ceil(secs_elapsed/60.0);
+
+                            game_state->p2_s_digit_right = game_state->p2_ten_secs_counter - 1;
+                            game_state->p2_f_digit_right = game_state->p2_sec_loop_counter;
+                            game_state->p2_s_digit_left = 9 - ((game_state->play_time - mins_elapsed) % 10);
+                            game_state->p2_f_digit_left = 9 - ((game_state->play_time - mins_elapsed) / 10);
+
+                            if (game_state->p2_ten_secs_counter == 10){
+                                game_state->p2_ten_secs_counter = 0;
+                                game_state->p2_sec_loop_counter++;
+
+                                if (game_state->p2_sec_loop_counter == 9)
+                                    game_state->p2_sec_loop_counter = 4;
+                            }
+                        }
+
+                        if (secs_elapsed == game_state->play_time){
+                            if (game_state->p2_timer_int_count/60 < game_state->play_time*60)
+                                game_state->p2_victory = true;
+                        }
+                    }
+
                     gui_game_window(game_assets, game_state);
+
                     break;
                 }
                 case MOUSE: {
@@ -679,110 +750,118 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
 
                             game_update_pieces_start_pos(game_state);
 
-                            /* WHITE PIECES CLICK */
+                            if (!game_state->move_made){
 
-                            if (game_piece_clicked(&game_state->w_pawn_1, game_assets->w_pawn, game_state))
-                                game_state->w_pawn_1.drag = true;
+                                if (game_state->p1_turn){
 
-                            else if (game_piece_clicked(&game_state->w_pawn_2, game_assets->w_pawn, game_state))
-                                game_state->w_pawn_2.drag = true;
+                                    /* WHITE PIECES CLICK */
 
-                            else if (game_piece_clicked(&game_state->w_pawn_3, game_assets->w_pawn, game_state))
-                                game_state->w_pawn_3.drag = true;
+                                    if (game_piece_clicked(&game_state->w_pawn_1, game_assets->w_pawn, game_state))
+                                        game_state->w_pawn_1.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_pawn_4, game_assets->w_pawn, game_state))
-                                game_state->w_pawn_4.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_pawn_2, game_assets->w_pawn, game_state))
+                                        game_state->w_pawn_2.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_pawn_5, game_assets->w_pawn, game_state))
-                                game_state->w_pawn_5.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_pawn_3, game_assets->w_pawn, game_state))
+                                        game_state->w_pawn_3.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_pawn_6, game_assets->w_pawn, game_state))
-                                game_state->w_pawn_6.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_pawn_4, game_assets->w_pawn, game_state))
+                                        game_state->w_pawn_4.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_pawn_7, game_assets->w_pawn, game_state))
-                                game_state->w_pawn_7.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_pawn_5, game_assets->w_pawn, game_state))
+                                        game_state->w_pawn_5.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_pawn_8, game_assets->w_pawn, game_state))
-                                game_state->w_pawn_8.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_pawn_6, game_assets->w_pawn, game_state))
+                                        game_state->w_pawn_6.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_bishop_l, game_assets->w_bishop, game_state))
-                                game_state->w_bishop_l.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_pawn_7, game_assets->w_pawn, game_state))
+                                        game_state->w_pawn_7.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_bishop_r, game_assets->w_bishop, game_state))
-                                game_state->w_bishop_r.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_pawn_8, game_assets->w_pawn, game_state))
+                                        game_state->w_pawn_8.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_knight_l, game_assets->w_knight, game_state))
-                                game_state->w_knight_l.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_bishop_l, game_assets->w_bishop, game_state))
+                                        game_state->w_bishop_l.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_knight_r, game_assets->w_knight, game_state))
-                                game_state->w_knight_r.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_bishop_r, game_assets->w_bishop, game_state))
+                                        game_state->w_bishop_r.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_rook_l, game_assets->w_rook, game_state))
-                                game_state->w_rook_r.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_knight_l, game_assets->w_knight, game_state))
+                                        game_state->w_knight_l.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_rook_r, game_assets->w_rook, game_state))
-                                game_state->w_rook_r.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_knight_r, game_assets->w_knight, game_state))
+                                        game_state->w_knight_r.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_queen, game_assets->w_queen, game_state))
-                                game_state->w_queen.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_rook_l, game_assets->w_rook, game_state))
+                                        game_state->w_rook_r.drag = true;
 
-                            else if (game_piece_clicked(&game_state->w_king, game_assets->w_king, game_state))
-                                game_state->w_king.drag = true;
+                                    else if (game_piece_clicked(&game_state->w_rook_r, game_assets->w_rook, game_state))
+                                        game_state->w_rook_r.drag = true;
 
-                            else {}
+                                    else if (game_piece_clicked(&game_state->w_queen, game_assets->w_queen, game_state))
+                                        game_state->w_queen.drag = true;
 
+                                    else if (game_piece_clicked(&game_state->w_king, game_assets->w_king, game_state))
+                                        game_state->w_king.drag = true;
 
-                            /* BLACK PIECES CLICK */
+                                    else {}
+                                }
 
-                            if (game_piece_clicked(&game_state->b_pawn_1, game_assets->b_pawn, game_state))
-                                game_state->b_pawn_1.drag = true;
+                                else if (game_state->p2_turn){
 
-                            else if (game_piece_clicked(&game_state->b_pawn_2, game_assets->b_pawn, game_state))
-                                game_state->b_pawn_2.drag = true;
+                                    /* BLACK PIECES CLICK */
 
-                            else if (game_piece_clicked(&game_state->b_pawn_3, game_assets->b_pawn, game_state))
-                                game_state->b_pawn_3.drag = true;
+                                    if (game_piece_clicked(&game_state->b_pawn_1, game_assets->b_pawn, game_state))
+                                        game_state->b_pawn_1.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_pawn_4, game_assets->b_pawn, game_state))
-                                game_state->b_pawn_4.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_pawn_2, game_assets->b_pawn, game_state))
+                                        game_state->b_pawn_2.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_pawn_5, game_assets->b_pawn, game_state))
-                                game_state->b_pawn_5.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_pawn_3, game_assets->b_pawn, game_state))
+                                        game_state->b_pawn_3.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_pawn_6, game_assets->b_pawn, game_state))
-                                game_state->b_pawn_6.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_pawn_4, game_assets->b_pawn, game_state))
+                                        game_state->b_pawn_4.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_pawn_7, game_assets->b_pawn, game_state))
-                                game_state->b_pawn_7.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_pawn_5, game_assets->b_pawn, game_state))
+                                        game_state->b_pawn_5.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_pawn_8, game_assets->b_pawn, game_state))
-                                game_state->b_pawn_8.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_pawn_6, game_assets->b_pawn, game_state))
+                                        game_state->b_pawn_6.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_bishop_l, game_assets->b_bishop, game_state))
-                                game_state->b_bishop_l.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_pawn_7, game_assets->b_pawn, game_state))
+                                        game_state->b_pawn_7.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_bishop_r, game_assets->b_bishop, game_state))
-                                game_state->b_bishop_r.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_pawn_8, game_assets->b_pawn, game_state))
+                                        game_state->b_pawn_8.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_knight_l, game_assets->b_knight, game_state))
-                                game_state->b_knight_l.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_bishop_l, game_assets->b_bishop, game_state))
+                                        game_state->b_bishop_l.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_knight_r, game_assets->b_knight, game_state))
-                                game_state->b_knight_r.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_bishop_r, game_assets->b_bishop, game_state))
+                                        game_state->b_bishop_r.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_rook_l, game_assets->b_rook, game_state))
-                                game_state->b_rook_r.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_knight_l, game_assets->b_knight, game_state))
+                                        game_state->b_knight_l.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_rook_r, game_assets->b_rook, game_state))
-                                game_state->b_rook_r.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_knight_r, game_assets->b_knight, game_state))
+                                        game_state->b_knight_r.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_queen, game_assets->b_queen, game_state))
-                                game_state->b_queen.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_rook_l, game_assets->b_rook, game_state))
+                                        game_state->b_rook_r.drag = true;
 
-                            else if (game_piece_clicked(&game_state->b_king, game_assets->b_king, game_state))
-                                game_state->b_king.drag = true;
+                                    else if (game_piece_clicked(&game_state->b_rook_r, game_assets->b_rook, game_state))
+                                        game_state->b_rook_r.drag = true;
 
-                            else {}
+                                    else if (game_piece_clicked(&game_state->b_queen, game_assets->b_queen, game_state))
+                                        game_state->b_queen.drag = true;
+
+                                    else if (game_piece_clicked(&game_state->b_king, game_assets->b_king, game_state))
+                                        game_state->b_king.drag = true;
+
+                                    else {}
+                                }
+                            }
 
                             break;
                         }
@@ -1002,8 +1081,34 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                             break;
                         }
                     }
+
+                    break;
                 }
                 case KEYBOARD: {
+
+                    if (game_state->pressed_key == KBC_SPACE_KEY_MAKECODE){
+                        if (game_state->move_made){
+
+                            if (game_state->p1_turn){
+                                game_state->p1_turn = false;
+                                game_state->p2_turn = true;
+                            }
+                            else {
+                                game_state->p1_turn = true;
+                                game_state->p2_turn = false;
+                            }
+
+                            game_state->move_made = false;
+                        }
+                    }
+                    else if (game_state->pressed_key == KBC_LEFT_KEY_BREAKCODE){
+                        game_state->last_played_piece->x_pos = game_state->last_played_piece->start_x;
+                        game_state->last_played_piece->y_pos = game_state->last_played_piece->start_y;
+                        game_state->move_made = false;
+                    }
+
+                    game_state->pressed_key = 0;
+
                     break;
                 }
                 case RTC: {
@@ -1049,8 +1154,11 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
                     }
                 }
                 case KEYBOARD: {
+
                     if (game_state->pressed_key == KBC_ESC_KEY_BREAKCODE)
                         game_state->curr_state = PLAY_GAME;
+
+                    game_state->pressed_key = 0;
 
                     break;
                 }
@@ -1065,6 +1173,35 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state){
             break;
         }
         case RESTART_GAME: {
+
+            game_state->move_made = false;
+
+            game_state->p1_turn = true;
+            game_state->p2_turn = false;
+
+            game_state->p1_victory = false;
+            game_state->p2_victory = false;
+
+            game_state->p1_timer_int_count = 0;
+            game_state->p2_timer_int_count = 0;
+
+            game_state->p1_ten_secs_counter = 0;
+            game_state->p1_sec_loop_counter = 4;
+
+            game_state->p2_ten_secs_counter = 0;
+            game_state->p2_sec_loop_counter = 4;
+
+            game_state->p1_f_digit_left = 9 - game_state->play_time / 10;
+            game_state->p1_s_digit_left = 9;
+            game_state->p1_f_digit_right = 9;
+            game_state->p1_s_digit_right = 9;
+
+            game_state->p2_f_digit_left = 9 - game_state->play_time / 10;
+            game_state->p2_s_digit_left = 9;
+            game_state->p2_f_digit_right = 9;
+            game_state->p2_s_digit_right = 9;
+
+            game_state->last_played_piece = NULL;
 
             // Reset pieces position
             uint16_t white_pieces_x[16] = {347, 422, 496, 570, 644, 718, 792, 865, 496, 718, 422, 792, 347, 865, 570, 644};

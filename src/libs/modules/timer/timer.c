@@ -166,22 +166,6 @@ int (timer_set_square)(uint8_t timer, uint32_t freq){
 }
 
 
-/*
-int (timer_subscribe_int)(uint8_t *bit_no, uint8_t timer_irq) {
-
-    timerHookId = *bit_no;
-
-    // Calls the sys_irqsetpolicy() kernel passing IRQ_REENABLE
-    // so that the generic interrupt handler will acknowledge the interrupt,
-    // ouput the EOI command to the PIC thus enabling further interrupts on
-    // the corresponding IRQ line
-    if (sys_irqsetpolicy(timer_irq, IRQ_REENABLE, &timerHookId) == EXIT_SUCCESS)
-        return EXIT_SUCCESS;
-
-    return EXIT_FAILURE;
-}
-*/
-
 int (timer_subscribe_int)(uint8_t *bit_no) {
 
     timerHookId = *bit_no;

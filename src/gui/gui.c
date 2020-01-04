@@ -140,6 +140,41 @@ int gui_game_window(game_assets_t* game_assets, game_state_t* game_state){
 
     /* TIMERS */
 
+    // --- Digits array
+    sprite_t digitsArr[10] = {
+            game_assets->nine_num,
+            game_assets->eight_num,
+            game_assets->seven_num,
+            game_assets->six_num,
+            game_assets->five_num,
+            game_assets->four_num,
+            game_assets->three_num,
+            game_assets->two_num,
+            game_assets->one_num,
+            game_assets->zero_num
+    };
+
+    // --- Render
+    uint16_t elemWidth = digitsArr[9].width;
+
+    // player 1
+    vg_render_sprite(digitsArr[game_state->p1_f_digit_left], 10, 680);                       // first digit left border
+    vg_render_sprite(digitsArr[game_state->p1_s_digit_left], 5 + elemWidth, 680);            // second digit left border
+
+    vg_render_sprite(game_assets->colon_num, 15*2 + elemWidth, 680);                         // colon
+
+    vg_render_sprite(digitsArr[game_state->p1_f_digit_right], 17*3 + elemWidth, 680);        // first digit right border
+    vg_render_sprite(digitsArr[game_state->p1_s_digit_right], 22*4 + elemWidth, 680);        // second digit right border
+
+
+    // player 2
+    vg_render_sprite(digitsArr[game_state->p2_f_digit_left], 1110, 89);                       // first digit left border
+    vg_render_sprite(digitsArr[game_state->p2_s_digit_left], 1105 + elemWidth , 89);          // second digit left border
+
+    vg_render_sprite(game_assets->colon_num, 1110 + 10*2 + elemWidth, 89);                    // colon
+
+    vg_render_sprite(digitsArr[game_state->p2_f_digit_right], 1110 + 22*2 + elemWidth, 89);   // first digit right border
+    vg_render_sprite(digitsArr[game_state->p2_s_digit_right], 1110 + 20*4 + elemWidth, 89);   // second digit right border
 
 
     /* PIECES */
@@ -167,7 +202,6 @@ int gui_game_window(game_assets_t* game_assets, game_state_t* game_state){
         vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_7.x_pos, game_state->w_pawn_7.y_pos);                  // pawn 7
     }
     if (!game_state->w_pawn_8.captured){
-        vg_render_sprite(game_assets->transp_piece, game_state->w_pawn_8.prev_x_pos, game_state->w_pawn_8.prev_y_pos);
         vg_render_sprite(game_assets->w_pawn, game_state->w_pawn_8.x_pos, game_state->w_pawn_8.y_pos);                  // pawn 8
     }
 
