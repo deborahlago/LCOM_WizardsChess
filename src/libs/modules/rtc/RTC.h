@@ -19,7 +19,7 @@
  *
  * @return Return 0 upon success and non-zero otherwise
  */
-int rtc_subscribe_int();
+int rtc_subscribe_int(uint8_t* bit_no);
 
 /**
  * @brief Unsubscribes to RTC interrupts

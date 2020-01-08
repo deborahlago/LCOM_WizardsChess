@@ -193,7 +193,7 @@ uint16_t mouse_x_twos_cmp_to_bin(uint8_t byte){
 
 uint16_t mouse_y_twos_cmp_to_bin(uint8_t byte){
     uint16_t tmp = byte;
-    return (BIT(5) & pkt.bytes[0]) ? tmp -256 : byte;
+    return (BIT(5) & pkt.bytes[0]) ? tmp - 256 : byte;
 }
 
 

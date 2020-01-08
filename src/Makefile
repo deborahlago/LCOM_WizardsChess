@@ -22,6 +22,7 @@ SRCS = $(wildcard *.c)
 #CPPFLAGS += -DPROJ
 #CFLAGS += -pedantic
 CPPFLAGS += -pedantic -D __LCOM_OPTIMIZED__
+#CPPFLAGS += -pedantic
 
 # list of library dependencies (only LCF library)
 DPADD += ${LIBLCF}

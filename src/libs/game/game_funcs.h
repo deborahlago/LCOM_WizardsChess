@@ -24,7 +24,7 @@
 
 
 /**
- * @brief TODO
+ * @brief Loads all game sprites into game_assets object
  *
  * @param game_assets structure to contain all the loaded assets of the game
  *
@@ -33,9 +33,16 @@
 int game_load_assets(game_assets_t* game_assets);
 
 /**
- * @brief Update the position of mouse cursor
+ * @brief Initializes all game data
  *
- * @param game_assets structure to contain all the loaded assets of the game
+ * @param game game structure containing all game data and states
+ */
+void game_data_init(game_state_t* game);
+
+/**
+ * @brief Updates the position of mouse cursor
+ *
+ * @param game_state current state of game data
  */
 void game_update_cursor(game_state_t* game_state);
 
@@ -78,15 +85,78 @@ _Bool game_piece_clicked(game_piece_t* game_piece,  sprite_t game_sprite, game_s
  * @brief Updates the start position of every piece in the game board
  *
  * @param game_state Current state of game data. Used to get each pieces start and current position
- *
  */
 void game_update_pieces_start_pos(game_state_t* game_state);
 
 /**
- * @brief Drags piece around the board updating game piece position upon position movement
+ * @brief Checks whether current mouse position is within a boar cell area
+ *
+ * @param game_state current state of game data
+ *
+ * @return Returns true if mouse position is within cell, false otherwise
+ */
+_Bool game_mouse_within_cell(game_state_t* game_state, board_cell_t* board_cell);
+
+/**
+ * @brief Checks whether straight movement has occurred upon pawn or king movement attempt
+ *
+ * @param game_state current state of game data
+ *
+ * @param game_piece piece to be moved
+ *
+ * @param board_cell cell of the board to where pawn is to attempt movement
+ *
+ * @return Returns true if straight movement has occurred , false otherwise
+ */
+_Bool game_straight_movement_one_cell(game_piece_t* game_piece, board_cell_t* board_cell);
+
+/**
+ * @brief Checks whether diagonal movement has occurred upon pawn or king movement attempt
+ *
+ * @param game_state current state of game data
+ *
+ * @param game_piece piece to be moved
+ *
+ * @param board_cell cell of the board to where pawn is to attempt movement
+ *
+ * @return Returns true if straight movement has occurred , false otherwise
+ */
+_Bool game_diagonal_movement_one_cell(game_piece_t* game_piece, board_cell_t* board_cell);
+
+/**
+ * @brief Checks whether pawn movement was valid
+ *
+ * @param game_state current state of game data
  *
  * @param game_piece Game piece to be moved
  *
+ * @param new_pos Address of temporary board cell that is to store the new render start positions
+ *
+ * @param board_cell cell to move piece to
+ *
+ * @return Returns true if position is valid, false otherwise
+ */
+_Bool game_valid_movement(game_state_t* game_state, game_piece_t* game_piece, board_cell_t* new_pos, board_cell_t* board_cell);
+
+/**
+ * @brief Checks whether the piece's new position is a valid one
+ *
+ * @param game_state current state of game data
+ *
+ * @param game_piece Game piece to be moved
+ *
+ * @param new_pos Address of temporary board cell that is to store the new render start positions
+ *
+ * @return Returns true if position is valid, false otherwise
+ */
+_Bool game_valid_move(game_state_t* game_state, game_piece_t* game_piece, board_cell_t* new_pos);
+
+/**
+ * @brief Drags piece around the board updating game piece position upon position movement
+ *
+ * @param game_state current state of game data
+ *
+ * @param game_piece Game piece to be moved
  */
 void game_drag_piece(game_state_t* game_state, game_piece_t* game_piece);
 
@@ -103,7 +173,7 @@ void game_drop_piece(game_state_t* game_state, game_piece_t* game_piece);
  *
  * @param game_assets structure to contain all the loaded assets of the game
  *
- * @param game_state state machine containing all current game states
+ * @param game_state current state of game data
  */
 void game_update_state(game_assets_t* game_assets, game_state_t* game_state);
 
@@ -112,7 +182,7 @@ void game_update_state(game_assets_t* game_assets, game_state_t* game_state);
  *
  * @param game_assets structure to contain all the loaded assets of the game
  *
- * @param game_state state machine containing all current game states
+ * @param game_state current state of game data
  *
  * @return Zero on success, non-zero otherwise
  */

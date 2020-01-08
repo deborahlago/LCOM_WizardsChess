@@ -40,6 +40,41 @@ int gui_main_menu(game_assets_t* game_assets, game_state_t* game_state){
     vg_render_sprite(game_assets->multiplayer_btn, 871, 580);       // multiplayer button
     vg_render_sprite(game_assets->exit_btn, 907, 644);              // exit button
 
+
+    // REAL TIME
+    sprite_t hours[24] = {
+            game_assets->_00_, game_assets->_01_, game_assets->_02_, game_assets->_03_,
+            game_assets->_04_, game_assets->_05_, game_assets->_06_, game_assets->_07_,
+            game_assets->_08_, game_assets->_09_, game_assets->_10_, game_assets->_11_,
+            game_assets->_12_, game_assets->_13_, game_assets->_14_, game_assets->_15_,
+            game_assets->_16_, game_assets->_17_, game_assets->_18_, game_assets->_19_,
+            game_assets->_20_, game_assets->_21_, game_assets->_22_, game_assets->_23_
+    };
+
+    sprite_t minutes[60] = {
+            game_assets->_00_, game_assets->_01_, game_assets->_02_, game_assets->_03_,
+            game_assets->_04_, game_assets->_05_, game_assets->_06_, game_assets->_07_,
+            game_assets->_08_, game_assets->_09_, game_assets->_10_, game_assets->_11_,
+            game_assets->_12_, game_assets->_13_, game_assets->_14_, game_assets->_15_,
+            game_assets->_16_, game_assets->_17_, game_assets->_18_, game_assets->_19_,
+            game_assets->_20_, game_assets->_21_, game_assets->_22_, game_assets->_23_,
+            game_assets->_24_, game_assets->_25_, game_assets->_26_, game_assets->_27_,
+            game_assets->_28_, game_assets->_29_, game_assets->_30_, game_assets->_31_,
+            game_assets->_32_, game_assets->_33_, game_assets->_34_, game_assets->_35_,
+            game_assets->_36_, game_assets->_37_, game_assets->_38_, game_assets->_39_,
+            game_assets->_40_, game_assets->_41_, game_assets->_42_, game_assets->_43_,
+            game_assets->_44_, game_assets->_45_, game_assets->_46_, game_assets->_47_,
+            game_assets->_48_, game_assets->_49_, game_assets->_50_, game_assets->_51_,
+            game_assets->_52_, game_assets->_53_, game_assets->_54_, game_assets->_55_,
+            game_assets->_56_, game_assets->_57_, game_assets->_58_, game_assets->_59_
+    };
+
+
+    vg_render_sprite(hours[game_state->curr_time.hours], 200, 450);     // hours
+    vg_render_sprite(game_assets->colon_num, 330, 460);                 // colon
+    vg_render_sprite(minutes[game_state->curr_time.mins], 370, 450);    // minutes
+
+
     // MOUSE
     vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
 
@@ -60,8 +95,9 @@ int gui_in_game_menu(game_assets_t* game_assets, game_state_t* game_state){
 
     // BTNS
     vg_render_sprite(game_assets->restart_game_btn, 435, 310);        // re-start game button
-    vg_render_sprite(game_assets->change_game_mode_btn, 367, 470);    // change game mode button
+    vg_render_sprite(game_assets->change_game_mode_btn, 367, 475);    // change game mode button
     vg_render_sprite(game_assets->end_game_btn, 490, 628);            // end game button
+
 
     // MOUSE
     vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
@@ -82,10 +118,10 @@ int gui_game_window(game_assets_t* game_assets, game_state_t* game_state){
     vg_render_sprite(game_assets->board_bg, 0, 0);
 
     // BTNS
-    vg_render_sprite(game_assets->in_game_menu_btn, 0, 0);    // in-game menu button
+    vg_render_sprite(game_assets->in_game_menu_btn, 0, 0);      // in-game menu button
 
     // BORDERS
-    vg_render_sprite(game_assets->left_p_border, 0, 591);     // left player border
+    vg_render_sprite(game_assets->left_p_border, 0, 591);       // left player border
     vg_render_sprite(game_assets->right_p_border, 1059, 0);     // right player border
 
     // LOGOS
@@ -287,6 +323,68 @@ int gui_game_window(game_assets_t* game_assets, game_state_t* game_state){
     if (!game_state->b_king.captured){
         vg_render_sprite(game_assets->b_king, game_state->b_king.x_pos, game_state->b_king.y_pos);                      // king
     }
+
+
+    // MOUSE
+    vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);
+
+    vg_double_buffering();
+
+    return EXIT_SUCCESS;
+}
+
+int gui_victory_screen(game_assets_t* game_assets, game_state_t* game_state){
+
+    if (game_state->p1_victory){
+
+        switch (game_state->p1_house){
+            case GRYFFINDOR: {
+                vg_render_sprite(game_assets->victory_gryff, 0, 0);
+                break;
+            }
+            case HUFFLEPUFF: {
+                vg_render_sprite(game_assets->victory_huff, 0, 0);
+                break;
+            }
+            case RAVENCLAW: {
+                vg_render_sprite(game_assets->victory_raven, 0, 0);
+                break;
+            }
+            case SLYTHERIN: {
+                vg_render_sprite(game_assets->victory_slyth, 0, 0);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+
+    if (game_state->p2_victory){
+
+        switch (game_state->p2_house){
+            case GRYFFINDOR: {
+                vg_render_sprite(game_assets->victory_gryff, 0, 0);
+                break;
+            }
+            case HUFFLEPUFF: {
+                vg_render_sprite(game_assets->victory_huff, 0, 0);
+                break;
+            }
+            case RAVENCLAW: {
+                vg_render_sprite(game_assets->victory_raven, 0, 0);
+                break;
+            }
+            case SLYTHERIN: {
+                vg_render_sprite(game_assets->victory_slyth, 0, 0);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+
 
     // MOUSE
     vg_render_sprite(game_assets->mouse_cursor, game_state->mouse_curr_x_pos, game_state->mouse_curr_y_pos);

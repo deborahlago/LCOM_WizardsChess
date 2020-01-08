@@ -26,10 +26,13 @@ void rtc_write_data(uint32_t port, uint32_t data){
 
 /* Functions */
 
-int rtc_subscribe_int(){
+int rtc_subscribe_int(uint8_t* bit_no){
+    rtcHookId = *bit_no;
 
-    if (sys_irqsetpolicy(RTC_IRQ, IRQ_REENABLE, &rtcHookId) == EXIT_SUCCESS)
-        return EXIT_SUCCESS;
+    if (sys_irqsetpolicy(RTC_IRQ, IRQ_REENABLE, &rtcHookId) == EXIT_SUCCESS){
+        if (sys_irqenable(&rtcHookId) == EXIT_SUCCESS)
+            return EXIT_SUCCESS;
+    }
 
     return EXIT_FAILURE;
 }
@@ -60,6 +63,7 @@ void rtc_disable_int(){
 
 uint8_t rtc_bcd_to_bin(uint8_t date){
 
+    // date = date - 6 * (date >> 4);
     date = (((date & 0xF0) >> 4) * 10 + (date & 0x0F));
 
     return date;
@@ -69,12 +73,9 @@ void rtc_read_time(rtc_time_t* time){
 
     _Bool bcd = true;
     uint8_t reg_b_cfg = rtc_read_reg(RTC_REG_B);
-    uint8_t temp = reg_b_cfg;
 
-    if (reg_b_cfg & BIT(2)) bcd = false;
-
-    reg_b_cfg |= BIT(7);
-    rtc_write_data(RTC_REG_B, reg_b_cfg);
+    if (reg_b_cfg & BIT(2))
+        bcd = false;
 
     time->hours = rtc_read_reg(RTC_HRS);
     time->mins = rtc_read_reg(RTC_MIN);
@@ -85,8 +86,5 @@ void rtc_read_time(rtc_time_t* time){
         time->mins = rtc_bcd_to_bin(time->mins);
         time->secs = rtc_bcd_to_bin(time->secs);
     }
-
-    temp &= ~BIT(7);
-    rtc_write_data(RTC_REG_B, temp);
 }
 
